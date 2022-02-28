@@ -1,20 +1,21 @@
 #include "SpModeLine.h"
 
+#include <QObject>
+
 SpModeLine::SpModeLine()
   {
 
   }
 
 
-void SpModeLine::paint(QPainter &dest, QPoint p, QColor color)
+void SpModeLine::paint(SpImage &dest, QPoint p, QColor color)
   {
-  dest.setPen( color );
   if( mStep == 0 ) {
     mFirst = p;
-    dest.drawPoint( mFirst );
+    dest.drawPixel( mFirst, color );
     }
   else
-    dest.drawLine( mFirst, p );
+    dest.drawLine( mFirst, p, color );
   }
 
 
@@ -35,4 +36,12 @@ bool SpModeLine::left()
 void SpModeLine::right()
   {
   mStep = 0;
+  }
+
+
+QString SpModeLine::stepDescription()
+  {
+  if( mStep == 0 )
+    return QObject::tr("Enter first point of line");
+  return QObject::tr("Enter second point of line");
   }

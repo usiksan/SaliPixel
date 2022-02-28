@@ -29,6 +29,7 @@ Description
 #include <QPushButton>
 #include <QJsonDocument>
 #include <QClipboard>
+#include <QStatusBar>
 
 SpWinMain::SpWinMain(QWidget *parent)
   : QMainWindow(parent)
@@ -50,6 +51,10 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuBar()->addMenu( menuFile );
   menuBar()->addMenu( menuEdit );
   menuBar()->addMenu( menuDraw );
+
+  QLabel *msg = new QLabel();
+  connect( mEditor, &SpWinEditor::stepMessage, msg, &QLabel::setText );
+  statusBar()->addWidget( msg );
 
   resize( 900, 900 );
   }

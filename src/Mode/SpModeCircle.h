@@ -1,14 +1,13 @@
-#ifndef SPMODELINE_H
-#define SPMODELINE_H
+#ifndef SPMODECIRCLE_H
+#define SPMODECIRCLE_H
 
 #include "SpMode.h"
 
-class SpModeLine : public SpMode
+class SpModeCircle : public SpMode
   {
-  protected:
-    QPoint mFirst;
+    QPoint mCenter;
   public:
-    SpModeLine();
+    SpModeCircle();
 
     // SpMode interface
   public:
@@ -18,4 +17,4 @@ class SpModeLine : public SpMode
     virtual QString stepDescription() override;
   };
 
-#endif // SPMODELINE_H
+#endif // SPMODECIRCLE_H

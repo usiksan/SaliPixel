@@ -1,7 +1,7 @@
 #ifndef SPMODE_H
 #define SPMODE_H
 
-#include <QPainter>
+#include "SpImage.h"
 
 class SpMode
   {
@@ -11,11 +11,13 @@ class SpMode
     SpMode();
     virtual ~SpMode() {}
 
-    virtual void paint( QPainter &dest, QPoint p, QColor color ) = 0;
+    virtual void    paint( SpImage &dest, QPoint p, QColor color ) = 0;
 
-    virtual bool left() = 0;
+    virtual bool    left() = 0;
 
-    virtual void right() {}
+    virtual void    right() {}
+
+    virtual QString stepDescription() = 0;
   };
 
 #endif // SPMODE_H

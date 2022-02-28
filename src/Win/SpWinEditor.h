@@ -14,22 +14,27 @@ Description
 #ifndef SPWINEDITOR_H
 #define SPWINEDITOR_H
 
+#include "Mode/SpImage.h"
+
 #include <QWidget>
 #include <QImage>
 #include <QVector>
 
 class SpMode;
 
+#define UNDO_SIZE 20
+
 class SpWinEditor : public QWidget
   {
     Q_OBJECT
 
-    QImage          mWork;
-    QImage          mImage;
-    QVector<QImage> mUndo;
-    SpMode         *mMode;
-    QColor          mColor;
-    QPoint          mPoint;
+    SpImage          mWork;
+    SpImage          mImage;
+    //SpImage          mUndo[UNDO_SIZE];
+    //int              mUndoCount;
+    SpMode          *mMode;
+    QColor           mColor;
+    QPoint           mPoint;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
 
@@ -37,7 +42,9 @@ class SpWinEditor : public QWidget
 
   private:
     void setMode( SpMode *md );
+
   signals:
+    void stepMessage( const QString msg );
 
   public slots:
 //    void cmFileNew();

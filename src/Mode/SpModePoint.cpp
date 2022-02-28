@@ -1,15 +1,16 @@
 #include "SpModePoint.h"
 
+#include <QObject>
+
 SpModePoint::SpModePoint()
   {
 
   }
 
 
-void SpModePoint::paint(QPainter &dest, QPoint p, QColor color)
+void SpModePoint::paint(SpImage &dest, QPoint p, QColor color)
   {
-  dest.setPen(color);
-  dest.drawPoint(p);
+  dest.drawPixel( p, color );
   }
 
 
@@ -17,4 +18,10 @@ void SpModePoint::paint(QPainter &dest, QPoint p, QColor color)
 bool SpModePoint::left()
   {
   return true;
+  }
+
+
+QString SpModePoint::stepDescription()
+  {
+  return QObject::tr("Enter point position");
   }

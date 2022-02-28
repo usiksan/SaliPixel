@@ -10,8 +10,9 @@ class SpModePoint : public SpMode
 
     // SpMode interface
   public:
-    virtual void paint(QPainter &dest, QPoint p, QColor color ) override;
+    virtual void paint( SpImage &dest, QPoint p, QColor color ) override;
     virtual bool left() override;
+    virtual QString stepDescription() override;
   };
 
 #endif // SPMODEPOINT_H

@@ -9,7 +9,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Mode/SpColor.cpp \
+    Mode/SpImage.cpp \
     Mode/SpMode.cpp \
+    Mode/SpModeCircle.cpp \
     Mode/SpModeLine.cpp \
     Mode/SpModePoint.cpp \
     Mode/SpModeRect.cpp \
@@ -18,7 +21,10 @@ SOURCES += \
     Win/SpWinMain.cpp
 
 HEADERS += \
+    Mode/SpColor.h \
+    Mode/SpImage.h \
     Mode/SpMode.h \
+    Mode/SpModeCircle.h \
     Mode/SpModeLine.h \
     Mode/SpModePoint.h \
     Mode/SpModeRect.h \

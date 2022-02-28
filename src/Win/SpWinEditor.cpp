@@ -9,13 +9,11 @@
 
 SpWinEditor::SpWinEditor(QWidget *parent) :
   QWidget{parent},
-  //mWork{32,32,QImage::Format_ARGB32},
-  mImage{32,32,QImage::Format_ARGB32},
   mMode{nullptr},
   mColor{Qt::black}
   {
-  mImage.fill( Qt::white );
-  mWork = mImage;
+  mImage.resize( 32, 32 );
+  mWork.set( mImage );
 
   setMouseTracking(true);
   }
@@ -36,6 +34,8 @@ void SpWinEditor::setMode(SpMode *md)
   if( mMode != nullptr )
     delete mMode;
   mMode = md;
+  if( mMode != nullptr )
+    emit stepMessage( mMode->stepDescription() );
   }
 
 
@@ -68,17 +68,29 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
   //Content
   for( int x = 0; x < mWork.width(); x++ )
     for( int y = 0; y < mWork.height(); y++ ) {
-      auto pixel = mWork.pixel( x, y );
-      painter.setPen( QColor(pixel) );
-      painter.setBrush( QBrush( pixel ) );
+      auto pixel = mWork.pixelGet( x, y );
+      QColor color;
+      if( pixel.isEmpty() )
+        color = y & 1 ? (x & 1 ? Qt::white : Qt::lightGray) : (x & 1 ? Qt::lightGray : Qt::white);
+      else
+        color = pixel.color();
+      painter.setPen( color );
+      painter.setBrush( QBrush( color ) );
       painter.drawRect( x * 20, y * 20, 20, 20 );
       }
+//  for( int x = 0; x < mWork.width(); x++ )
+//    for( int y = 0; y < mWork.height(); y++ ) {
+//      auto pixel = mWork.pixel( x, y );
+//      painter.setPen( QColor(pixel) );
+//      painter.setBrush( QBrush( pixel ) );
+//      painter.drawRect( x * 20, y * 20, 20, 20 );
+//      }
 
   //Icon miniature
-  painter.drawImage( width() - mWork.width(), 0, mWork );
+  //painter.drawImage( width() - mWork.width(), 0, mWork );
 
   //Grid
-  painter.setPen( Qt::lightGray );
+  painter.setPen( Qt::gray );
   int h = mWork.height() * 20;
   //Vertical lines
   for( int x = 0; x < mWork.width(); x++ )
@@ -99,22 +111,28 @@ QPoint div20( QPoint p )
 
 void SpWinEditor::mousePressEvent(QMouseEvent *event)
   {
+  //Nothing done if no any mode
+  if( mMode == nullptr )
+    return;
+
   if( event->button() == Qt::LeftButton ) {
     if( mPoint != div20( event->pos() ) )
       mouseMoveEvent( event );
-    if( mMode != nullptr && mMode->left() ) {
+    if( mMode->left() ) {
       //Append to undo
-      if( mUndo.count() >= 30 )
-        mUndo.pop_front();
-      mUndo.push_back( mImage );
+//      if( mUndo.count() >= 30 )
+//        mUndo.pop_front();
+//      mUndo.push_back( mImage );
       //Apply current
-      mImage = mWork;
+      mImage.set( mWork );
       }
     }
   else if( event->button() == Qt::RightButton ) {
-    if( mMode != nullptr )
-      mMode->right();
+    mMode->right();
     }
+
+  //Setup new step message after button clicked
+  emit stepMessage( mMode->stepDescription() );
   }
 
 
@@ -123,11 +141,9 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
 void SpWinEditor::mouseMoveEvent(QMouseEvent *event)
   {
   mPoint = div20( event->pos() );
-  mWork = mImage;
+  mWork.set( mImage );
   if( mMode != nullptr ) {
-    QPainter wp( &mWork );
-    //wp.setRenderHint( QPainter::Antialiasing, true );
-    mMode->paint( wp, mPoint, mColor );
+    mMode->paint( mWork, mPoint, mColor );
     update();
     }
   }
