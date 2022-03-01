@@ -15,12 +15,7 @@ void SpModeRect::paint(SpImage &dest, QPoint p, QColor color)
     dest.drawPixel( mFirst, color );
     }
   else {
-    QPoint a( mFirst.x(), p.y() );
-    QPoint b( p.x(), mFirst.y() );
-    dest.drawLine( mFirst, a, color );
-    dest.drawLine( a, p, color );
-    dest.drawLine( p, b, color );
-    dest.drawLine( b, mFirst, color );
+    dest.drawRect( mFirst, p, color );
     }
   }
 

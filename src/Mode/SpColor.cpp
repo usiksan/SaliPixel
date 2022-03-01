@@ -3,10 +3,8 @@
 
 SpColor SpColor::brightness(float br) const
   {
-  SpColor color(SpColorSolid);
-  color.mRed   = mRed * br;
-  color.mGreen = mGreen * br;
-  color.mBlue  = mBlue  * br;
+  SpColor color(*this);
+  color.mAlpha = 255 * br;
   return color;
   }
 
@@ -14,5 +12,5 @@ SpColor SpColor::brightness(float br) const
 
 QColor SpColor::color() const
   {
-  return QColor( mRed, mGreen, mBlue );
+  return QColor( mRed, mGreen, mBlue, mAlpha );
   }

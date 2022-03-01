@@ -47,6 +47,8 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuDraw->addAction( tr("Point"), mEditor, &SpWinEditor::cmDrawPoint );
   menuDraw->addAction( tr("Line"), mEditor, &SpWinEditor::cmDrawLine );
   menuDraw->addAction( tr("Rect"), mEditor, &SpWinEditor::cmDrawRect );
+  menuDraw->addAction( tr("Circle"), mEditor, &SpWinEditor::cmDrawCircle );
+  menuDraw->addAction( tr("Arc"), mEditor, &SpWinEditor::cmDrawArc );
 
   menuBar()->addMenu( menuFile );
   menuBar()->addMenu( menuEdit );

@@ -55,8 +55,8 @@ class SpWinEditor : public QWidget
     void cmDrawPoint();
     void cmDrawLine();
     void cmDrawRect();
-//    void cmObjArc();
-//    void cmObjCircle();
+    void cmDrawArc();
+    void cmDrawCircle();
 
 //    void cmEdit
 

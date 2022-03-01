@@ -10,19 +10,15 @@ SpModeCircle::SpModeCircle()
 
 void SpModeCircle::paint(SpImage &dest, QPoint p, QColor color)
   {
-//  dest.setPen( color );
-//  if( mStep == 0 ) {
-//    mCenter = p;
-//    dest.drawPoint( mCenter );
-//    }
-//  else {
-//    double dx = p.x() - mCenter.x();
-//    double dy = p.y() - mCenter.y();
-//    double distance = sqrt( dx * dx + dy * dy );
-//    int radius = distance;
-//    dest.drawEllipse( mCenter.x() - radius, mCenter.y() - radius, radius * 2, radius * 2 );
-//    }
+  if( mStep == 0 ) {
+    mCenter = p;
+    dest.drawPixel( mCenter, color );
+    }
+  else
+    dest.drawCircle( mCenter, p, color );
   }
+
+
 
 bool SpModeCircle::left()
   {

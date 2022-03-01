@@ -12,6 +12,7 @@ SOURCES += \
     Mode/SpColor.cpp \
     Mode/SpImage.cpp \
     Mode/SpMode.cpp \
+    Mode/SpModeArc.cpp \
     Mode/SpModeCircle.cpp \
     Mode/SpModeLine.cpp \
     Mode/SpModePoint.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     Mode/SpColor.h \
     Mode/SpImage.h \
     Mode/SpMode.h \
+    Mode/SpModeArc.h \
     Mode/SpModeCircle.h \
     Mode/SpModeLine.h \
     Mode/SpModePoint.h \

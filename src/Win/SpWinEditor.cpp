@@ -3,6 +3,8 @@
 #include "Mode/SpModePoint.h"
 #include "Mode/SpModeLine.h"
 #include "Mode/SpModeRect.h"
+#include "Mode/SpModeCircle.h"
+#include "Mode/SpModeArc.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -56,6 +58,16 @@ void SpWinEditor::cmDrawRect()
   setMode( new SpModeRect() );
   }
 
+void SpWinEditor::cmDrawArc()
+  {
+  setMode( new SpModeArc() );
+  }
+
+void SpWinEditor::cmDrawCircle()
+  {
+  setMode( new SpModeCircle() );
+  }
+
 
 
 
@@ -87,7 +99,7 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
 //      }
 
   //Icon miniature
-  //painter.drawImage( width() - mWork.width(), 0, mWork );
+  painter.drawImage( width() - mWork.width(), 0, mWork.toImage() );
 
   //Grid
   painter.setPen( Qt::gray );
