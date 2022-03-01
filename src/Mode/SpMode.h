@@ -15,9 +15,11 @@ class SpMode
 
     virtual bool    left() = 0;
 
-    virtual void    right() {}
+    virtual void    right() { if( mStep ) mStep--; }
 
     virtual QString stepDescription() = 0;
+
+    void            reset() { mStep = 0; }
   };
 
 #endif // SPMODE_H

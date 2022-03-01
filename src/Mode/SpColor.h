@@ -18,6 +18,10 @@ struct SpColor {
     QColor  color() const;
 
     bool isEmpty() const { return mAlpha == 0; }
+
+    bool isOpacity() const { return mAlpha < 120; }
+
+    void append( SpColor color );
   };
 
 

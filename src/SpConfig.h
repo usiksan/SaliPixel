@@ -25,7 +25,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             1
+#define SP_VERSION_MINOR             2
 
 //Settings key names
 #define KEY_LANGUAGE                 "Language"

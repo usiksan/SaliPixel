@@ -34,10 +34,13 @@ class SpImage
     SpColor pixelGet( int x, int y ) const;
 
 
+
     QImage  toImage() const;
 
 
     void    drawPixel( QPoint p, SpColor color );
+
+    SpColor getPixel( QPoint p ) const { return pixelGet( p.x(), p.y() ); }
 
     void    drawLine( QPoint a, QPoint b, SpColor color );
 
@@ -47,13 +50,24 @@ class SpImage
 
     void    drawRect( QPoint a, QPoint b, SpColor color );
 
+    void    drawFillRect( QPoint a, QPoint b, SpColor color );
+
     void    drawCircle( QPoint center, QPoint p, SpColor color );
+
+    void    drawFillCircle( QPoint center, QPoint p, SpColor color );
 
     void    drawArc( QPoint center, QPoint start, QPoint stop, SpColor color );
 
     void    drawArc( QPoint center, int radius, float startAngle, float sweepAngle, SpColor color );
 
     void    drawFill( QPoint start, SpColor color );
+
+    static QPoint center( QPoint p0, QPoint p1 );
+
+    static float  distance( QPoint p0, QPoint p1 );
+
+  private:
+    bool    isInside( QPoint p ) const { return p.x() >= 0 && p.x() < mWidth && p.y() >= 0 && p.y() < mHeight; }
   };
 
 #endif // SPIMAGE_H

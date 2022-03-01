@@ -1,18 +1,30 @@
 #include "SpWinEditor.h"
+#include "SpDlgNew.h"
 #include "Mode/SpMode.h"
+#include "Mode/SpModeIdle.h"
 #include "Mode/SpModePoint.h"
 #include "Mode/SpModeLine.h"
 #include "Mode/SpModeRect.h"
 #include "Mode/SpModeCircle.h"
+#include "Mode/SpModeCircle2.h"
 #include "Mode/SpModeArc.h"
+#include "Mode/SpModeArc2.h"
+#include "Mode/SpModeTriangle.h"
+#include "Mode/SpModeFillRect.h"
+#include "Mode/SpModeFillCircle.h"
+#include "Mode/SpModeFill.h"
 
 #include <QPainter>
 #include <QMouseEvent>
+#include <QColorDialog>
+#include <QFileDialog>
+#include <QMessageBox>
 
 SpWinEditor::SpWinEditor(QWidget *parent) :
   QWidget{parent},
-  mMode{nullptr},
-  mColor{Qt::black}
+  mMode{new SpModeIdle{} },
+  mColor{Qt::black},
+  mDirty{false}
   {
   mImage.resize( 32, 32 );
   mWork.set( mImage );
@@ -25,6 +37,16 @@ SpWinEditor::SpWinEditor(QWidget *parent) :
 
 bool SpWinEditor::canClose()
   {
+  if( mDirty ) {
+    int res = QMessageBox::question( this, tr("Warning!"), tr("Image changes not saved! Save?") );
+    if( res == QMessageBox::No )
+      return true;
+    if( res == QMessageBox::Yes ) {
+      cmFileSave();
+      return !mDirty;
+      }
+    return false;
+    }
   return true;
   }
 
@@ -38,6 +60,66 @@ void SpWinEditor::setMode(SpMode *md)
   mMode = md;
   if( mMode != nullptr )
     emit stepMessage( mMode->stepDescription() );
+  }
+
+
+
+
+void SpWinEditor::cmFileNew()
+  {
+  if( canClose() ) {
+    SpDlgNew dlgNew(this);
+    if( dlgNew.exec() ) {
+      mUndo.clear();
+      mDirty = false;
+      mImage.resize( dlgNew.imageWidth(), dlgNew.imageHeight() );
+      if( mMode ) mMode->reset();
+      mWork = mImage;
+      update();
+      }
+    }
+  }
+
+
+
+void SpWinEditor::cmFileSave()
+  {
+  if( mPath.isEmpty() )
+    cmFileSaveAs();
+  mImage.toImage().save( mPath );
+  mDirty = false;
+  }
+
+
+
+void SpWinEditor::cmFileSaveAs()
+  {
+  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for image"), QString{}, QStringLiteral("PNG files {*.png}") );
+  if( !newPath.isEmpty() ) {
+    if( newPath.endsWith( QStringLiteral(".png") ) )
+      mPath = newPath;
+    else
+      mPath = newPath + QStringLiteral(".png");
+    cmFileSave();
+    }
+  }
+
+void SpWinEditor::cmEditUndo()
+  {
+  if( mUndo.count() ) {
+    mImage = mUndo.takeLast();
+    if( mMode != nullptr )
+      mMode->reset();
+    update();
+    }
+  }
+
+
+
+void SpWinEditor::cmDrawColor()
+  {
+  mColor = QColorDialog::getColor( mColor, this, tr("Select draw color") );
+  update();
   }
 
 
@@ -63,9 +145,39 @@ void SpWinEditor::cmDrawArc()
   setMode( new SpModeArc() );
   }
 
+void SpWinEditor::cmDrawArc2()
+  {
+  setMode( new SpModeArc2() );
+  }
+
 void SpWinEditor::cmDrawCircle()
   {
   setMode( new SpModeCircle() );
+  }
+
+void SpWinEditor::cmDrawCircle2()
+  {
+  setMode( new SpModeCircle2() );
+  }
+
+void SpWinEditor::cmDrawTriangle()
+  {
+  setMode( new SpModeTriangle() );
+  }
+
+void SpWinEditor::cmDrawFillRect()
+  {
+  setMode( new SpModeFillRect() );
+  }
+
+void SpWinEditor::cmDrawFillCircle()
+  {
+  setMode( new SpModeFillCircle() );
+  }
+
+void SpWinEditor::cmDrawFill()
+  {
+  setMode( new SpModeFill() );
   }
 
 
@@ -90,16 +202,13 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
       painter.setBrush( QBrush( color ) );
       painter.drawRect( x * 20, y * 20, 20, 20 );
       }
-//  for( int x = 0; x < mWork.width(); x++ )
-//    for( int y = 0; y < mWork.height(); y++ ) {
-//      auto pixel = mWork.pixel( x, y );
-//      painter.setPen( QColor(pixel) );
-//      painter.setBrush( QBrush( pixel ) );
-//      painter.drawRect( x * 20, y * 20, 20, 20 );
-//      }
 
   //Icon miniature
   painter.drawImage( width() - mWork.width(), 0, mWork.toImage() );
+
+  //Draw current color
+  painter.setBrush( QBrush( mColor ) );
+  painter.drawRect( width() - 32, height() - 32, 32, 32 );
 
   //Grid
   painter.setPen( Qt::gray );
@@ -128,13 +237,17 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
     return;
 
   if( event->button() == Qt::LeftButton ) {
+    if( QRect( width() - 32, height() - 32, 32, 32 ).contains( event->pos() ) ) {
+      cmDrawColor();
+      return;
+      }
     if( mPoint != div20( event->pos() ) )
       mouseMoveEvent( event );
     if( mMode->left() ) {
       //Append to undo
-//      if( mUndo.count() >= 30 )
-//        mUndo.pop_front();
-//      mUndo.push_back( mImage );
+      if( mUndo.count() >= 30 )
+        mUndo.pop_front();
+      mUndo.push_back( mImage );
       //Apply current
       mImage.set( mWork );
       }

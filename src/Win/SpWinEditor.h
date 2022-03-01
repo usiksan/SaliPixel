@@ -18,7 +18,7 @@ Description
 
 #include <QWidget>
 #include <QImage>
-#include <QVector>
+#include <QList>
 
 class SpMode;
 
@@ -30,11 +30,14 @@ class SpWinEditor : public QWidget
 
     SpImage          mWork;
     SpImage          mImage;
+    QList<SpImage>   mUndo;
     //SpImage          mUndo[UNDO_SIZE];
     //int              mUndoCount;
     SpMode          *mMode;
     QColor           mColor;
     QPoint           mPoint;
+    QString          mPath;
+    bool             mDirty;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
 
@@ -47,16 +50,25 @@ class SpWinEditor : public QWidget
     void stepMessage( const QString msg );
 
   public slots:
-//    void cmFileNew();
-//    void cmFileSave();
-//    void cmFileSaveAs();
+    void cmFileNew();
+    void cmFileSave();
+    void cmFileSaveAs();
 //    void cmFileExport();
 
+    void cmEditUndo();
+
+    void cmDrawColor();
     void cmDrawPoint();
     void cmDrawLine();
     void cmDrawRect();
     void cmDrawArc();
+    void cmDrawArc2();
     void cmDrawCircle();
+    void cmDrawCircle2();
+    void cmDrawTriangle();
+    void cmDrawFillRect();
+    void cmDrawFillCircle();
+    void cmDrawFill();
 
 //    void cmEdit
 

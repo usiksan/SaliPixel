@@ -1,6 +1,7 @@
 #include "SpMode.h"
 
-SpMode::SpMode()
+SpMode::SpMode() :
+  mStep{0}
   {
 
   }

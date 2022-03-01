@@ -38,17 +38,28 @@ SpWinMain::SpWinMain(QWidget *parent)
   setCentralWidget( mEditor );
 
   auto menuFile = new QMenu( tr("File") );
-  //menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::)
+  menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::cmFileNew );
+  menuFile->addAction( tr("Save"), mEditor, &SpWinEditor::cmFileSave );
+  menuFile->addAction( tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs );
   menuFile->addAction( tr("Exit"), this, &SpWinMain::close );
 
   auto menuEdit = new QMenu( tr("Edit") );
+  menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
 
   auto menuDraw = new QMenu( tr("Draw") );
+  menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );
   menuDraw->addAction( tr("Point"), mEditor, &SpWinEditor::cmDrawPoint );
   menuDraw->addAction( tr("Line"), mEditor, &SpWinEditor::cmDrawLine );
   menuDraw->addAction( tr("Rect"), mEditor, &SpWinEditor::cmDrawRect );
   menuDraw->addAction( tr("Circle"), mEditor, &SpWinEditor::cmDrawCircle );
+  menuDraw->addAction( tr("Circle2"), mEditor, &SpWinEditor::cmDrawCircle2 );
   menuDraw->addAction( tr("Arc"), mEditor, &SpWinEditor::cmDrawArc );
+  menuDraw->addAction( tr("Arc2"), mEditor, &SpWinEditor::cmDrawArc2 );
+  menuDraw->addAction( tr("Triangle"), mEditor, &SpWinEditor::cmDrawTriangle );
+  menuDraw->addSeparator();
+  menuDraw->addAction( tr("Filled rect"), mEditor, &SpWinEditor::cmDrawFillRect );
+  menuDraw->addAction( tr("Filled circle"), mEditor, &SpWinEditor::cmDrawFillCircle );
+  menuDraw->addAction( tr("Fill area"), mEditor, &SpWinEditor::cmDrawFill );
 
   menuBar()->addMenu( menuFile );
   menuBar()->addMenu( menuEdit );

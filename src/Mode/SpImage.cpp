@@ -1,5 +1,6 @@
 #include "SpImage.h"
 
+#include <QStack>
 #include <cmath>
 
 inline int   ipart(float x) { return int(floorf(x)); }
@@ -50,7 +51,7 @@ void SpImage::pixelSet(int x, int y, SpColor color)
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
     return;
 
-  mArea[ x + y * mWidth ] = color;
+  mArea[ x + y * mWidth ].append( color );
   }
 
 
@@ -186,6 +187,17 @@ void SpImage::drawRect(QPoint a, QPoint b, SpColor color)
   drawVLine( b.x(), a.y(), b.y(), color );
   }
 
+void SpImage::drawFillRect(QPoint a, QPoint b, SpColor color)
+  {
+  int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
+  if( x1 < x0 )
+    qSwap( x0, x1 );
+  if( y1 < y0 )
+    qSwap( y0, y1 );
+  while( x0 <= x1 )
+    drawVLine( x0++, y0, y1, color );
+  }
+
 
 static void pixelSet4( SpImage *im, int x, int y, int deltax, int deltay, SpColor color )
   {
@@ -236,12 +248,6 @@ static void pixelSet8( SpImage *im, int x, int y, int deltax0, int deltax1, int 
   }
 
 
-float distance( QPoint a, QPoint b )
-  {
-  float dx = a.x() - b.x();
-  float dy = a.y() - b.y();
-  return sqrtf( dx * dx + dy * dy );
-  }
 
 void SpImage::drawCircle(QPoint center, QPoint p, SpColor color)
   {
@@ -271,32 +277,42 @@ void SpImage::drawCircle(QPoint center, QPoint p, SpColor color)
     pixelSet4( this, center.x(), center.y(), x, y, color.brightness( fpart(fx) ) );
     pixelSet4( this, center.x(), center.y(), x - 1, y, color.brightness( rfpart(fx) ) );
     }
+  }
 
-  // R - радиус, X1, Y1 - координаты центра
-//  int x = 0;
-//  int y = radius;
-//  int delta = 1 - 2 * radius;
-//  int error = 0;
-//  while (y >= x) {
-//    pixelSet( center.x() + x, center.y() + y, color );
-//    pixelSet( center.x() + x, center.y() - y, color );
-//    pixelSet( center.x() - x, center.y() + y, color );
-//    pixelSet( center.x() - x, center.y() - y, color );
-//    pixelSet( center.x() + y, center.y() + x, color );
-//    pixelSet( center.x() + y, center.y() - x, color );
-//    pixelSet( center.x() - y, center.y() + x, color );
-//    pixelSet( center.x() - y, center.y() - x, color );
-//    error = 2 * (delta + y) - 1;
-//    if( (delta < 0) && (error <= 0) ) {
-//      delta += 2 * ++x + 1;
-//      continue;
-//      }
-//    if( (delta > 0) && (error > 0) ) {
-//      delta -= 2 * --y + 1;
-//      continue;
-//      }
-//    delta += 2 * (++x - --y);
-  //    }
+
+
+
+void SpImage::drawFillCircle(QPoint center, QPoint p, SpColor color)
+  {
+  float radius = distance( center, p );
+  if( radius < 1.0 )
+    return;
+
+  float radiusX = radius;
+  float radiusY = radius;
+  float radiusX2 = radiusX * radiusX;
+  float radiusY2 = radiusY * radiusY;
+
+  float quarter = roundf(radiusX2 / sqrtf(radiusX2 + radiusY2));
+  for( int x = 0; x <= quarter; x++ ) {
+    float fy = radiusY * sqrtf(1 - x * x / radiusX2);
+    int y = ipart(fy);
+
+    pixelSet4( this, center.x(), center.y(), x, y, color.brightness( fpart(fy) ) );
+    drawHLine( center.x() - x, center.x() + x, center.y() + (y - 1), color );
+    drawHLine( center.x() - x, center.x() + x, center.y() - (y - 1), color );
+    }
+
+  quarter = roundf(radiusY2 / sqrtf(radiusX2 + radiusY2));
+  for( int y = 0; y <= quarter; y++ ) {
+    float fx = radiusX * sqrtf( 1 - y * y / radiusY2 );
+    int x = ipart(fx);
+
+    pixelSet4( this, center.x(), center.y(), x, y, color.brightness( fpart(fx) ) );
+    x--;
+    drawHLine( center.x() - x, center.x() + x, center.y() + y, color );
+    drawHLine( center.x() - x, center.x() + x, center.y() - y, color );
+    }
   }
 
 
@@ -336,64 +352,42 @@ void SpImage::drawArc(QPoint center, QPoint start, QPoint stop, SpColor color)
 
 
 
-void SpImage::drawArc(QPoint center, int radius, float startAngle, float sweepAngle, SpColor color)
+
+void SpImage::drawFill(QPoint start, SpColor color)
   {
-  startAngle = fabsf( startAngle );
-  sweepAngle = fabsf( sweepAngle );
-
-  if( startAngle >= M_PI * 2 ) startAngle = 0;
-  if( sweepAngle > M_PI * 2 ) sweepAngle = M_PI * 2;
-  if( startAngle + sweepAngle > M_PI * 2 ) {
-    drawArc( center, radius, 0, startAngle + sweepAngle - M_PI * 2, color );
-    sweepAngle = M_PI * 2 - startAngle;
-    }
-
-  int x = 0;
-  int y = radius;
-
-  int gap = 0;
-
-  int delta = (2 - 2 * radius);
-  float angle;
-  while( y >= 0 ) {
-    angle = arcAngle( center, QPoint( center.x() + x, center.y() - y ) );
-    if( (angle >= startAngle) && (angle <= startAngle + sweepAngle) ) {
-      if( 0 <= angle && angle <= M_PI_2 )
-        pixelSet( center.x() + x, center.y() - y, color );
+  QStack<QPoint> points;
+  if( isInside(start) )
+    points.append( start );
+  while( points.count() ) {
+    start = points.pop();
+    if( getPixel(start).isOpacity() ) {
+      drawPixel( start, color );
+      start.rx()++;
+      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      start.rx() -= 2;
+      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      start.rx()++;
+      start.ry()++;
+      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      start.ry() -= 2;
+      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
       }
-
-    angle = arcAngle( center, QPoint( center.x() + x, center.y() + y ) );
-    if( (angle >= startAngle) && (angle <= startAngle + sweepAngle) ) {
-      if( M_PI_2 < angle && angle <= M_PI )
-        pixelSet( center.x() + x, center.y() + y, color );
-      }
-
-    angle = arcAngle( center, QPoint( center.x() - x, center.y() + y ) );
-    if( (angle >= startAngle) && (angle <= startAngle + sweepAngle) ) {
-      if( M_PI < angle && angle <= M_PI_2 * 3 )
-        pixelSet( center.x() - x, center.y() + y, color );
-        }
-
-    angle = arcAngle( center, QPoint( center.x() - x, center.y() - y ) );
-    if( (angle >= startAngle) && (angle <= startAngle + sweepAngle) ) {
-      if( M_PI_2 * 3 < angle && angle <= M_PI * 2 )
-        pixelSet( center.x() - x, center.y() - y, color );
-        }
-    gap = 2 * (delta + y) - 1;
-    if( delta < 0 && gap <= 0 ) {
-      x++;
-      delta += 2 * x + 1;
-      continue;
-      }
-
-    if( delta > 0 && gap > 0 ) {
-      y--;
-      delta -= 2 * y + 1;
-      continue;
-      }
-
-    x++;
-    delta += 2 * (x - y);
-    y--;
     }
   }
+
+
+
+QPoint SpImage::center(QPoint p0, QPoint p1)
+  {
+  return QPoint( (p0.x() + p1.x()) / 2, (p0.y() + p1.y()) / 2 );
+  }
+
+float SpImage::distance(QPoint p0, QPoint p1)
+  {
+  float dx = p0.x() - p1.x();
+  float dy = p0.y() - p1.y();
+  return sqrtf( dx * dx + dy * dy );
+  }
+
+
+

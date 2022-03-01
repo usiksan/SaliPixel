@@ -13,10 +13,18 @@ SOURCES += \
     Mode/SpImage.cpp \
     Mode/SpMode.cpp \
     Mode/SpModeArc.cpp \
+    Mode/SpModeArc2.cpp \
     Mode/SpModeCircle.cpp \
+    Mode/SpModeCircle2.cpp \
+    Mode/SpModeFill.cpp \
+    Mode/SpModeFillCircle.cpp \
+    Mode/SpModeFillRect.cpp \
+    Mode/SpModeIdle.cpp \
     Mode/SpModeLine.cpp \
     Mode/SpModePoint.cpp \
     Mode/SpModeRect.cpp \
+    Mode/SpModeTriangle.cpp \
+    Win/SpDlgNew.cpp \
     Win/SpWinEditor.cpp \
     main.cpp \
     Win/SpWinMain.cpp
@@ -26,11 +34,19 @@ HEADERS += \
     Mode/SpImage.h \
     Mode/SpMode.h \
     Mode/SpModeArc.h \
+    Mode/SpModeArc2.h \
     Mode/SpModeCircle.h \
+    Mode/SpModeCircle2.h \
+    Mode/SpModeFill.h \
+    Mode/SpModeFillCircle.h \
+    Mode/SpModeFillRect.h \
+    Mode/SpModeIdle.h \
     Mode/SpModeLine.h \
     Mode/SpModePoint.h \
     Mode/SpModeRect.h \
+    Mode/SpModeTriangle.h \
     SpConfig.h \
+    Win/SpDlgNew.h \
     Win/SpWinEditor.h \
     Win/SpWinMain.h
 
@@ -38,3 +54,6 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+  Win/SpDlgNew.ui

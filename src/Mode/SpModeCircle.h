@@ -5,6 +5,7 @@
 
 class SpModeCircle : public SpMode
   {
+  protected:
     QPoint mCenter;
   public:
     SpModeCircle();
