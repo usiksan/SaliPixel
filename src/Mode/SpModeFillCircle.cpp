@@ -1,4 +1,5 @@
 #include "SpModeFillCircle.h"
+#include "Object/SpCmdFillCircle.h"
 
 SpModeFillCircle::SpModeFillCircle()
   {
@@ -14,4 +15,10 @@ void SpModeFillCircle::paint(SpImage &dest, QPoint p, QColor color)
     }
   else
     dest.drawFillCircle( mCenter, p, color );
+  }
+
+
+SpCmd *SpModeFillCircle::object(QPoint p, QColor color)
+  {
+  return new SpCmdFillCircle( mCenter, p, color );
   }

@@ -48,6 +48,8 @@ SpWinMain::SpWinMain(QWidget *parent)
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );
+  menuDraw->addAction( tr("Base color"), mEditor, &SpWinEditor::cmDrawBaseColor );
+  menuDraw->addSeparator();
   menuDraw->addAction( tr("Point"), mEditor, &SpWinEditor::cmDrawPoint );
   menuDraw->addAction( tr("Line"), mEditor, &SpWinEditor::cmDrawLine );
   menuDraw->addAction( tr("Rect"), mEditor, &SpWinEditor::cmDrawRect );

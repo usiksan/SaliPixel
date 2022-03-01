@@ -1,5 +1,5 @@
 #include "SpModeFill.h"
-
+#include "Object/SpCmdFill.h"
 
 #include <QObject>
 
@@ -17,13 +17,15 @@ void SpModeFill::paint(SpImage &dest, QPoint p, QColor color)
   dest.drawFill( p, color );
   }
 
-bool SpModeFill::left()
-  {
-  return true;
-  }
 
 
 QString SpModeFill::stepDescription()
   {
   return QObject::tr("Enter start fill point");
+  }
+
+
+SpCmd *SpModeFill::object(QPoint p, QColor color)
+  {
+  return new SpCmdFill( p, color );
   }

@@ -11,8 +11,8 @@ class SpModeFill : public SpMode
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool left() override;
     virtual QString stepDescription() override;
+    virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
 #endif // SPMODEFILL_H

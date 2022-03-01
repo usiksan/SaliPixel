@@ -1,4 +1,5 @@
 #include "SpModeCircle2.h"
+#include "Object/SpCmdCircle.h"
 
 SpModeCircle2::SpModeCircle2() :
   SpMode{1}
@@ -18,15 +19,6 @@ void SpModeCircle2::paint(SpImage &dest, QPoint p, QColor color)
   }
 
 
-bool SpModeCircle2::left()
-  {
-  if( mStep == 0 ) {
-    mStep = 1;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
 
 
 QString SpModeCircle2::stepDescription()
@@ -36,3 +28,9 @@ QString SpModeCircle2::stepDescription()
   return QObject::tr("Enter second point of cicrle diametr");
   }
 
+
+
+SpCmd *SpModeCircle2::object(QPoint p, QColor color)
+  {
+  return new SpCmdCircle( SpImage::center( mFirst, p ), p, color );
+  }

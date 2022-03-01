@@ -137,6 +137,22 @@ void SpWinEditor::cmDrawColor()
 
 
 
+void SpWinEditor::cmDrawBaseColor()
+  {
+  QColor clr = QColorDialog::getColor( mColor, this, tr("Select draw color") );
+  if( clr.isValid() ) {
+    mImage.clear();
+    for( auto ptr : qAsConst(mObjects) ) {
+      ptr->setColor( clr );
+      ptr->paint( mImage );
+      }
+    mWork = mImage;
+    update();
+    }
+  }
+
+
+
 
 void SpWinEditor::cmDrawPoint()
   {

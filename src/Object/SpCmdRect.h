@@ -5,6 +5,7 @@
 
 class SpCmdRect : public SpCmd
   {
+  protected:
     QPoint mFirst;
     QPoint mSecond;
   public:

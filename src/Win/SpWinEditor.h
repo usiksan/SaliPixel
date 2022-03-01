@@ -60,6 +60,7 @@ class SpWinEditor : public QWidget
     void cmEditUndo();
 
     void cmDrawColor();
+    void cmDrawBaseColor();
     void cmDrawPoint();
     void cmDrawLine();
     void cmDrawRect();

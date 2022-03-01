@@ -11,6 +11,7 @@ class SpModeFillCircle : public SpModeCircle
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
+    virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
 #endif // SPMODEFILLCIRCLE_H

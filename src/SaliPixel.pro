@@ -26,9 +26,14 @@ SOURCES += \
     Mode/SpModeTriangle.cpp \
     Object/SpCmd.cpp \
     Object/SpCmdArc.cpp \
+    Object/SpCmdCircle.cpp \
+    Object/SpCmdFill.cpp \
+    Object/SpCmdFillCircle.cpp \
+    Object/SpCmdFillRect.cpp \
     Object/SpCmdLine.cpp \
     Object/SpCmdPoint.cpp \
     Object/SpCmdRect.cpp \
+    Object/SpCmdTriangle.cpp \
     Win/SpDlgNew.cpp \
     Win/SpWinEditor.cpp \
     main.cpp \
@@ -53,9 +58,14 @@ HEADERS += \
     Mode/SpModeTriangle.h \
     Object/SpCmd.h \
     Object/SpCmdArc.h \
+    Object/SpCmdCircle.h \
+    Object/SpCmdFill.h \
+    Object/SpCmdFillCircle.h \
+    Object/SpCmdFillRect.h \
     Object/SpCmdLine.h \
     Object/SpCmdPoint.h \
     Object/SpCmdRect.h \
+    Object/SpCmdTriangle.h \
     SpConfig.h \
     Win/SpDlgNew.h \
     Win/SpWinEditor.h \

@@ -11,6 +11,7 @@ class SpModeFillRect : public SpModeRect
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
+    virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
 #endif // SPMODEFILLRECT_H

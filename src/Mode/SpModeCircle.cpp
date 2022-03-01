@@ -1,4 +1,5 @@
 #include "SpModeCircle.h"
+#include "Object/SpCmdCircle.h"
 
 #include <QObject>
 
@@ -21,23 +22,6 @@ void SpModeCircle::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeCircle::left()
-  {
-  if( mStep == 0 ) {
-    mStep = 1;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
-
-
-
-
-void SpModeCircle::right()
-  {
-  mStep = 0;
-  }
 
 
 
@@ -46,4 +30,12 @@ QString SpModeCircle::stepDescription()
   if( mStep == 0 )
     return QObject::tr("Enter circle center point");
   return QObject::tr("Enter circle radius point");
+  }
+
+
+
+
+SpCmd *SpModeCircle::object(QPoint p, QColor color)
+  {
+  return new SpCmdCircle( mCenter, p, color );
   }

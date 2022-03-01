@@ -1,4 +1,5 @@
 #include "SpModeTriangle.h"
+#include "Object/SpCmdTriangle.h"
 
 SpModeTriangle::SpModeTriangle() :
   SpMode{2}
@@ -24,21 +25,8 @@ void SpModeTriangle::paint(SpImage &dest, QPoint p, QColor color)
     }
   }
 
-bool SpModeTriangle::left()
-  {
-  if( mStep < 2 ) {
-    mStep++;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
 
-void SpModeTriangle::right()
-  {
-  if( mStep )
-    mStep--;
-  }
+
 
 QString SpModeTriangle::stepDescription()
   {
@@ -47,4 +35,10 @@ QString SpModeTriangle::stepDescription()
   if( mStep == 1 )
     return QObject::tr("Enter second triangle vertex");
   return QObject::tr("Enter third triangle vertex");
+  }
+
+
+SpCmd *SpModeTriangle::object(QPoint p, QColor color)
+  {
+  return new SpCmdTriangle( mFirst, mSecond, p, color );
   }
