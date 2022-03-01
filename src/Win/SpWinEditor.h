@@ -14,6 +14,7 @@ Description
 #ifndef SPWINEDITOR_H
 #define SPWINEDITOR_H
 
+#include "Object/SpCmd.h"
 #include "Mode/SpImage.h"
 
 #include <QWidget>
@@ -30,9 +31,7 @@ class SpWinEditor : public QWidget
 
     SpImage          mWork;
     SpImage          mImage;
-    QList<SpImage>   mUndo;
-    //SpImage          mUndo[UNDO_SIZE];
-    //int              mUndoCount;
+    QList<SpCmdPtr>  mObjects;
     SpMode          *mMode;
     QColor           mColor;
     QPoint           mPoint;
@@ -40,11 +39,14 @@ class SpWinEditor : public QWidget
     bool             mDirty;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
+    ~SpWinEditor() { clear(); }
 
     bool canClose();
 
   private:
     void setMode( SpMode *md );
+
+    void clear();
 
   signals:
     void stepMessage( const QString msg );

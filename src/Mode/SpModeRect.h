@@ -12,6 +12,7 @@ class SpModeRect : public SpModeLine
   public:
     virtual void paint( SpImage &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
+    virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
 #endif // SPMODERECT_H

@@ -3,7 +3,8 @@
 
 #include <QObject>
 
-SpModeFill::SpModeFill()
+SpModeFill::SpModeFill() :
+  SpMode{0}
   {
 
   }

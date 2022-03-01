@@ -3,21 +3,26 @@
 
 #include "SpImage.h"
 
+class SpCmd;
+
 class SpMode
   {
   protected:
     int mStep;
+    int mStepMax;
   public:
-    SpMode();
+    SpMode( int stepMax );
     virtual ~SpMode() {}
 
     virtual void    paint( SpImage &dest, QPoint p, QColor color ) = 0;
 
-    virtual bool    left() = 0;
+    virtual bool    left();
 
-    virtual void    right() { if( mStep ) mStep--; }
+    virtual void    right();
 
     virtual QString stepDescription() = 0;
+
+    virtual SpCmd  *object( QPoint p, QColor color ) { Q_UNUSED(p) Q_UNUSED(color) return nullptr; }
 
     void            reset() { mStep = 0; }
   };

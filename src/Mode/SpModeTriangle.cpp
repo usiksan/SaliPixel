@@ -1,6 +1,7 @@
 #include "SpModeTriangle.h"
 
-SpModeTriangle::SpModeTriangle()
+SpModeTriangle::SpModeTriangle() :
+  SpMode{2}
   {
 
   }

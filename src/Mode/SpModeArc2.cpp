@@ -1,8 +1,10 @@
 #include "SpModeArc2.h"
+#include "Object/SpCmdArc.h"
 
 #include <QDebug>
 
-SpModeArc2::SpModeArc2()
+SpModeArc2::SpModeArc2() :
+  SpMode{2}
   {
 
   }
@@ -43,25 +45,13 @@ void SpModeArc2::paint(SpImage &dest, QPoint p, QColor color)
       center.rx() += radius * k;
       center.ry() -= radius;
       }
+    mCenter = center;
     dest.drawArc( center, mStart, mStop, color );
     }
   }
 
-bool SpModeArc2::left()
-  {
-  if( mStep < 2 ) {
-    mStep++;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
 
-void SpModeArc2::right()
-  {
-  if( mStep )
-    mStep--;
-  }
+
 
 QString SpModeArc2::stepDescription()
   {
@@ -72,3 +62,9 @@ QString SpModeArc2::stepDescription()
   return QObject::tr("Enter arc center point");
   }
 
+
+
+SpCmd *SpModeArc2::object(QPoint p, QColor color)
+  {
+  return new SpCmdArc( mCenter, mStart, mStop, color );
+  }

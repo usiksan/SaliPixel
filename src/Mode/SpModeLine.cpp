@@ -1,10 +1,11 @@
 #include "SpModeLine.h"
+#include "Object/SpCmdLine.h"
 
 #include <QObject>
 
-SpModeLine::SpModeLine()
+SpModeLine::SpModeLine() :
+  SpMode{1}
   {
-
   }
 
 
@@ -21,27 +22,16 @@ void SpModeLine::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeLine::left()
-  {
-  if( mStep == 0 ) {
-    mStep = 1;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
-
-
-
-void SpModeLine::right()
-  {
-  mStep = 0;
-  }
-
 
 QString SpModeLine::stepDescription()
   {
   if( mStep == 0 )
     return QObject::tr("Enter first point of line");
   return QObject::tr("Enter second point of line");
+  }
+
+
+SpCmd *SpModeLine::object(QPoint p, QColor color)
+  {
+  return new SpCmdLine( mFirst, p, color );
   }

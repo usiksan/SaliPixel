@@ -2,7 +2,8 @@
 
 #include <QObject>
 
-SpModeIdle::SpModeIdle()
+SpModeIdle::SpModeIdle() :
+  SpMode{0}
   {
 
   }

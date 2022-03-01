@@ -1,8 +1,10 @@
 #include "SpModeArc.h"
+#include "Object/SpCmdArc.h"
 
 #include <QObject>
 
-SpModeArc::SpModeArc()
+SpModeArc::SpModeArc() :
+  SpMode(2)
   {
 
   }
@@ -24,24 +26,6 @@ void SpModeArc::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeArc::left()
-  {
-  if( mStep < 2 ) {
-    mStep++;
-    return false;
-    }
-  mStep = 0;
-  return true;
-  }
-
-
-
-void SpModeArc::right()
-  {
-  if( mStep )
-    mStep--;
-  }
-
 
 
 QString SpModeArc::stepDescription()
@@ -51,4 +35,10 @@ QString SpModeArc::stepDescription()
   if( mStep == 1 )
     return QObject::tr("Enter arc start point");
   return QObject::tr("Enter arc end point");
+  }
+
+
+SpCmd *SpModeArc::object(QPoint p, QColor color)
+  {
+  return new SpCmdArc( mCenter, mStart, p, color );
   }

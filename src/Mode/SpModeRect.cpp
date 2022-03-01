@@ -1,4 +1,5 @@
 #include "SpModeRect.h"
+#include "Object/SpCmdRect.h"
 
 #include <QObject>
 
@@ -25,4 +26,10 @@ QString SpModeRect::stepDescription()
   if( mStep == 0 )
     return QObject::tr("Enter first corner of rect");
   return QObject::tr("Enter second corner of rect");
+  }
+
+
+SpCmd *SpModeRect::object(QPoint p, QColor color)
+  {
+  return new SpCmdRect( mFirst, p, color );
   }

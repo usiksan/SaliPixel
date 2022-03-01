@@ -24,6 +24,8 @@ class SpImage
 
     void    resize( int w, int h );
 
+    void    clear();
+
     void    set( const SpImage &src );
 
     void    operator = ( const SpImage &src ) { set(src); }
@@ -57,8 +59,6 @@ class SpImage
     void    drawFillCircle( QPoint center, QPoint p, SpColor color );
 
     void    drawArc( QPoint center, QPoint start, QPoint stop, SpColor color );
-
-    void    drawArc( QPoint center, int radius, float startAngle, float sweepAngle, SpColor color );
 
     void    drawFill( QPoint start, SpColor color );
 

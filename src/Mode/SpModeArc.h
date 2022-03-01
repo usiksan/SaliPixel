@@ -13,9 +13,8 @@ class SpModeArc : public SpMode
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool left() override;
-    virtual void right() override;
     virtual QString stepDescription() override;
+    virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
 #endif // SPMODEARC_H

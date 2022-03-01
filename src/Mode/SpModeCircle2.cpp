@@ -1,6 +1,7 @@
 #include "SpModeCircle2.h"
 
-SpModeCircle2::SpModeCircle2()
+SpModeCircle2::SpModeCircle2() :
+  SpMode{1}
   {
 
   }

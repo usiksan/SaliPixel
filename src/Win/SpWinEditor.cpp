@@ -63,6 +63,16 @@ void SpWinEditor::setMode(SpMode *md)
   }
 
 
+void SpWinEditor::clear()
+  {
+  qDeleteAll( mObjects );
+  mObjects.clear();
+  if( mMode ) mMode->reset();
+  mImage.clear();
+  mWork = mImage;
+  }
+
+
 
 
 void SpWinEditor::cmFileNew()
@@ -70,11 +80,9 @@ void SpWinEditor::cmFileNew()
   if( canClose() ) {
     SpDlgNew dlgNew(this);
     if( dlgNew.exec() ) {
-      mUndo.clear();
       mDirty = false;
       mImage.resize( dlgNew.imageWidth(), dlgNew.imageHeight() );
-      if( mMode ) mMode->reset();
-      mWork = mImage;
+      clear();
       update();
       }
     }
@@ -106,10 +114,15 @@ void SpWinEditor::cmFileSaveAs()
 
 void SpWinEditor::cmEditUndo()
   {
-  if( mUndo.count() ) {
-    mImage = mUndo.takeLast();
+  if( mObjects.count() ) {
+    delete mObjects.last();
+    mObjects.removeLast();
     if( mMode != nullptr )
       mMode->reset();
+    mImage.clear();
+    for( auto ptr : qAsConst(mObjects) )
+      ptr->paint( mImage );
+    mWork = mImage;
     update();
     }
   }
@@ -245,9 +258,9 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
       mouseMoveEvent( event );
     if( mMode->left() ) {
       //Append to undo
-      if( mUndo.count() >= 30 )
-        mUndo.pop_front();
-      mUndo.push_back( mImage );
+      auto obj = mMode->object( mPoint, mColor );
+      if( obj != nullptr )
+        mObjects.append( obj );
       //Apply current
       mImage.set( mWork );
       }

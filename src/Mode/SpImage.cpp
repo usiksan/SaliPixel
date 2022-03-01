@@ -34,6 +34,16 @@ void SpImage::resize(int w, int h)
 
 
 
+void SpImage::clear()
+  {
+  SpColor color;
+  int size = mWidth * mHeight;
+  for( int i = 0; i < size; i++ )
+    mArea[i] = color;
+  }
+
+
+
 void SpImage::set(const SpImage &src)
   {
   if( mWidth != src.width() || mHeight != src.height() )

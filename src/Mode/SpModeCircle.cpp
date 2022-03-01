@@ -2,7 +2,8 @@
 
 #include <QObject>
 
-SpModeCircle::SpModeCircle()
+SpModeCircle::SpModeCircle() :
+  SpMode{1}
   {
 
   }

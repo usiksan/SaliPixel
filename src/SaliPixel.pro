@@ -24,10 +24,16 @@ SOURCES += \
     Mode/SpModePoint.cpp \
     Mode/SpModeRect.cpp \
     Mode/SpModeTriangle.cpp \
+    Object/SpCmd.cpp \
+    Object/SpCmdArc.cpp \
+    Object/SpCmdLine.cpp \
+    Object/SpCmdPoint.cpp \
+    Object/SpCmdRect.cpp \
     Win/SpDlgNew.cpp \
     Win/SpWinEditor.cpp \
     main.cpp \
     Win/SpWinMain.cpp
+
 
 HEADERS += \
     Mode/SpColor.h \
@@ -45,6 +51,11 @@ HEADERS += \
     Mode/SpModePoint.h \
     Mode/SpModeRect.h \
     Mode/SpModeTriangle.h \
+    Object/SpCmd.h \
+    Object/SpCmdArc.h \
+    Object/SpCmdLine.h \
+    Object/SpCmdPoint.h \
+    Object/SpCmdRect.h \
     SpConfig.h \
     Win/SpDlgNew.h \
     Win/SpWinEditor.h \
