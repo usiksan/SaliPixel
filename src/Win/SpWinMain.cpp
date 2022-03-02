@@ -63,9 +63,15 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuDraw->addAction( tr("Filled circle"), mEditor, &SpWinEditor::cmDrawFillCircle );
   menuDraw->addAction( tr("Fill area"), mEditor, &SpWinEditor::cmDrawFill );
 
+  auto menuClear = new QMenu( tr("Erase") );
+  menuClear->addAction( tr("Point"), mEditor, &SpWinEditor::cmClearPoint );
+  menuClear->addAction( tr("Rect"), mEditor, &SpWinEditor::cmClearRect );
+  menuClear->addAction( tr("Circle"), mEditor, &SpWinEditor::cmClearCircle );
+
   menuBar()->addMenu( menuFile );
   menuBar()->addMenu( menuEdit );
   menuBar()->addMenu( menuDraw );
+  menuBar()->addMenu( menuClear );
 
   QLabel *msg = new QLabel();
   connect( mEditor, &SpWinEditor::stepMessage, msg, &QLabel::setText );

@@ -61,7 +61,25 @@ void SpImage::pixelSet(int x, int y, SpColor color)
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
     return;
 
+  mArea[ x + y * mWidth ] = color;
+  }
+
+
+
+void SpImage::pixelAdd(int x, int y, SpColor color)
+  {
+  if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
+    return;
+
   mArea[ x + y * mWidth ].append( color );
+  }
+
+
+
+
+void SpImage::pixelClear(int x, int y)
+  {
+  pixelSet( x, y, SpColor() );
   }
 
 
@@ -87,9 +105,64 @@ QImage SpImage::toImage() const
 
 
 
+void SpImage::clearPixel(QPoint p)
+  {
+  pixelClear( p.x(), p.y() );
+  }
+
+
+
+void SpImage::clearHLine(int x0, int x1, int y)
+  {
+  if( x1 < x0 )
+    qSwap( x0, x1 );
+  while( x0 <= x1 )
+    pixelClear( x0++, y );
+  }
+
+void SpImage::clearCircle(QPoint center, QPoint p)
+  {
+  // R - радиус, X1, Y1 - координаты центра
+  int x = 0;
+  int y = distance( center, p );
+  int delta = 1 - 2 * y;
+  int error = 0;
+  while( y >= x ) {
+    clearHLine( center.x() - x, center.x() + x, center.y() + y );
+    clearHLine( center.x() - x, center.x() + x, center.y() - y );
+    clearHLine( center.x() - y, center.x() + y, center.y() + x );
+    clearHLine( center.x() - y, center.x() + y, center.y() - x );
+    error = 2 * (delta + y) - 1;
+    if( (delta < 0) && (error <= 0) ) {
+      delta += 2 * ++x + 1;
+      continue;
+      }
+    if( (delta > 0) && (error > 0) ) {
+      delta -= 2 * --y + 1;
+      continue;
+      }
+    delta += 2 * (++x - --y);
+    }
+  }
+
+
+
+void SpImage::clearRect(QPoint a, QPoint b)
+  {
+  int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
+  if( x1 < x0 )
+    qSwap( x0, x1 );
+  if( y1 < y0 )
+    qSwap( y0, y1 );
+  while( y0 <= y1 )
+    clearHLine( x0, x1, y0++ );
+  }
+
+
+
 void SpImage::drawPixel(QPoint p, SpColor color)
   {
-  pixelSet( p.x(), p.y(), color );
+  pixelAdd( p.x(), p.y(), color );
   }
 
 
@@ -123,12 +196,12 @@ void SpImage::drawLine(QPoint a, QPoint b, SpColor color)
   xpx11 = int(xend);
   const int ypx11 = ipart(yend);
   if( steep ) {
-    pixelSet( ypx11,     xpx11, color.brightness( rfpart(yend) * xgap ) );
-    pixelSet( ypx11 + 1, xpx11, color.brightness( fpart(yend) * xgap) );
+    pixelAdd( ypx11,     xpx11, color.brightness( rfpart(yend) * xgap ) );
+    pixelAdd( ypx11 + 1, xpx11, color.brightness( fpart(yend) * xgap) );
     }
   else {
-    pixelSet( xpx11, ypx11,     color.brightness( rfpart(yend) * xgap) );
-    pixelSet( xpx11, ypx11 + 1, color.brightness( fpart(yend) * xgap) );
+    pixelAdd( xpx11, ypx11,     color.brightness( rfpart(yend) * xgap) );
+    pixelAdd( xpx11, ypx11 + 1, color.brightness( fpart(yend) * xgap) );
     }
   intery = yend + gradient;
   }
@@ -141,26 +214,26 @@ void SpImage::drawLine(QPoint a, QPoint b, SpColor color)
   xpx12 = int(xend);
   const int ypx12 = ipart(yend);
   if( steep ) {
-    pixelSet( ypx12,     xpx12, color.brightness( rfpart(yend) * xgap) );
-    pixelSet( ypx12 + 1, xpx12, color.brightness( fpart(yend) * xgap) );
+    pixelAdd( ypx12,     xpx12, color.brightness( rfpart(yend) * xgap) );
+    pixelAdd( ypx12 + 1, xpx12, color.brightness( fpart(yend) * xgap) );
     }
   else {
-    pixelSet( xpx12, ypx12,     color.brightness( rfpart(yend) * xgap) );
-    pixelSet( xpx12, ypx12 + 1, color.brightness( fpart(yend) * xgap) );
+    pixelAdd( xpx12, ypx12,     color.brightness( rfpart(yend) * xgap) );
+    pixelAdd( xpx12, ypx12 + 1, color.brightness( fpart(yend) * xgap) );
     }
   }
 
   if( steep ) {
     for (int x = xpx11 + 1; x < xpx12; x++) {
-      pixelSet( ipart(intery),     x, color.brightness( rfpart(intery) ) );
-      pixelSet( ipart(intery) + 1, x, color.brightness( fpart(intery) ) );
+      pixelAdd( ipart(intery),     x, color.brightness( rfpart(intery) ) );
+      pixelAdd( ipart(intery) + 1, x, color.brightness( fpart(intery) ) );
       intery += gradient;
       }
     }
   else {
     for (int x = xpx11 + 1; x < xpx12; x++) {
-      pixelSet( x, ipart(intery),     color.brightness( rfpart(intery) ) );
-      pixelSet( x, ipart(intery) + 1, color.brightness( fpart(intery) ) );
+      pixelAdd( x, ipart(intery),     color.brightness( rfpart(intery) ) );
+      pixelAdd( x, ipart(intery) + 1, color.brightness( fpart(intery) ) );
       intery += gradient;
       }
     }
@@ -175,7 +248,7 @@ void SpImage::drawHLine(int x0, int x1, int y, SpColor color)
   if( x1 < x0 )
     qSwap( x0, x1 );
   while( x0 <= x1 )
-    pixelSet( x0++, y, color );
+    pixelAdd( x0++, y, color );
   }
 
 void SpImage::drawVLine(int x, int y0, int y1, SpColor color)
@@ -183,7 +256,7 @@ void SpImage::drawVLine(int x, int y0, int y1, SpColor color)
   if( y1 < y0 )
     qSwap( y0, y1 );
   while( y0 <= y1 )
-    pixelSet( x, y0++, color );
+    pixelAdd( x, y0++, color );
   }
 
 
@@ -211,10 +284,10 @@ void SpImage::drawFillRect(QPoint a, QPoint b, SpColor color)
 
 static void pixelSet4( SpImage *im, int x, int y, int deltax, int deltay, SpColor color )
   {
-  im->pixelSet( x + deltax, y + deltay, color );
-  im->pixelSet( x - deltax, y + deltay, color );
-  im->pixelSet( x + deltax, y - deltay, color );
-  im->pixelSet( x - deltax, y - deltay, color );
+  im->pixelAdd( x + deltax, y + deltay, color );
+  im->pixelAdd( x - deltax, y + deltay, color );
+  im->pixelAdd( x + deltax, y - deltay, color );
+  im->pixelAdd( x - deltax, y - deltay, color );
   }
 
 
@@ -240,20 +313,20 @@ static bool angleHit( float startAngle, float sweepAngle, int cx, int cy, int px
 static void pixelSet8( SpImage *im, int x, int y, int deltax0, int deltax1, int deltay0, int deltay1, SpColor color0, SpColor color1, float startAngle, float sweepAngle )
   {
   if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y + deltay0 ) ) {
-    im->pixelSet( x + deltax0, y + deltay0, color0 );
-    im->pixelSet( x + deltax1, y + deltay1, color1 );
+    im->pixelAdd( x + deltax0, y + deltay0, color0 );
+    im->pixelAdd( x + deltax1, y + deltay1, color1 );
     }
   if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y + deltay0 ) ) {
-    im->pixelSet( x - deltax0, y + deltay0, color0 );
-    im->pixelSet( x - deltax1, y + deltay1, color1 );
+    im->pixelAdd( x - deltax0, y + deltay0, color0 );
+    im->pixelAdd( x - deltax1, y + deltay1, color1 );
     }
   if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y - deltay0 ) ) {
-    im->pixelSet( x + deltax0, y - deltay0, color0 );
-    im->pixelSet( x + deltax1, y - deltay1, color1 );
+    im->pixelAdd( x + deltax0, y - deltay0, color0 );
+    im->pixelAdd( x + deltax1, y - deltay1, color1 );
     }
   if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y - deltay0 ) ) {
-    im->pixelSet( x - deltax0, y - deltay0, color0 );
-    im->pixelSet( x - deltax1, y - deltay1, color1 );
+    im->pixelAdd( x - deltax0, y - deltay0, color0 );
+    im->pixelAdd( x - deltax1, y - deltay1, color1 );
     }
   }
 

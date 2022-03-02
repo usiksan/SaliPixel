@@ -16,6 +16,9 @@ SOURCES += \
     Mode/SpModeArc2.cpp \
     Mode/SpModeCircle.cpp \
     Mode/SpModeCircle2.cpp \
+    Mode/SpModeClearCircle.cpp \
+    Mode/SpModeClearPoint.cpp \
+    Mode/SpModeClearRect.cpp \
     Mode/SpModeFill.cpp \
     Mode/SpModeFillCircle.cpp \
     Mode/SpModeFillRect.cpp \
@@ -27,6 +30,9 @@ SOURCES += \
     Object/SpCmd.cpp \
     Object/SpCmdArc.cpp \
     Object/SpCmdCircle.cpp \
+    Object/SpCmdClearCircle.cpp \
+    Object/SpCmdClearPoint.cpp \
+    Object/SpCmdClearRect.cpp \
     Object/SpCmdFill.cpp \
     Object/SpCmdFillCircle.cpp \
     Object/SpCmdFillRect.cpp \
@@ -48,6 +54,9 @@ HEADERS += \
     Mode/SpModeArc2.h \
     Mode/SpModeCircle.h \
     Mode/SpModeCircle2.h \
+    Mode/SpModeClearCircle.h \
+    Mode/SpModeClearPoint.h \
+    Mode/SpModeClearRect.h \
     Mode/SpModeFill.h \
     Mode/SpModeFillCircle.h \
     Mode/SpModeFillRect.h \
@@ -59,6 +68,9 @@ HEADERS += \
     Object/SpCmd.h \
     Object/SpCmdArc.h \
     Object/SpCmdCircle.h \
+    Object/SpCmdClearCircle.h \
+    Object/SpCmdClearPoint.h \
+    Object/SpCmdClearRect.h \
     Object/SpCmdFill.h \
     Object/SpCmdFillCircle.h \
     Object/SpCmdFillRect.h \

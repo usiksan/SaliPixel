@@ -76,6 +76,10 @@ class SpWinEditor : public QWidget
     void cmDrawFillCircle();
     void cmDrawFill();
 
+    void cmClearPoint();
+    void cmClearRect();
+    void cmClearCircle();
+
 //    void cmEdit
 
     // QWidget interface

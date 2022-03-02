@@ -14,6 +14,10 @@
 #include "Mode/SpModeFillCircle.h"
 #include "Mode/SpModeFill.h"
 
+#include "Mode/SpModeClearPoint.h"
+#include "Mode/SpModeClearRect.h"
+#include "Mode/SpModeClearCircle.h"
+
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
@@ -217,6 +221,21 @@ void SpWinEditor::cmDrawFillCircle()
 void SpWinEditor::cmDrawFill()
   {
   setMode( new SpModeFill() );
+  }
+
+void SpWinEditor::cmClearPoint()
+  {
+  setMode( new SpModeClearPoint() );
+  }
+
+void SpWinEditor::cmClearRect()
+  {
+  setMode( new SpModeClearRect() );
+  }
+
+void SpWinEditor::cmClearCircle()
+  {
+  setMode( new SpModeClearCircle{} );
   }
 
 

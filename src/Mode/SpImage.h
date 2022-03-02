@@ -30,14 +30,27 @@ class SpImage
 
     void    operator = ( const SpImage &src ) { set(src); }
 
-
     void    pixelSet( int x, int y, SpColor color );
+
+    void    pixelAdd( int x, int y, SpColor color );
+
+    void    pixelClear( int x, int y );
 
     SpColor pixelGet( int x, int y ) const;
 
 
 
     QImage  toImage() const;
+
+
+    void    clearPixel( QPoint p );
+
+    void    clearHLine( int x0, int x1, int y );
+
+    void    clearCircle( QPoint center, QPoint p );
+
+    void    clearRect( QPoint a, QPoint b );
+
 
 
     void    drawPixel( QPoint p, SpColor color );
@@ -61,6 +74,7 @@ class SpImage
     void    drawArc( QPoint center, QPoint start, QPoint stop, SpColor color );
 
     void    drawFill( QPoint start, SpColor color );
+
 
     static QPoint center( QPoint p0, QPoint p1 );
 
