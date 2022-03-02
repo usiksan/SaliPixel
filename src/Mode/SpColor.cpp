@@ -25,3 +25,11 @@ void SpColor::append(SpColor color)
   mBlue  = (mBlue * alpha + color.mBlue * color.mAlpha) >> 8;
   mAlpha = qBound<int>( 0, alpha + color.mAlpha, 255 );
   }
+
+void SpColor::invert()
+  {
+  mAlpha = 255;
+  mRed   = 255 - mRed;
+  mGreen = 255 - mGreen;
+  mBlue  = 255 - mBlue;
+  }

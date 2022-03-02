@@ -5,6 +5,7 @@
 
 #include <QPoint>
 #include <QImage>
+#include <QMatrix>
 
 class SpImage
   {
@@ -22,6 +23,7 @@ class SpImage
 
     int     height() const { return mHeight; }
 
+
     void    resize( int w, int h );
 
     void    clear();
@@ -30,13 +32,18 @@ class SpImage
 
     void    operator = ( const SpImage &src ) { set(src); }
 
+
     void    pixelSet( int x, int y, SpColor color );
 
     void    pixelAdd( int x, int y, SpColor color );
 
+    void    pixelInvert( int x, int y );
+
     void    pixelClear( int x, int y );
 
     SpColor pixelGet( int x, int y ) const;
+
+    SpColor pixel( QPoint p ) const { return pixelGet( p.x(), p.y() ); }
 
 
 
@@ -52,10 +59,19 @@ class SpImage
     void    clearRect( QPoint a, QPoint b );
 
 
+    void    editArea( SpImage &dest, QPoint a, QPoint b, bool cut );
+
+    void    editMove( QPoint a, QPoint b, QPoint target, bool doCopy, bool doOverride );
+
+    void    editTransfer( QPoint a, QPoint b, QMatrix &matrix, bool doCopy, bool doOverride );
+
+
+    void    selectionPoint( QPoint p );
+
+    void    selectionRect( QPoint a, QPoint b );
+
 
     void    drawPixel( QPoint p, SpColor color );
-
-    SpColor getPixel( QPoint p ) const { return pixelGet( p.x(), p.y() ); }
 
     void    drawLine( QPoint a, QPoint b, SpColor color );
 

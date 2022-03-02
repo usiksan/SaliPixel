@@ -1,6 +1,7 @@
 #include "SpImage.h"
 
 #include <QStack>
+#include <QMatrix>
 #include <cmath>
 
 inline int   ipart(float x) { return int(floorf(x)); }
@@ -72,6 +73,16 @@ void SpImage::pixelAdd(int x, int y, SpColor color)
     return;
 
   mArea[ x + y * mWidth ].append( color );
+  }
+
+
+
+void SpImage::pixelInvert(int x, int y)
+  {
+  if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
+    return;
+
+  mArea[ x + y * mWidth ].invert();
   }
 
 
@@ -156,6 +167,78 @@ void SpImage::clearRect(QPoint a, QPoint b)
     qSwap( y0, y1 );
   while( y0 <= y1 )
     clearHLine( x0, x1, y0++ );
+  }
+
+void SpImage::editArea(SpImage &dest, QPoint a, QPoint b, bool cut)
+  {
+  int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
+  if( x1 < x0 )
+    qSwap( x0, x1 );
+  if( y1 < y0 )
+    qSwap( y0, y1 );
+  dest.resize( x1 - x0 + 1, y1 - y0 + 1 );
+  for( int x = 0; x < dest.width(); x++ )
+    for( int y = 0; y < dest.height(); y++ ) {
+      dest.pixelSet( x, y, pixelGet( x0 + x, y0 + y ) );
+      if( cut )
+        pixelClear( x0 + x, y0 + y );
+      }
+  }
+
+
+void SpImage::editMove(QPoint a, QPoint b, QPoint target, bool doCopy, bool doOverride)
+  {
+  QMatrix move;
+  move.translate( -target.x() + b.x() - a.x(), -target.y() + b.y() - a.y() );
+  editTransfer( a, b, move, doCopy, doOverride );
+  }
+
+
+
+void SpImage::editTransfer(QPoint a, QPoint b, QMatrix &matrix, bool doCopy, bool doOverride)
+  {
+  //Copy selected
+  SpImage area;
+  editArea( area, a, b, !doCopy );
+
+  for( int x = 0; x < mWidth; x++ )
+    for( int y = 0; y < mHeight; y++ ) {
+      SpColor color = area.pixel( matrix.map(QPoint(x,y)) );
+      if( !color.isEmpty() ) {
+        if( doOverride ) pixelSet( x, y, color );
+        else             pixelAdd( x, y, color );
+        }
+      }
+  }
+
+
+
+void SpImage::selectionPoint(QPoint p)
+  {
+  pixelInvert(p.x(), p.y());
+  }
+
+
+
+void SpImage::selectionRect(QPoint a, QPoint b)
+  {
+  int x0(a.x()), y0(a.y()), x1(b.x()), y1(b.y());
+  if( x1 < x0 )
+    qSwap( x0, x1 );
+  if( y1 < y0 )
+    qSwap( y0, y1 );
+  //Top line
+  for( int x = x0; x < x1; x++ )
+    pixelInvert( x, y0 );
+  //Right line
+  for( int y = y0; y < y1; y++ )
+    pixelInvert( x1, y );
+  //Bottom line
+  for( int x = x1; x > x0; x-- )
+    pixelInvert( x, y1 );
+  //Left line
+  for( int y = y1; y > y0; y-- )
+    pixelInvert( x0, y );
   }
 
 
@@ -443,17 +526,17 @@ void SpImage::drawFill(QPoint start, SpColor color)
     points.append( start );
   while( points.count() ) {
     start = points.pop();
-    if( getPixel(start).isOpacity() ) {
+    if( pixel(start).isOpacity() ) {
       drawPixel( start, color );
       start.rx()++;
-      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      if( isInside(start) && pixel(start).isOpacity() ) points.append(start);
       start.rx() -= 2;
-      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      if( isInside(start) && pixel(start).isOpacity() ) points.append(start);
       start.rx()++;
       start.ry()++;
-      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      if( isInside(start) && pixel(start).isOpacity() ) points.append(start);
       start.ry() -= 2;
-      if( isInside(start) && getPixel(start).isOpacity() ) points.append(start);
+      if( isInside(start) && pixel(start).isOpacity() ) points.append(start);
       }
     }
   }

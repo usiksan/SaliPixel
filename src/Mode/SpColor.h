@@ -22,6 +22,8 @@ struct SpColor {
     bool isOpacity() const { return mAlpha < 120; }
 
     void append( SpColor color );
+
+    void invert();
   };
 
 

@@ -45,6 +45,7 @@ SpWinMain::SpWinMain(QWidget *parent)
 
   auto menuEdit = new QMenu( tr("Edit") );
   menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
+  menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );

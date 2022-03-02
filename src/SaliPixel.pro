@@ -14,6 +14,8 @@ SOURCES += \
     Mode/SpMode.cpp \
     Mode/SpModeArc.cpp \
     Mode/SpModeArc2.cpp \
+    Mode/SpModeArea.cpp \
+    Mode/SpModeAreaMove.cpp \
     Mode/SpModeCircle.cpp \
     Mode/SpModeCircle2.cpp \
     Mode/SpModeClearCircle.cpp \
@@ -52,6 +54,8 @@ HEADERS += \
     Mode/SpMode.h \
     Mode/SpModeArc.h \
     Mode/SpModeArc2.h \
+    Mode/SpModeArea.h \
+    Mode/SpModeAreaMove.h \
     Mode/SpModeCircle.h \
     Mode/SpModeCircle2.h \
     Mode/SpModeClearCircle.h \

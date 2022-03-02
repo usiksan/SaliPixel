@@ -18,6 +18,8 @@
 #include "Mode/SpModeClearRect.h"
 #include "Mode/SpModeClearCircle.h"
 
+#include "Mode/SpModeAreaMove.h"
+
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
@@ -139,6 +141,14 @@ void SpWinEditor::cmEditUndo()
     mWork = mImage;
     update();
     }
+  }
+
+
+
+
+void SpWinEditor::cmEditMove()
+  {
+  setMode( new SpModeAreaMove() );
   }
 
 

@@ -61,6 +61,7 @@ class SpWinEditor : public QWidget
 //    void cmFileExport();
 
     void cmEditUndo();
+    void cmEditMove();
 
     void cmDrawColor();
     void cmDrawBaseColor();
