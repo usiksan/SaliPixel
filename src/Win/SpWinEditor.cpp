@@ -19,11 +19,13 @@
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QDebug>
 
 SpWinEditor::SpWinEditor(QWidget *parent) :
   QWidget{parent},
   mMode{new SpModeIdle{} },
   mColor{Qt::black},
+  mScale{20},
   mDirty{false}
   {
   mImage.resize( 32, 32 );
@@ -70,6 +72,14 @@ void SpWinEditor::clear()
   if( mMode ) mMode->reset();
   mImage.clear();
   mWork = mImage;
+  }
+
+
+
+
+QPoint SpWinEditor::div20(QPoint p) const
+  {
+  return QPoint( p.x() / mScale, p.y() / mScale );
   }
 
 
@@ -229,7 +239,7 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
         color = pixel.color();
       painter.setPen( color );
       painter.setBrush( QBrush( color ) );
-      painter.drawRect( x * 20, y * 20, 20, 20 );
+      painter.drawRect( x * mScale, y * mScale, mScale, mScale );
       }
 
   //Icon miniature
@@ -240,23 +250,31 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
   painter.drawRect( width() - 32, height() - 32, 32, 32 );
 
   //Grid
-  painter.setPen( Qt::gray );
-  int h = mWork.height() * 20;
-  //Vertical lines
-  for( int x = 0; x < mWork.width(); x++ )
-    painter.drawLine( x * 20, 0, x * 20, h );
-  //Horizontal lines
-  int w = mWork.width() * 20;
-  for( int y = 0; y < mWork.height(); y++ )
-    painter.drawLine( 0, y * 20, w, y * 20 );
+  if( mScale >= 3 ) {
+    painter.setPen( Qt::gray );
+    int h = mWork.height() * mScale;
+    //Vertical lines
+    for( int x = 0; x <= mWork.width(); x++ )
+      painter.drawLine( x * mScale, 0, x * mScale, h );
+    //Horizontal lines
+    int w = mWork.width() * mScale;
+    for( int y = 0; y <= mWork.height(); y++ )
+      painter.drawLine( 0, y * mScale, w, y * mScale );
+
+    //x4 lines
+    painter.setPen( Qt::blue );
+    for( int x = 4; x < mWork.width(); x += 4 )
+      painter.drawLine( x * mScale, 0, x * mScale, h );
+    for( int y = 4; y <= mWork.height(); y += 4 )
+      painter.drawLine( 0, y * mScale, w, y * mScale );
+
+    }
+
+
 
   }
 
 
-QPoint div20( QPoint p )
-  {
-  return QPoint( p.x() / 20, p.y() / 20 );
-  }
 
 
 void SpWinEditor::mousePressEvent(QMouseEvent *event)
@@ -300,4 +318,13 @@ void SpWinEditor::mouseMoveEvent(QMouseEvent *event)
     mMode->paint( mWork, mPoint, mColor );
     update();
     }
+  }
+
+
+void SpWinEditor::wheelEvent(QWheelEvent *event)
+  {
+  int delta = event->angleDelta().y() / 120;
+  qDebug() << "delta" << delta;
+  mScale = qBound( 1, mScale - delta, 32 );
+  update();
   }

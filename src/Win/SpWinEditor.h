@@ -36,6 +36,7 @@ class SpWinEditor : public QWidget
     QColor           mColor;
     QPoint           mPoint;
     QString          mPath;
+    int              mScale;
     bool             mDirty;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
@@ -44,9 +45,11 @@ class SpWinEditor : public QWidget
     bool canClose();
 
   private:
-    void setMode( SpMode *md );
+    void   setMode( SpMode *md );
 
-    void clear();
+    void   clear();
+
+    QPoint div20( QPoint p ) const;
 
   signals:
     void stepMessage( const QString msg );
@@ -80,6 +83,7 @@ class SpWinEditor : public QWidget
     virtual void paintEvent(QPaintEvent *event) override;
     virtual void mousePressEvent(QMouseEvent *event) override;
     virtual void mouseMoveEvent(QMouseEvent *event) override;
+    virtual void wheelEvent(QWheelEvent *event) override;
   };
 
 #endif // SPWINEDITOR_H
