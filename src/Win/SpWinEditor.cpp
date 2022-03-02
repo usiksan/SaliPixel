@@ -19,6 +19,7 @@
 #include "Mode/SpModeClearCircle.h"
 
 #include "Mode/SpModeAreaMove.h"
+#include "Mode/SpModeAreaRotate.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -146,9 +147,24 @@ void SpWinEditor::cmEditUndo()
 
 
 
-void SpWinEditor::cmEditMove()
+void SpWinEditor::cmEditTransferMove()
   {
-  setMode( new SpModeAreaMove() );
+  setMode( new SpModeAreaMove( false, true ) );
+  }
+
+void SpWinEditor::cmEditTransferCopy()
+  {
+  setMode( new SpModeAreaMove( true, true ) );
+  }
+
+void SpWinEditor::cmEditRotateMove()
+  {
+  setMode( new SpModeAreaRotate( false, true ) );
+  }
+
+void SpWinEditor::cmEditRotateCopy()
+  {
+  setMode( new SpModeAreaRotate( true, true ) );
   }
 
 

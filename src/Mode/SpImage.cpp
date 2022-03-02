@@ -1,12 +1,64 @@
 #include "SpImage.h"
 
 #include <QStack>
-#include <QMatrix>
+#include <QDebug>
 #include <cmath>
 
 inline int   ipart(float x) { return int(floorf(x)); }
 inline float fpart(float x) { return x - floorf(x); }
 inline float rfpart(float x) { return 1 - fpart(x); }
+
+
+
+
+static void pixelSet4( SpImage *im, int x, int y, int deltax, int deltay, SpColor color )
+  {
+  im->pixelAdd( x + deltax, y + deltay, color );
+  im->pixelAdd( x - deltax, y + deltay, color );
+  im->pixelAdd( x + deltax, y - deltay, color );
+  im->pixelAdd( x - deltax, y - deltay, color );
+  }
+
+
+static float arcAngle( int cx, int cy, int px, int py )
+  {
+  return atan2f( py - cy, px - cx );
+  }
+
+static float arcAngle( QPoint center, QPoint p )
+  {
+  return arcAngle( center.x(), center.y(), p.x(), p.y() );
+  }
+
+
+static bool angleHit( float startAngle, float sweepAngle, int cx, int cy, int px, int py )
+  {
+  float angle = arcAngle( cx, cy, px, py );
+  if( startAngle > sweepAngle )
+    return angle > startAngle || angle < sweepAngle;
+  return angle > startAngle && angle < sweepAngle;
+  }
+
+static void pixelSet8( SpImage *im, int x, int y, int deltax0, int deltax1, int deltay0, int deltay1, SpColor color0, SpColor color1, float startAngle, float sweepAngle )
+  {
+  if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y + deltay0 ) ) {
+    im->pixelAdd( x + deltax0, y + deltay0, color0 );
+    im->pixelAdd( x + deltax1, y + deltay1, color1 );
+    }
+  if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y + deltay0 ) ) {
+    im->pixelAdd( x - deltax0, y + deltay0, color0 );
+    im->pixelAdd( x - deltax1, y + deltay1, color1 );
+    }
+  if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y - deltay0 ) ) {
+    im->pixelAdd( x + deltax0, y - deltay0, color0 );
+    im->pixelAdd( x + deltax1, y - deltay1, color1 );
+    }
+  if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y - deltay0 ) ) {
+    im->pixelAdd( x - deltax0, y - deltay0, color0 );
+    im->pixelAdd( x - deltax1, y - deltay1, color1 );
+    }
+  }
+
 
 
 SpImage::SpImage() :
@@ -188,14 +240,38 @@ void SpImage::editArea(SpImage &dest, QPoint a, QPoint b, bool cut)
 
 void SpImage::editMove(QPoint a, QPoint b, QPoint target, bool doCopy, bool doOverride)
   {
-  QMatrix move;
-  move.translate( -target.x() + b.x() - a.x(), -target.y() + b.y() - a.y() );
+  QTransform move( QTransform::fromTranslate( -target.x() + qMax( 0, b.x() - a.x() ), -target.y() + qMax( 0, b.y() - a.y() ) ) );
   editTransfer( a, b, move, doCopy, doOverride );
   }
 
 
 
-void SpImage::editTransfer(QPoint a, QPoint b, QMatrix &matrix, bool doCopy, bool doOverride)
+void SpImage::editRotate(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
+  {
+  QTransform rotate( QTransform::fromTranslate( -center.x(), -center.y() ) );
+  float ang = arcAngle( center, angle ) + M_PI_2;
+  rotate *= QTransform::fromScale(1.0,1.0).rotateRadians( -ang );
+  rotate *= QTransform::fromTranslate( center.x() - qMin(a.x(),b.x()), center.y() - qMin(a.y(),b.y()) );
+  editTransfer( a, b, rotate, doCopy, doOverride );
+  }
+
+
+
+void SpImage::editMirror(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
+  {
+  QTransform mirror;
+  mirror.translate( -center.x(), -center.y() );
+  float ang = arcAngle( center, angle ) * 180.0 / M_PI;
+  mirror.rotate( -ang );
+  mirror.scale( -1.0, 1.0 );
+  mirror.rotate( ang );
+  mirror.translate( center.x(), center.y() );
+  editTransfer( a, b, mirror, doCopy, doOverride );
+  }
+
+
+
+void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, bool doOverride)
   {
   //Copy selected
   SpImage area;
@@ -363,56 +439,6 @@ void SpImage::drawFillRect(QPoint a, QPoint b, SpColor color)
   while( x0 <= x1 )
     drawVLine( x0++, y0, y1, color );
   }
-
-
-static void pixelSet4( SpImage *im, int x, int y, int deltax, int deltay, SpColor color )
-  {
-  im->pixelAdd( x + deltax, y + deltay, color );
-  im->pixelAdd( x - deltax, y + deltay, color );
-  im->pixelAdd( x + deltax, y - deltay, color );
-  im->pixelAdd( x - deltax, y - deltay, color );
-  }
-
-
-static float arcAngle( int cx, int cy, int px, int py )
-  {
-  return atan2f( py - cy, px - cx );
-  }
-
-static float arcAngle( QPoint center, QPoint p )
-  {
-  return arcAngle( center.x(), center.y(), p.x(), p.y() );
-  }
-
-
-static bool angleHit( float startAngle, float sweepAngle, int cx, int cy, int px, int py )
-  {
-  float angle = arcAngle( cx, cy, px, py );
-  if( startAngle > sweepAngle )
-    return angle > startAngle || angle < sweepAngle;
-  return angle > startAngle && angle < sweepAngle;
-  }
-
-static void pixelSet8( SpImage *im, int x, int y, int deltax0, int deltax1, int deltay0, int deltay1, SpColor color0, SpColor color1, float startAngle, float sweepAngle )
-  {
-  if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y + deltay0 ) ) {
-    im->pixelAdd( x + deltax0, y + deltay0, color0 );
-    im->pixelAdd( x + deltax1, y + deltay1, color1 );
-    }
-  if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y + deltay0 ) ) {
-    im->pixelAdd( x - deltax0, y + deltay0, color0 );
-    im->pixelAdd( x - deltax1, y + deltay1, color1 );
-    }
-  if( angleHit( startAngle, sweepAngle, x, y, x + deltax0, y - deltay0 ) ) {
-    im->pixelAdd( x + deltax0, y - deltay0, color0 );
-    im->pixelAdd( x + deltax1, y - deltay1, color1 );
-    }
-  if( angleHit( startAngle, sweepAngle, x, y, x - deltax0, y - deltay0 ) ) {
-    im->pixelAdd( x - deltax0, y - deltay0, color0 );
-    im->pixelAdd( x - deltax1, y - deltay1, color1 );
-    }
-  }
-
 
 
 void SpImage::drawCircle(QPoint center, QPoint p, SpColor color)

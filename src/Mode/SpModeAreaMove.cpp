@@ -1,9 +1,12 @@
 #include "SpModeAreaMove.h"
+#include "Object/SpCmdAreaMove.h"
 
 #include <QObject>
 
-SpModeAreaMove::SpModeAreaMove() :
-  SpModeArea(2)
+SpModeAreaMove::SpModeAreaMove(bool doCopy, bool doOverride) :
+  SpModeArea(2),
+  mDoCopy(doCopy),
+  mDoOverride(doOverride)
   {
 
   }
@@ -12,7 +15,7 @@ SpModeAreaMove::SpModeAreaMove() :
 void SpModeAreaMove::paint(SpImage &dest, QPoint p, QColor color)
   {
   if( mStep == 2 ) {
-    dest.editMove( mFirst, mSecond, p, true, true );
+    dest.editMove( mFirst, mSecond, p, mDoCopy, mDoOverride );
     }
   else SpModeArea::paint( dest, p, color );
   }
@@ -29,5 +32,6 @@ QString SpModeAreaMove::stepDescription()
 
 SpCmd *SpModeAreaMove::object(QPoint p, QColor color)
   {
-  return nullptr;
+  Q_UNUSED(color)
+  return new SpCmdAreaMove( mFirst, mSecond, p, mDoCopy, mDoOverride );
   }

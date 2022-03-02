@@ -1,6 +1,7 @@
 #include "SpCmd.h"
 
-SpCmd::SpCmd()
+SpCmd::SpCmd() :
+  mVisible(true)
   {
 
   }

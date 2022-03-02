@@ -5,8 +5,10 @@
 
 class SpModeAreaMove : public SpModeArea
   {
+    bool mDoCopy;
+    bool mDoOverride;
   public:
-    SpModeAreaMove();
+    SpModeAreaMove( bool doCopy, bool doOverride );
 
     // SpMode interface
   public:

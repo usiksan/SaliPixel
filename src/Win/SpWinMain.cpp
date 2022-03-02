@@ -45,7 +45,10 @@ SpWinMain::SpWinMain(QWidget *parent)
 
   auto menuEdit = new QMenu( tr("Edit") );
   menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
-  menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
+  menuEdit->addAction( tr("Fragment move"), mEditor, &SpWinEditor::cmEditTransferMove );
+  menuEdit->addAction( tr("Fragment copy"), mEditor, &SpWinEditor::cmEditTransferCopy );
+  menuEdit->addAction( tr("Rotate move"), mEditor, &SpWinEditor::cmEditRotateMove );
+  menuEdit->addAction( tr("Rotate copy"), mEditor, &SpWinEditor::cmEditRotateCopy );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );

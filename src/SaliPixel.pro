@@ -16,6 +16,7 @@ SOURCES += \
     Mode/SpModeArc2.cpp \
     Mode/SpModeArea.cpp \
     Mode/SpModeAreaMove.cpp \
+    Mode/SpModeAreaRotate.cpp \
     Mode/SpModeCircle.cpp \
     Mode/SpModeCircle2.cpp \
     Mode/SpModeClearCircle.cpp \
@@ -31,6 +32,9 @@ SOURCES += \
     Mode/SpModeTriangle.cpp \
     Object/SpCmd.cpp \
     Object/SpCmdArc.cpp \
+    Object/SpCmdArea.cpp \
+    Object/SpCmdAreaMove.cpp \
+    Object/SpCmdAreaRotate.cpp \
     Object/SpCmdCircle.cpp \
     Object/SpCmdClearCircle.cpp \
     Object/SpCmdClearPoint.cpp \
@@ -56,6 +60,7 @@ HEADERS += \
     Mode/SpModeArc2.h \
     Mode/SpModeArea.h \
     Mode/SpModeAreaMove.h \
+    Mode/SpModeAreaRotate.h \
     Mode/SpModeCircle.h \
     Mode/SpModeCircle2.h \
     Mode/SpModeClearCircle.h \
@@ -71,6 +76,9 @@ HEADERS += \
     Mode/SpModeTriangle.h \
     Object/SpCmd.h \
     Object/SpCmdArc.h \
+    Object/SpCmdArea.h \
+    Object/SpCmdAreaMove.h \
+    Object/SpCmdAreaRotate.h \
     Object/SpCmdCircle.h \
     Object/SpCmdClearCircle.h \
     Object/SpCmdClearPoint.h \

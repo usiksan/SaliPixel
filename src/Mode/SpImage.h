@@ -5,7 +5,7 @@
 
 #include <QPoint>
 #include <QImage>
-#include <QMatrix>
+#include <QTransform>
 
 class SpImage
   {
@@ -63,7 +63,11 @@ class SpImage
 
     void    editMove( QPoint a, QPoint b, QPoint target, bool doCopy, bool doOverride );
 
-    void    editTransfer( QPoint a, QPoint b, QMatrix &matrix, bool doCopy, bool doOverride );
+    void    editRotate( QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride );
+
+    void    editMirror( QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride );
+
+    void    editTransfer( QPoint a, QPoint b, QTransform &matrix, bool doCopy, bool doOverride );
 
 
     void    selectionPoint( QPoint p );
