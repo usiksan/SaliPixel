@@ -1,12 +1,14 @@
-#ifndef SPMODEAREAMOVE_H
-#define SPMODEAREAMOVE_H
+#ifndef SPMODEAREARECTARRAY_H
+#define SPMODEAREARECTARRAY_H
 
 #include "SpModeArea.h"
 
-class SpModeAreaMove : public SpModeArea
+class SpModeAreaRectArray : public SpModeArea
   {
+    int mRowCount;
+    int mColumnCount;
   public:
-    SpModeAreaMove();
+    SpModeAreaRectArray( int row, int column );
 
     // SpMode interface
   public:
@@ -15,4 +17,4 @@ class SpModeAreaMove : public SpModeArea
     virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
-#endif // SPMODEAREAMOVE_H
+#endif // SPMODEAREARECTARRAY_H

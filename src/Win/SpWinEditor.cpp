@@ -20,12 +20,16 @@
 
 #include "Mode/SpModeAreaMove.h"
 #include "Mode/SpModeAreaRotate.h"
+#include "Mode/SpModeAreaMirror.h"
+#include "Mode/SpModeAreaRectArray.h"
+#include "Mode/SpModeAreaRoundArray.h"
 
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QInputDialog>
 #include <QDebug>
 
 SpWinEditor::SpWinEditor(QWidget *parent) :
@@ -144,28 +148,56 @@ void SpWinEditor::cmEditUndo()
     }
   }
 
-
-
-
-void SpWinEditor::cmEditTransferMove()
+void SpWinEditor::cmEditCopyToggle(bool state)
   {
-  setMode( new SpModeAreaMove( false, true ) );
+  SpModeArea::mDoCopy = state;
+  update();
   }
 
-void SpWinEditor::cmEditTransferCopy()
+void SpWinEditor::cmEditOverrideToggle(bool state)
   {
-  setMode( new SpModeAreaMove( true, true ) );
+  SpModeArea::mDoOverride = state;
+  update();
   }
 
-void SpWinEditor::cmEditRotateMove()
+
+
+
+void SpWinEditor::cmEditMove()
   {
-  setMode( new SpModeAreaRotate( false, true ) );
+  setMode( new SpModeAreaMove() );
   }
 
-void SpWinEditor::cmEditRotateCopy()
+
+void SpWinEditor::cmEditRotate()
   {
-  setMode( new SpModeAreaRotate( true, true ) );
+  setMode( new SpModeAreaRotate() );
   }
+
+void SpWinEditor::cmEditMirror()
+  {
+  setMode( new SpModeAreaMirror() );
+  }
+
+void SpWinEditor::cmEditRectArray()
+  {
+  SpDlgNew dlgDim(this);
+  dlgDim.setup( tr("Enter array dimesions"), tr("Column count:"), tr("Row count:"), 2, 2 );
+  if( dlgDim.exec() ) {
+    setMode( new SpModeAreaRectArray( qBound( 1, dlgDim.valueWidth(), 32), qBound( 1, dlgDim.valueHeight(), 32 ) ) );
+    }
+  }
+
+
+
+void SpWinEditor::cmEditRoundArray()
+  {
+  bool ok = true;
+  int items = QInputDialog::getInt( this, tr("Enter round item count"), tr("Round item count:"), 2, 1, 100, 1, &ok );
+  if( ok )
+    setMode( new SpModeAreaRoundArray(items) );
+  }
+
 
 
 

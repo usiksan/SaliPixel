@@ -6,6 +6,7 @@
 #include <QPoint>
 #include <QImage>
 #include <QTransform>
+#include <functional>
 
 class SpImage
   {
@@ -72,6 +73,8 @@ class SpImage
 
     void    selectionPoint( QPoint p );
 
+    void    selectionLine( QPoint a, QPoint b );
+
     void    selectionRect( QPoint a, QPoint b );
 
 
@@ -98,10 +101,14 @@ class SpImage
 
     static QPoint center( QPoint p0, QPoint p1 );
 
+    static QPoint rotate( QPoint center, QPoint zero, QPoint axiz, int index );
+
     static float  distance( QPoint p0, QPoint p1 );
 
   private:
     bool    isInside( QPoint p ) const { return p.x() >= 0 && p.x() < mWidth && p.y() >= 0 && p.y() < mHeight; }
+
+    void    hardLine( QPoint a, QPoint b, std::function<void (int,int)> drawFunction );
   };
 
 #endif // SPIMAGE_H

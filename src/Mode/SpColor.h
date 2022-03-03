@@ -15,6 +15,8 @@ struct SpColor {
 
     SpColor brightness( float br ) const;
 
+    SpColor scale( float s ) const;
+
     QColor  color() const;
 
     bool isEmpty() const { return mAlpha == 0; }
@@ -24,6 +26,12 @@ struct SpColor {
     void append( SpColor color );
 
     void invert();
+
+    int  alphaRed() const { return mRed * mAlpha; }
+
+    int  alphaGreen() const { return mGreen * mAlpha; }
+
+    int  alphaBlue() const { return mBlue * mAlpha; }
   };
 
 

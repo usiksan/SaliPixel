@@ -2,6 +2,9 @@
 
 #include <QObject>
 
+bool SpModeArea::mDoCopy;
+bool SpModeArea::mDoOverride;
+
 SpModeArea::SpModeArea(int maxStep) :
   SpMode(maxStep)
   {

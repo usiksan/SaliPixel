@@ -1,12 +1,14 @@
-#ifndef SPMODEAREAMOVE_H
-#define SPMODEAREAMOVE_H
+#ifndef SPMODEAREAROUNDARRAY_H
+#define SPMODEAREAROUNDARRAY_H
 
 #include "SpModeArea.h"
 
-class SpModeAreaMove : public SpModeArea
+class SpModeAreaRoundArray : public SpModeArea
   {
+    QPoint mCenter;
+    int    mItemCount;
   public:
-    SpModeAreaMove();
+    SpModeAreaRoundArray(int itemCount);
 
     // SpMode interface
   public:
@@ -15,4 +17,4 @@ class SpModeAreaMove : public SpModeArea
     virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
-#endif // SPMODEAREAMOVE_H
+#endif // SPMODEAREAROUNDARRAY_H

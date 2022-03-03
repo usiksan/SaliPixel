@@ -3,10 +3,8 @@
 
 #include <QObject>
 
-SpModeAreaRotate::SpModeAreaRotate(bool doCopy, bool doOverride) :
-  SpModeArea(3),
-  mDoCopy(doCopy),
-  mDoOverride(doOverride)
+SpModeAreaRotate::SpModeAreaRotate() :
+  SpModeArea(3)
   {
 
   }

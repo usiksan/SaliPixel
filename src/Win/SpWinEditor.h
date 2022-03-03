@@ -61,10 +61,13 @@ class SpWinEditor : public QWidget
 //    void cmFileExport();
 
     void cmEditUndo();
-    void cmEditTransferMove();
-    void cmEditTransferCopy();
-    void cmEditRotateMove();
-    void cmEditRotateCopy();
+    void cmEditCopyToggle( bool state );
+    void cmEditOverrideToggle( bool state );
+    void cmEditMove();
+    void cmEditRotate();
+    void cmEditMirror();
+    void cmEditRectArray();
+    void cmEditRoundArray();
 
     void cmDrawColor();
     void cmDrawBaseColor();

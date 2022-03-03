@@ -1,12 +1,13 @@
-#ifndef SPMODEAREAMOVE_H
-#define SPMODEAREAMOVE_H
+#ifndef SPMODEAREAMIRROR_H
+#define SPMODEAREAMIRROR_H
 
 #include "SpModeArea.h"
 
-class SpModeAreaMove : public SpModeArea
+class SpModeAreaMirror : public SpModeArea
   {
+    QPoint mMirrorLine;
   public:
-    SpModeAreaMove();
+    SpModeAreaMirror();
 
     // SpMode interface
   public:
@@ -15,4 +16,4 @@ class SpModeAreaMove : public SpModeArea
     virtual SpCmd *object(QPoint p, QColor color) override;
   };
 
-#endif // SPMODEAREAMOVE_H
+#endif // SPMODEAREAMIRROR_H

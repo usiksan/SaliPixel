@@ -11,6 +11,8 @@ class SpModeArea : public SpMode
   public:
     SpModeArea( int maxStep );
 
+    static bool mDoCopy;
+    static bool mDoOverride;
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;

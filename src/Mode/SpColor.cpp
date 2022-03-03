@@ -9,6 +9,13 @@ SpColor SpColor::brightness(float br) const
   return color;
   }
 
+SpColor SpColor::scale(float s) const
+  {
+  SpColor color(*this);
+  color.mAlpha = color.mAlpha * s;
+  return color;
+  }
+
 
 
 QColor SpColor::color() const

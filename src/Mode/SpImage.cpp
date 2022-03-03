@@ -248,8 +248,10 @@ void SpImage::editMove(QPoint a, QPoint b, QPoint target, bool doCopy, bool doOv
 
 void SpImage::editRotate(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
   {
+  QRect r(a,b);
+  float zero = arcAngle( center, r.center() );
   QTransform rotate( QTransform::fromTranslate( -center.x(), -center.y() ) );
-  float ang = arcAngle( center, angle ) + M_PI_2;
+  float ang = arcAngle( center, angle ) - zero;
   rotate *= QTransform::fromScale(1.0,1.0).rotateRadians( -ang );
   rotate *= QTransform::fromTranslate( center.x() - qMin(a.x(),b.x()), center.y() - qMin(a.y(),b.y()) );
   editTransfer( a, b, rotate, doCopy, doOverride );
@@ -259,13 +261,12 @@ void SpImage::editRotate(QPoint a, QPoint b, QPoint center, QPoint angle, bool d
 
 void SpImage::editMirror(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
   {
-  QTransform mirror;
-  mirror.translate( -center.x(), -center.y() );
-  float ang = arcAngle( center, angle ) * 180.0 / M_PI;
-  mirror.rotate( -ang );
-  mirror.scale( -1.0, 1.0 );
-  mirror.rotate( ang );
-  mirror.translate( center.x(), center.y() );
+  QTransform mirror( QTransform::fromTranslate( -center.x(), -center.y() ) );
+  float ang = arcAngle( center, angle ) + M_PI_2;
+  mirror *= QTransform::fromScale(1.0,1.0).rotateRadians( -ang );
+  mirror *= QTransform::fromScale( -1.0, 1.0 );
+  mirror *= QTransform::fromScale(1.0,1.0).rotateRadians( ang );
+  mirror *= QTransform::fromTranslate( center.x() - qMin(a.x(),b.x()), center.y() - qMin(a.y(),b.y()) );
   editTransfer( a, b, mirror, doCopy, doOverride );
   }
 
@@ -279,7 +280,21 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
 
   for( int x = 0; x < mWidth; x++ )
     for( int y = 0; y < mHeight; y++ ) {
-      SpColor color = area.pixel( matrix.map(QPoint(x,y)) );
+      QPointF p = matrix.map( QPointF(x,y) );
+      //Get 4 point for smooth
+      int x0 = ipart( p.x() );
+      int x1 = x0 + 1;
+      int y0 = ipart( p.y() );
+      int y1 = y0 + 1;
+      SpColor color = area.pixelGet( x0, y0 ).scale( rfpart(p.x()) * rfpart(p.y()) );
+      SpColor color1 = area.pixelGet( x1, y0 ).scale( fpart(p.x()) * rfpart(p.y()) );
+      SpColor color2 = area.pixelGet( x0, y1 ).scale( rfpart(p.x()) * fpart(p.y()) );
+      SpColor color3 = area.pixelGet( x1, y1 ).scale( fpart(p.x()) * fpart(p.y()) );
+      //SpColor color = area.pixel( matrix.map(QPoint(x,y)) );
+      color.mRed   = qBound( 0, (color.alphaRed() + color1.alphaRed() + color2.alphaRed() + color3.alphaRed()) / 255, 255 );
+      color.mGreen = qBound( 0, (color.alphaGreen() + color1.alphaGreen() + color2.alphaGreen() + color3.alphaGreen()) / 255, 255 );
+      color.mBlue  = qBound( 0, (color.alphaBlue() + color1.alphaBlue() + color2.alphaBlue() + color3.alphaBlue()) / 255, 255 );
+      color.mAlpha = color.mAlpha + color1.mAlpha + color2.mAlpha + color3.mAlpha;
       if( !color.isEmpty() ) {
         if( doOverride ) pixelSet( x, y, color );
         else             pixelAdd( x, y, color );
@@ -292,6 +307,13 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
 void SpImage::selectionPoint(QPoint p)
   {
   pixelInvert(p.x(), p.y());
+  }
+
+
+
+void SpImage::selectionLine(QPoint a, QPoint b)
+  {
+  hardLine( a, b, [this] (int x, int y) { pixelInvert(x,y); });
   }
 
 
@@ -574,11 +596,73 @@ QPoint SpImage::center(QPoint p0, QPoint p1)
   return QPoint( (p0.x() + p1.x()) / 2, (p0.y() + p1.y()) / 2 );
   }
 
+
+
+
+QPoint SpImage::rotate(QPoint center, QPoint zero, QPoint axiz, int index)
+  {
+  float zeroAng  = arcAngle( center, zero );
+  float angleStep = arcAngle( center, axiz ) - zeroAng;
+  angleStep *= index;
+  QTransform mat( QTransform::fromTranslate( -center.x(), -center.y() ) );
+  mat *= QTransform::fromScale(1.0,1.0).rotateRadians( angleStep );
+  mat *= QTransform::fromTranslate( center.x(), center.y() );
+  return mat.map( zero );
+  }
+
+
+
+
 float SpImage::distance(QPoint p0, QPoint p1)
   {
   float dx = p0.x() - p1.x();
   float dy = p0.y() - p1.y();
   return sqrtf( dx * dx + dy * dy );
+  }
+
+
+
+
+void SpImage::hardLine(QPoint a, QPoint b, std::function<void (int,int)> drawFunction )
+  {
+  int x0(a.x()), y0(a.y()), x1(b.x()), y1(b.y());
+  bool steep = qAbs(y1 - y0) > qAbs(x1 - x0);
+  if( steep ) {
+    //Change x<->y
+    qSwap( x0, y0 );
+    qSwap( x1, y1 );
+    }
+  if( x0 > x1 ) {
+    qSwap( x0, x1 );
+    qSwap( y0, y1 );
+    }
+  int deltax = qAbs(x1 - x0);
+  int deltay = qAbs(y1 - y0);
+  int error = deltax / 2;
+  int ystep = (y0 < y1) ? 1 : -1; //Grow direction for Y
+  int y = y0;
+  if( steep ) {
+    //Draw by Y
+    for( int x = x0; x <= x1; x++ ) {
+      drawFunction( y, x );
+      error -= deltay;
+      if( error < 0 ) {
+        y += ystep;
+        error += deltax;
+        }
+      }
+    }
+  else {
+    //Draw by X
+    for( int x = x0; x <= x1; x++ ) {
+      drawFunction( x, y );
+      error -= deltay;
+      if( error < 0 ) {
+        y += ystep;
+        error += deltax;
+        }
+      }
+    }
   }
 
 

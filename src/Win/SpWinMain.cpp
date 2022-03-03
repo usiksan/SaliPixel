@@ -45,10 +45,18 @@ SpWinMain::SpWinMain(QWidget *parent)
 
   auto menuEdit = new QMenu( tr("Edit") );
   menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
-  menuEdit->addAction( tr("Fragment move"), mEditor, &SpWinEditor::cmEditTransferMove );
-  menuEdit->addAction( tr("Fragment copy"), mEditor, &SpWinEditor::cmEditTransferCopy );
-  menuEdit->addAction( tr("Rotate move"), mEditor, &SpWinEditor::cmEditRotateMove );
-  menuEdit->addAction( tr("Rotate copy"), mEditor, &SpWinEditor::cmEditRotateCopy );
+  menuEdit->addSeparator();
+  auto copy = menuEdit->addAction( tr("Copy or move") );
+  copy->setCheckable(true);
+  connect( copy, &QAction::toggled, mEditor, &SpWinEditor::cmEditCopyToggle );
+  auto over = menuEdit->addAction( tr("Do override") );
+  over->setCheckable(true);
+  connect( over, &QAction::toggled, mEditor, &SpWinEditor::cmEditOverrideToggle );
+  menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
+  menuEdit->addAction( tr("Rotate"), mEditor, &SpWinEditor::cmEditRotate );
+  menuEdit->addAction( tr("Mirror"), mEditor, &SpWinEditor::cmEditMirror );
+  menuEdit->addAction( tr("Rectangle array"), mEditor, &SpWinEditor::cmEditRectArray );
+  menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );

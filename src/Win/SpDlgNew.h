@@ -15,8 +15,13 @@ class SpDlgNew : public QDialog
     explicit SpDlgNew(QWidget *parent = nullptr);
     ~SpDlgNew();
 
-    int imageWidth() const;
-    int imageHeight() const;
+    void setup( const QString &titleDlg, const QString &titleWidth, const QString &titleHeight, int defWidth, int defHeight );
+
+    int  imageWidth() const;
+    int  imageHeight() const;
+
+    int  valueWidth() const;
+    int  valueHeight() const;
   private:
     Ui::SpDlgNew *ui;
   };

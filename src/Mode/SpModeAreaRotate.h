@@ -6,10 +6,8 @@
 class SpModeAreaRotate : public SpModeArea
   {
     QPoint mCenter;
-    bool   mDoCopy;
-    bool   mDoOverride;
   public:
-    SpModeAreaRotate( bool doCopy, bool doOverride );
+    SpModeAreaRotate();
 
     // SpMode interface
   public:
