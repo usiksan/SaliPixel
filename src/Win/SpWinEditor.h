@@ -68,6 +68,7 @@ class SpWinEditor : public QWidget
     void cmEditMirror();
     void cmEditRectArray();
     void cmEditRoundArray();
+    void cmEditScale();
 
     void cmDrawColor();
     void cmDrawBaseColor();

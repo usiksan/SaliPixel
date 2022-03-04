@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     Mode/SpColor.cpp \
     Mode/SpImage.cpp \
+    Mode/SpImageScale.cpp \
     Mode/SpMode.cpp \
     Mode/SpModeArc.cpp \
     Mode/SpModeArc2.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
     Mode/SpModeAreaRectArray.cpp \
     Mode/SpModeAreaRotate.cpp \
     Mode/SpModeAreaRoundArray.cpp \
+    Mode/SpModeAreaScale.cpp \
     Mode/SpModeCircle.cpp \
     Mode/SpModeCircle2.cpp \
     Mode/SpModeClearCircle.cpp \
@@ -41,6 +43,7 @@ SOURCES += \
     Object/SpCmdAreaRectArray.cpp \
     Object/SpCmdAreaRotate.cpp \
     Object/SpCmdAreaRoundArray.cpp \
+    Object/SpCmdAreaScale.cpp \
     Object/SpCmdCircle.cpp \
     Object/SpCmdClearCircle.cpp \
     Object/SpCmdClearPoint.cpp \
@@ -70,6 +73,7 @@ HEADERS += \
     Mode/SpModeAreaRectArray.h \
     Mode/SpModeAreaRotate.h \
     Mode/SpModeAreaRoundArray.h \
+    Mode/SpModeAreaScale.h \
     Mode/SpModeCircle.h \
     Mode/SpModeCircle2.h \
     Mode/SpModeClearCircle.h \
@@ -91,6 +95,7 @@ HEADERS += \
     Object/SpCmdAreaRectArray.h \
     Object/SpCmdAreaRotate.h \
     Object/SpCmdAreaRoundArray.h \
+    Object/SpCmdAreaScale.h \
     Object/SpCmdCircle.h \
     Object/SpCmdClearCircle.h \
     Object/SpCmdClearPoint.h \

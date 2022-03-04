@@ -168,6 +168,25 @@ QImage SpImage::toImage() const
 
 
 
+void SpImage::imageSet(const QImage &im)
+  {
+  if( im.width() <= 0 || im.height() <= 0 )
+    return;
+  resize( im.width(), im.height() );
+  imagePaste( QPoint(), im );
+  }
+
+
+
+void SpImage::imagePaste(QPoint pos, const QImage &im)
+  {
+  for( int x = 0; x < im.width(); x++ )
+    for( int y = 0; y < im.height(); y++ )
+      pixelSet( pos.x() + x, pos.y() + y, SpColor( im.pixelColor(x,y) )  );
+  }
+
+
+
 void SpImage::clearPixel(QPoint p)
   {
   pixelClear( p.x(), p.y() );
@@ -300,6 +319,26 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
         else             pixelAdd( x, y, color );
         }
       }
+  }
+
+
+
+
+void SpImage::editScale(QPoint a, QPoint b, QPoint scale)
+  {
+  //Copy selected
+  SpImage area;
+  editArea( area, a, b, true );
+  int w = qAbs( scale.x() - a.x() );
+  int h = qAbs( scale.y() - a.y() );
+
+  if( w != 0 && h != 0 ) {
+    QImage scaled = area.toImage().scaled( w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation );
+
+    QPoint dest( qMin(a.x(), scale.x()), qMin(a.y(), scale.y()) );
+    imagePaste( dest, scaled );
+    }
+
   }
 
 

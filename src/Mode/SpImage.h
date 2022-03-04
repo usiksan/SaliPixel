@@ -50,6 +50,10 @@ class SpImage
 
     QImage  toImage() const;
 
+    void    imageSet( const QImage &im );
+
+    void    imagePaste( QPoint pos, const QImage &im );
+
 
     void    clearPixel( QPoint p );
 
@@ -69,6 +73,8 @@ class SpImage
     void    editMirror( QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride );
 
     void    editTransfer( QPoint a, QPoint b, QTransform &matrix, bool doCopy, bool doOverride );
+
+    void    editScale( QPoint a, QPoint b, QPoint scale );
 
 
     void    selectionPoint( QPoint p );

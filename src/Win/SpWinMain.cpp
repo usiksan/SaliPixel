@@ -57,6 +57,7 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuEdit->addAction( tr("Mirror"), mEditor, &SpWinEditor::cmEditMirror );
   menuEdit->addAction( tr("Rectangle array"), mEditor, &SpWinEditor::cmEditRectArray );
   menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
+  menuEdit->addAction( tr("Scale"), mEditor, &SpWinEditor::cmEditScale );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );

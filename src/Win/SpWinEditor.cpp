@@ -23,6 +23,7 @@
 #include "Mode/SpModeAreaMirror.h"
 #include "Mode/SpModeAreaRectArray.h"
 #include "Mode/SpModeAreaRoundArray.h"
+#include "Mode/SpModeAreaScale.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -196,6 +197,13 @@ void SpWinEditor::cmEditRoundArray()
   int items = QInputDialog::getInt( this, tr("Enter round item count"), tr("Round item count:"), 2, 1, 100, 1, &ok );
   if( ok )
     setMode( new SpModeAreaRoundArray(items) );
+  }
+
+
+
+void SpWinEditor::cmEditScale()
+  {
+  setMode( new SpModeAreaScale() );
   }
 
 
