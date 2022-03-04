@@ -11,7 +11,6 @@ CONFIG += c++11
 SOURCES += \
     Mode/SpColor.cpp \
     Mode/SpImage.cpp \
-    Mode/SpImageScale.cpp \
     Mode/SpMode.cpp \
     Mode/SpModeArc.cpp \
     Mode/SpModeArc2.cpp \
