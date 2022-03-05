@@ -1,9 +1,7 @@
 #include "SpCmdClearCircle.h"
 
 SpCmdClearCircle::SpCmdClearCircle(QPoint center, QPoint p) :
-  SpCmd(),
-  mCenter(center),
-  mPoint(p)
+  SpCmdCircle( center, p, QColor{} )
   {
 
   }
@@ -12,5 +10,8 @@ SpCmdClearCircle::SpCmdClearCircle(QPoint center, QPoint p) :
 void SpCmdClearCircle::paint(SpImage &im)
   {
   if( mVisible )
-    im.clearCircle( mCenter, mPoint );
+    im.clearCircle( mCenter, mRadius );
   }
+
+
+

@@ -14,3 +14,21 @@ void SpCmdCircle::paint(SpImage &im)
   if( mVisible )
     im.drawCircle( mCenter, mRadius, mColor );
   }
+
+
+
+void SpCmdCircle::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmd::jsonWrite( js );
+  js.jsonPoint( "center", mCenter );
+  js.jsonPoint( "radius", mRadius );
+  }
+
+
+
+void SpCmdCircle::jsonRead(SvJsonReader &js)
+  {
+  SpCmd::jsonRead( js );
+  js.jsonPoint( "center", mCenter );
+  js.jsonPoint( "radius", mRadius );
+  }

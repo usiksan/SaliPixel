@@ -1,3 +1,4 @@
+#include "SpConfig.h"
 #include "SpWinEditor.h"
 #include "SpDlgNew.h"
 #include "Mode/SpMode.h"
@@ -79,6 +80,7 @@ void SpWinEditor::setMode(SpMode *md)
 
 void SpWinEditor::clear()
   {
+  mPath.clear();
   qDeleteAll( mObjects );
   mObjects.clear();
   if( mMode ) mMode->reset();
@@ -92,6 +94,17 @@ void SpWinEditor::clear()
 QPoint SpWinEditor::div20(QPoint p) const
   {
   return QPoint( p.x() / mScale, p.y() / mScale );
+  }
+
+
+
+
+void SpWinEditor::repaintObjects()
+  {
+  mImage.clear();
+  for( auto ptr : qAsConst(mObjects) )
+    ptr->paint( mImage );
+  mWork = mImage;
   }
 
 
@@ -112,27 +125,78 @@ void SpWinEditor::cmFileNew()
 
 
 
+
+void SpWinEditor::cmFileOpen()
+  {
+  if( canClose() ) {
+    QString newPath = QFileDialog::getOpenFileName( this, tr("Enter file name for salipixel"), QString{}, QStringLiteral("SaliPixel files (*%1)").arg( QStringLiteral(SP_EXTENSION)) );
+    if( !newPath.isEmpty() ) {
+      QFile file(newPath);
+      if( file.open(QIODevice::ReadOnly) ) {
+        mPath = newPath;
+        mDirty = false;
+        QJsonObject obj = svJsonObjectFromByteArray(file.readAll());
+        SvJsonReader js( obj );
+        int w, h;
+        js.jsonInt( "width", w );
+        js.jsonInt( "height", h );
+        js.jsonListPtr( "command", mObjects );
+        mImage.resize( w, h );
+        repaintObjects();
+        update();
+        }
+      }
+    }
+  }
+
+
+
 void SpWinEditor::cmFileSave()
   {
   if( mPath.isEmpty() )
     cmFileSaveAs();
-  mImage.toImage().save( mPath );
-  mDirty = false;
+  else {
+    QFile file(mPath);
+    if( file.open(QIODevice::WriteOnly) ) {
+      SvJsonWriter js;
+      int w(mImage.width()), h(mImage.height());
+      js.jsonInt( "width", w );
+      js.jsonInt( "height", h );
+      js.jsonListPtr( "command", mObjects );
+      file.write( svJsonObjectToByteArray(js.object()) );
+      mDirty = false;
+      }
+    }
   }
 
 
 
 void SpWinEditor::cmFileSaveAs()
   {
-  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for image"), QString{}, QStringLiteral("PNG files {*.png}") );
+  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for salipixel"), QString{}, QStringLiteral("SaliPixel files (*%1)").arg( QStringLiteral(SP_EXTENSION)) );
   if( !newPath.isEmpty() ) {
-    if( newPath.endsWith( QStringLiteral(".png") ) )
+    if( newPath.endsWith( QStringLiteral(SP_EXTENSION) ) )
       mPath = newPath;
     else
-      mPath = newPath + QStringLiteral(".png");
+      mPath = newPath + QStringLiteral(SP_EXTENSION);
     cmFileSave();
     }
   }
+
+
+
+
+void SpWinEditor::cmFileExport()
+  {
+  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for image"), QString{}, QStringLiteral("PNG files (*.png)") );
+  if( !newPath.isEmpty() ) {
+    if( !newPath.endsWith( QStringLiteral(".png") ) )
+      newPath.append( QStringLiteral(".png") );
+    mImage.toImage().save( newPath );
+    }
+  }
+
+
 
 void SpWinEditor::cmEditUndo()
   {
@@ -141,10 +205,8 @@ void SpWinEditor::cmEditUndo()
     mObjects.removeLast();
     if( mMode != nullptr )
       mMode->reset();
-    mImage.clear();
-    for( auto ptr : qAsConst(mObjects) )
-      ptr->paint( mImage );
-    mWork = mImage;
+    mDirty = true;
+    repaintObjects();
     update();
     }
   }
@@ -204,6 +266,13 @@ void SpWinEditor::cmEditRoundArray()
 void SpWinEditor::cmEditScale()
   {
   setMode( new SpModeAreaScale() );
+  }
+
+
+
+void SpWinEditor::cmEditInsert()
+  {
+
   }
 
 
@@ -382,6 +451,7 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
         mObjects.append( obj );
       //Apply current
       mImage.set( mWork );
+      mDirty = true;
       }
     }
   else if( event->button() == Qt::RightButton ) {

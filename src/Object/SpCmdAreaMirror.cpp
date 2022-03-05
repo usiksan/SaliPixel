@@ -16,3 +16,26 @@ void SpCmdAreaMirror::paint(SpImage &im)
   if( mVisible )
     im.editMirror( mSelect0, mSelect1, mMirrorLine0, mMirrorLine1, mDoCopy, mDoOverride );
   }
+
+
+
+
+void SpCmdAreaMirror::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmdArea::jsonWrite( js );
+  js.jsonPoint( "mirrorLine0", mMirrorLine0 );
+  js.jsonPoint( "mirrorLine1", mMirrorLine1 );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }
+
+
+
+void SpCmdAreaMirror::jsonRead(SvJsonReader &js)
+  {
+  SpCmdArea::jsonRead( js );
+  js.jsonPoint( "mirrorLine0", mMirrorLine0 );
+  js.jsonPoint( "mirrorLine1", mMirrorLine1 );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }

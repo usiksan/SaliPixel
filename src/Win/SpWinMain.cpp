@@ -39,8 +39,12 @@ SpWinMain::SpWinMain(QWidget *parent)
 
   auto menuFile = new QMenu( tr("File") );
   menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::cmFileNew );
+  menuFile->addAction( tr("Open..."), mEditor, &SpWinEditor::cmFileOpen );
   menuFile->addAction( tr("Save"), mEditor, &SpWinEditor::cmFileSave );
   menuFile->addAction( tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs );
+  menuFile->addSeparator();
+  menuFile->addAction( tr("Export to png"), mEditor, &SpWinEditor::cmFileExport );
+  menuFile->addSeparator();
   menuFile->addAction( tr("Exit"), this, &SpWinMain::close );
 
   auto menuEdit = new QMenu( tr("Edit") );

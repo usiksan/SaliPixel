@@ -18,3 +18,24 @@ void SpCmdTriangle::paint(SpImage &im)
     im.drawLine( mVertex2, mVertex0, mColor );
     }
   }
+
+
+
+void SpCmdTriangle::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmd::jsonWrite( js );
+  js.jsonPoint( "vertext0", mVertex0 );
+  js.jsonPoint( "vertext1", mVertex1 );
+  js.jsonPoint( "vertext2", mVertex2 );
+  }
+
+
+
+
+void SpCmdTriangle::jsonRead(SvJsonReader &js)
+  {
+  SpCmd::jsonRead( js );
+  js.jsonPoint( "vertext0", mVertex0 );
+  js.jsonPoint( "vertext1", mVertex1 );
+  js.jsonPoint( "vertext2", mVertex2 );
+  }

@@ -1,0 +1,62 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 8,
+                "y": 4
+            },
+            "id": "Rect",
+            "second": {
+                "x": 24,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Triangle",
+            "vertext0": {
+                "x": 18,
+                "y": 4
+            },
+            "vertext1": {
+                "x": 24,
+                "y": 10
+            },
+            "vertext2": {
+                "x": 18,
+                "y": 10
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "first": {
+                "x": 19,
+                "y": 2
+            },
+            "id": "ClearRect",
+            "second": {
+                "x": 25,
+                "y": 4
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "first": {
+                "x": 24,
+                "y": 4
+            },
+            "id": "ClearRect",
+            "second": {
+                "x": 26,
+                "y": 9
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

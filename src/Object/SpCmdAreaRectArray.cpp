@@ -21,3 +21,26 @@ void SpCmdAreaRectArray::paint(SpImage &im)
         }
     }
   }
+
+
+
+
+void SpCmdAreaRectArray::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmdArea::jsonWrite( js );
+  js.jsonPoint( "delta", mDelta );
+  js.jsonInt( "rows", mRows );
+  js.jsonInt( "columns", mColumns );
+  js.jsonBool( "doOverride", mDoOverride );
+  }
+
+
+
+void SpCmdAreaRectArray::jsonRead(SvJsonReader &js)
+  {
+  SpCmdArea::jsonRead( js );
+  js.jsonPoint( "delta", mDelta );
+  js.jsonInt( "rows", mRows );
+  js.jsonInt( "columns", mColumns );
+  js.jsonBool( "doOverride", mDoOverride );
+  }

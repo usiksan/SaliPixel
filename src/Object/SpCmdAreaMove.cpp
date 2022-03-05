@@ -15,3 +15,24 @@ void SpCmdAreaMove::paint(SpImage &im)
   if( mVisible )
     im.editMove( mSelect0, mSelect1, mTarget, mDoCopy, mDoOverride );
   }
+
+
+
+void SpCmdAreaMove::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmdArea::jsonWrite( js );
+  js.jsonPoint( "target", mTarget );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }
+
+
+
+
+void SpCmdAreaMove::jsonRead(SvJsonReader &js)
+  {
+  SpCmdArea::jsonRead( js );
+  js.jsonPoint( "target", mTarget );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }

@@ -77,6 +77,10 @@ SpImage::~SpImage()
 
 void SpImage::resize(int w, int h)
   {
+  //Check invalid size
+  if( w <= 0 || h <= 0 )
+    return;
+
   if( mArea != nullptr )
     delete mArea;
 

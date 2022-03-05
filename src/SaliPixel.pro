@@ -106,7 +106,9 @@ HEADERS += \
     Object/SpCmdPoint.h \
     Object/SpCmdRect.h \
     Object/SpCmdTriangle.h \
+    Object/SpJsonIO.h \
     SpConfig.h \
+    SvLib/SvJsonIO.h \
     Win/SpDlgNew.h \
     Win/SpWinEditor.h \
     Win/SpWinMain.h

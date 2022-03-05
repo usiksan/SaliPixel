@@ -13,6 +13,12 @@ Description
 
 History
   27.02.2022 v0.1  created
+  05.02.2022 v0.3  global refactor
+                   file now saved as command list i.e. source form,
+                     it is possible open and change previously created files
+                   png saved as export
+             v0.4  Fix: file new not clear previous file name
+                        no export to png
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -25,7 +31,9 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             2
+#define SP_VERSION_MINOR             4
+
+#define SP_EXTENSION                 ".salipixel"
 
 //Settings key names
 #define KEY_LANGUAGE                 "Language"

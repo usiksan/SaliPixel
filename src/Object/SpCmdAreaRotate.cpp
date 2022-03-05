@@ -16,3 +16,26 @@ void SpCmdAreaRotate::paint(SpImage &im)
   if( mVisible )
     im.editRotate( mSelect0, mSelect1, mCenter, mAngle, mDoCopy, mDoOverride );
   }
+
+
+
+void SpCmdAreaRotate::jsonWrite(SvJsonWriter &js)
+  {
+  SpCmdArea::jsonWrite( js );
+  js.jsonPoint( "center", mCenter );
+  js.jsonPoint( "angle", mAngle );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }
+
+
+
+
+void SpCmdAreaRotate::jsonRead(SvJsonReader &js)
+  {
+  SpCmdArea::jsonRead( js );
+  js.jsonPoint( "center", mCenter );
+  js.jsonPoint( "angle", mAngle );
+  js.jsonBool( "doCopy", mDoCopy );
+  js.jsonBool( "doOverride", mDoOverride );
+  }

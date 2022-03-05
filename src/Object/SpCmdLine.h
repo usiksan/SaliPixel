@@ -3,6 +3,8 @@
 
 #include "SpCmd.h"
 
+#define SP_CMD_LINE QStringLiteral("Line")
+
 class SpCmdLine : public SpCmd
   {
     QPoint mStart;
@@ -13,7 +15,10 @@ class SpCmdLine : public SpCmd
 
     // SpCmd interface
   public:
-    virtual void paint(SpImage &im) override;
+    virtual void    paint(SpImage &im) override;
+    virtual QString id() const override { return SP_CMD_LINE; }
+    virtual void    jsonWrite(SvJsonWriter &js) override;
+    virtual void    jsonRead(SvJsonReader &js) override;
   };
 
 #endif // SPCMDLINE_H

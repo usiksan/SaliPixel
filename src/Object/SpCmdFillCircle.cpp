@@ -12,3 +12,5 @@ void SpCmdFillCircle::paint(SpImage &im)
   if( mVisible )
     im.drawFillCircle( mCenter, mRadius, mColor );
   }
+
+

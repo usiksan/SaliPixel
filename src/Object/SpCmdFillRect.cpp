@@ -12,3 +12,5 @@ void SpCmdFillRect::paint(SpImage &im)
   if( mVisible )
     im.drawFillRect( mFirst, mSecond, mColor );
   }
+
+

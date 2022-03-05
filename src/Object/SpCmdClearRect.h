@@ -1,18 +1,20 @@
 #ifndef SPCMDCLEARRECT_H
 #define SPCMDCLEARRECT_H
 
-#include "SpCmd.h"
+#include "SpCmdRect.h"
 
-class SpCmdClearRect : public SpCmd
+#define SP_CMD_CLEAR_RECT QStringLiteral("ClearRect")
+
+class SpCmdClearRect : public SpCmdRect
   {
-    QPoint mVertex0;
-    QPoint mVertex1;
   public:
+    SpCmdClearRect() : SpCmdRect() {}
     SpCmdClearRect( QPoint v0, QPoint v1 );
 
     // SpCmd interface
   public:
-    virtual void paint(SpImage &im) override;
+    virtual void    paint(SpImage &im) override;
+    virtual QString id() const override { return SP_CMD_CLEAR_RECT; }
   };
 
 #endif // SPCMDCLEARRECT_H

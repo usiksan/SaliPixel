@@ -3,6 +3,8 @@
 
 #include "SpCmd.h"
 
+#define SP_CMD_RECT QStringLiteral("Rect")
+
 class SpCmdRect : public SpCmd
   {
   protected:
@@ -15,7 +17,10 @@ class SpCmdRect : public SpCmd
 
     // SpCmd interface
   public:
-    virtual void paint(SpImage &im) override;
+    virtual void    paint(SpImage &im) override;
+    virtual QString id() const override { return SP_CMD_RECT; }
+    virtual void    jsonWrite(SvJsonWriter &js) override;
+    virtual void    jsonRead(SvJsonReader &js) override;
   };
 
 #endif // SPCMDRECT_H

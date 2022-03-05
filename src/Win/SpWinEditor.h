@@ -51,14 +51,17 @@ class SpWinEditor : public QWidget
 
     QPoint div20( QPoint p ) const;
 
+    void   repaintObjects();
+
   signals:
     void stepMessage( const QString msg );
 
   public slots:
     void cmFileNew();
+    void cmFileOpen();
     void cmFileSave();
     void cmFileSaveAs();
-//    void cmFileExport();
+    void cmFileExport();
 
     void cmEditUndo();
     void cmEditCopyToggle( bool state );
@@ -69,6 +72,7 @@ class SpWinEditor : public QWidget
     void cmEditRectArray();
     void cmEditRoundArray();
     void cmEditScale();
+    void cmEditInsert();
 
     void cmDrawColor();
     void cmDrawBaseColor();
