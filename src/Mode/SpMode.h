@@ -14,6 +14,8 @@ class SpMode
     SpMode( int stepMax );
     virtual ~SpMode() {}
 
+    virtual bool    showPoints() const { return false; }
+
     virtual void    paint( SpImage &dest, QPoint p, QColor color ) = 0;
 
     virtual bool    left();

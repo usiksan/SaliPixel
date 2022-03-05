@@ -39,3 +39,13 @@ void SpCmdAreaMirror::jsonRead(SvJsonReader &js)
   js.jsonBool( "doCopy", mDoCopy );
   js.jsonBool( "doOverride", mDoOverride );
   }
+
+
+void SpCmdAreaMirror::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    //SpCmdArea::parsePoints( parser );
+    parser( mMirrorLine0 );
+    parser( mMirrorLine1 );
+    }
+  }

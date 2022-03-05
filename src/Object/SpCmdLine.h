@@ -19,6 +19,7 @@ class SpCmdLine : public SpCmd
     virtual QString id() const override { return SP_CMD_LINE; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDLINE_H

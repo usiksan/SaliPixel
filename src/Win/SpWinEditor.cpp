@@ -26,6 +26,8 @@
 #include "Mode/SpModeAreaRoundArray.h"
 #include "Mode/SpModeAreaScale.h"
 
+#include "Mode/SpModeEditPoint.h"
+
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
@@ -75,6 +77,7 @@ void SpWinEditor::setMode(SpMode *md)
   mMode = md;
   if( mMode != nullptr )
     emit stepMessage( mMode->stepDescription() );
+  update();
   }
 
 
@@ -275,6 +278,11 @@ void SpWinEditor::cmEditInsert()
 
   }
 
+void SpWinEditor::cmEditMovePoint()
+  {
+  setMode( new SpModeEditPoint( mObjects ) );
+  }
+
 
 
 
@@ -402,6 +410,18 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
   //Draw current color
   painter.setBrush( QBrush( mColor ) );
   painter.drawRect( width() - 32, height() - 32, 32, 32 );
+
+  //Draw cmd points
+  if( mMode != nullptr && mMode->showPoints() && mScale >= 4 ) {
+    int scale(mScale);
+    auto drawer = [&painter,scale] ( QPoint &p ) {
+      painter.drawEllipse( p.x() * scale + 2, p.y() * scale + 2, scale - 2, scale - 2 );
+      };
+    painter.setPen( QColor(Qt::red) );
+    painter.setBrush( QColor(Qt::green) );
+    for( auto ptr : qAsConst(mObjects) )
+      ptr->parsePoints( drawer );
+    }
 
   //Grid
   if( mScale >= 3 ) {

@@ -22,3 +22,13 @@ void SpCmdArea::jsonRead(SvJsonReader &js)
   js.jsonPoint( "select0", mSelect0 );
   js.jsonPoint( "select1", mSelect1 );
   }
+
+
+
+void SpCmdArea::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mSelect0);
+    parser(mSelect1);
+    }
+  }

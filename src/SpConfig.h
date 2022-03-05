@@ -19,6 +19,7 @@ History
                    png saved as export
              v0.4  Fix: file new not clear previous file name
                         no export to png
+             v0.5  Append vector edit service
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -31,7 +32,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             4
+#define SP_VERSION_MINOR             5
 
 #define SP_EXTENSION                 ".salipixel"
 

@@ -39,3 +39,12 @@ void SpCmdAreaRotate::jsonRead(SvJsonReader &js)
   js.jsonBool( "doCopy", mDoCopy );
   js.jsonBool( "doOverride", mDoOverride );
   }
+
+
+void SpCmdAreaRotate::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mCenter);
+    parser(mAngle);
+    }
+  }

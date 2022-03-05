@@ -31,7 +31,7 @@ class SpWinEditor : public QWidget
 
     SpImage          mWork;
     SpImage          mImage;
-    QList<SpCmdPtr>  mObjects;
+    SpCmdPtrList     mObjects;
     SpMode          *mMode;
     QColor           mColor;
     QPoint           mPoint;
@@ -73,6 +73,7 @@ class SpWinEditor : public QWidget
     void cmEditRoundArray();
     void cmEditScale();
     void cmEditInsert();
+    void cmEditMovePoint();
 
     void cmDrawColor();
     void cmDrawBaseColor();

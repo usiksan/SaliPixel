@@ -46,3 +46,12 @@ void SpCmdAreaRoundArray::jsonRead(SvJsonReader &js)
   js.jsonInt( "itemCount", mItemCount );
   js.jsonBool( "doOverride", mDoOverride );
   }
+
+
+void SpCmdAreaRoundArray::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mCenter);
+    parser(mAngle);
+    }
+  }

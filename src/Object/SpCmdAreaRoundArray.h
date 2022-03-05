@@ -22,6 +22,7 @@ class SpCmdAreaRoundArray : public SpCmdArea
     virtual QString id() const override { return SP_CMD_AREA_ROUND_ARRAY; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDAREAROUNDARRAY_H

@@ -44,3 +44,10 @@ void SpCmdAreaRectArray::jsonRead(SvJsonReader &js)
   js.jsonInt( "columns", mColumns );
   js.jsonBool( "doOverride", mDoOverride );
   }
+
+
+void SpCmdAreaRectArray::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible )
+    parser(mDelta);
+  }

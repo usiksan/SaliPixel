@@ -29,3 +29,12 @@ void SpCmdRect::jsonRead(SvJsonReader &js)
   js.jsonPoint( "first", mFirst );
   js.jsonPoint( "second", mSecond );
   }
+
+
+void SpCmdRect::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mFirst);
+    parser(mSecond);
+    }
+  }

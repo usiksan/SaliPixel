@@ -4,6 +4,9 @@
 #include "Mode/SpImage.h"
 #include "SvLib/SvJsonIO.h"
 
+#include <QList>
+#include <functional>
+
 class SpCmd
   {
   protected:
@@ -24,9 +27,13 @@ class SpCmd
 
     virtual void    jsonRead( SvJsonReader &js );
 
+    virtual void    parsePoints( std::function<void (QPoint &p)> parser );
+
     static SpCmd   *build( SvJsonReader &js );
   };
 
 using SpCmdPtr = SpCmd*;
+
+using SpCmdPtrList = QList<SpCmdPtr>;
 
 #endif // SPCMD_H

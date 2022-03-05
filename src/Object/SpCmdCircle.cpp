@@ -32,3 +32,12 @@ void SpCmdCircle::jsonRead(SvJsonReader &js)
   js.jsonPoint( "center", mCenter );
   js.jsonPoint( "radius", mRadius );
   }
+
+
+void SpCmdCircle::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mCenter);
+    parser(mRadius);
+    }
+  }

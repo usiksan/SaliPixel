@@ -1,7 +1,7 @@
 #include "SpImage.h"
 
 #include <QStack>
-#include <QDebug>
+//#include <QDebug>
 #include <cmath>
 
 inline int   ipart(float x) { return int(floorf(x)); }

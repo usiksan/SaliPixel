@@ -26,6 +26,7 @@ SOURCES += \
     Mode/SpModeClearCircle.cpp \
     Mode/SpModeClearPoint.cpp \
     Mode/SpModeClearRect.cpp \
+    Mode/SpModeEditPoint.cpp \
     Mode/SpModeFill.cpp \
     Mode/SpModeFillCircle.cpp \
     Mode/SpModeFillRect.cpp \
@@ -78,6 +79,7 @@ HEADERS += \
     Mode/SpModeClearCircle.h \
     Mode/SpModeClearPoint.h \
     Mode/SpModeClearRect.h \
+    Mode/SpModeEditPoint.h \
     Mode/SpModeFill.h \
     Mode/SpModeFillCircle.h \
     Mode/SpModeFillRect.h \

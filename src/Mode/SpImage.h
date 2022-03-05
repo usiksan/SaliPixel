@@ -83,7 +83,6 @@ class SpImage
 
     void    selectionRect( QPoint a, QPoint b );
 
-
     void    drawPixel( QPoint p, SpColor color );
 
     void    drawLine( QPoint a, QPoint b, SpColor color );

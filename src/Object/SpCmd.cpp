@@ -37,6 +37,12 @@ void SpCmd::jsonRead(SvJsonReader &js)
   js.jsonColor( "color", mColor );
   }
 
+void SpCmd::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  Q_UNUSED(parser);
+  }
+
+
 SpCmd *SpCmd::build(SvJsonReader &js)
   {
   QString id;

@@ -20,6 +20,7 @@ class SpCmdCircle : public SpCmd
     virtual QString id() const override { return SP_CMD_CIRCLE; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDCIRCLE_H

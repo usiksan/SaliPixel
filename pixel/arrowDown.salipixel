@@ -5,15 +5,15 @@
             "id": "Triangle",
             "vertext0": {
                 "x": 8,
-                "y": 16
+                "y": 18
             },
             "vertext1": {
-                "x": 16,
-                "y": 26
+                "x": 19,
+                "y": 23
             },
             "vertext2": {
-                "x": 6,
-                "y": 27
+                "x": 10,
+                "y": 29
             },
             "visible": true
         },
@@ -119,6 +119,51 @@
             "point": {
                 "x": 12,
                 "y": 19
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "id": "ClearPoint",
+            "point": {
+                "x": 14,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "id": "ClearPoint",
+            "point": {
+                "x": 15,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "id": "ClearPoint",
+            "point": {
+                "x": 15,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "id": "ClearPoint",
+            "point": {
+                "x": 16,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "id": "ClearPoint",
+            "point": {
+                "x": 28,
+                "y": 15
             },
             "visible": true
         }

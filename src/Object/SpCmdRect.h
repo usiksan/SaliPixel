@@ -21,6 +21,7 @@ class SpCmdRect : public SpCmd
     virtual QString id() const override { return SP_CMD_RECT; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDRECT_H

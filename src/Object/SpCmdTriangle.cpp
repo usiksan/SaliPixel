@@ -39,3 +39,13 @@ void SpCmdTriangle::jsonRead(SvJsonReader &js)
   js.jsonPoint( "vertext1", mVertex1 );
   js.jsonPoint( "vertext2", mVertex2 );
   }
+
+
+void SpCmdTriangle::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mVertex0);
+    parser(mVertex1);
+    parser(mVertex2);
+    }
+  }

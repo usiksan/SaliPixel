@@ -20,6 +20,7 @@ class SpCmdArc : public SpCmd
     virtual QString id() const override { return SP_CMD_ARC; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint&)> parser) override;
   };
 
 #endif // SPCMDARC_H

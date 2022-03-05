@@ -14,8 +14,9 @@ class SpCmdArea : public SpCmd
 
     // SpCmd interface
   public:
-    virtual void jsonWrite(SvJsonWriter &js) override;
-    virtual void jsonRead(SvJsonReader &js) override;
+    virtual void    jsonWrite(SvJsonWriter &js) override;
+    virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDAREA_H

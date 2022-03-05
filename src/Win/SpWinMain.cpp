@@ -62,6 +62,8 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuEdit->addAction( tr("Rectangle array"), mEditor, &SpWinEditor::cmEditRectArray );
   menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
   menuEdit->addAction( tr("Scale"), mEditor, &SpWinEditor::cmEditScale );
+  menuEdit->addSeparator();
+  menuEdit->addAction( tr("Move vertex point"), mEditor, &SpWinEditor::cmEditMovePoint );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );

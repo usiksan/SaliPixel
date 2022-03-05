@@ -34,3 +34,15 @@ void SpCmdArc::jsonRead(SvJsonReader &js)
   js.jsonPoint( "start", mStart );
   js.jsonPoint( "stop", mStop );
   }
+
+
+
+
+void SpCmdArc::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mCenter);
+    parser(mStart);
+    parser(mStop);
+    }
+  }

@@ -29,3 +29,10 @@ void SpCmdAreaScale::jsonRead(SvJsonReader &js)
   SpCmdArea::jsonRead( js );
   js.jsonPoint( "scale", mScale );
   }
+
+
+void SpCmdAreaScale::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible )
+    parser(mScale);
+  }

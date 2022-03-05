@@ -30,3 +30,12 @@ void SpCmdLine::jsonRead(SvJsonReader &js)
   js.jsonPoint( "start", mStart );
   js.jsonPoint( "stop", mStop );
   }
+
+
+void SpCmdLine::parsePoints(std::function<void (QPoint &)> parser)
+  {
+  if( mVisible ) {
+    parser(mStart);
+    parser(mStop);
+    }
+  }

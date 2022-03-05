@@ -21,6 +21,7 @@ class SpCmdAreaRotate : public SpCmdArea
     virtual QString id() const override { return SP_CMD_AREA_ROTATE; }
     virtual void    jsonWrite(SvJsonWriter &js) override;
     virtual void    jsonRead(SvJsonReader &js) override;
+    virtual void    parsePoints(std::function<void (QPoint &)> parser) override;
   };
 
 #endif // SPCMDAREAROTATE_H
