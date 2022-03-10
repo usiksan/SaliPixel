@@ -11,7 +11,7 @@ class SpModeIdle : public SpMode
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool left() override;
+    virtual bool left(SpCmdPtrList &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
   };
 

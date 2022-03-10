@@ -36,8 +36,10 @@ QString SpModeAreaMirror::stepDescription()
 
 
 
+
+
+
 SpCmd *SpModeAreaMirror::object(QPoint p, QColor color)
   {
-  Q_UNUSED(color)
   return new SpCmdAreaMirror( mFirst, mSecond, mMirrorLine, p, mDoCopy, mDoOverride );
   }

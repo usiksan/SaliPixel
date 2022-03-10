@@ -1,14 +1,14 @@
-#ifndef SPMODETRIANGLE_H
-#define SPMODETRIANGLE_H
+#ifndef SPMODEROUNDRECT_H
+#define SPMODEROUNDRECT_H
 
 #include "SpMode.h"
 
-class SpModeTriangle : public SpMode
+class SpModeRoundRect : public SpMode
   {
     QPoint mFirst;
     QPoint mSecond;
   public:
-    SpModeTriangle();
+    SpModeRoundRect();
 
     // SpMode interface
   public:
@@ -17,4 +17,4 @@ class SpModeTriangle : public SpMode
     virtual QString stepDescription() override;
   };
 
-#endif // SPMODETRIANGLE_H
+#endif // SPMODEROUNDRECT_H

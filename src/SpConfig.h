@@ -20,6 +20,9 @@ History
              v0.4  Fix: file new not clear previous file name
                         no export to png
              v0.5  Append vector edit service
+  10.02.2022 v0.6  Refactor mode to possibility insert more than one objects into the drawing
+                   Remove triangle as single object and replace it with three line objects
+                   Append parallelogramm and round rect modes
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -32,7 +35,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             5
+#define SP_VERSION_MINOR             6
 
 #define SP_EXTENSION                 ".salipixel"
 

@@ -28,6 +28,7 @@ QString SpModeAreaMove::stepDescription()
 
 
 
+
 SpCmd *SpModeAreaMove::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)

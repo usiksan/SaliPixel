@@ -44,9 +44,13 @@ SpCmd *SpModeAreaRotate::object(QPoint p, QColor color)
   }
 
 
-bool SpModeAreaRotate::left()
+
+
+bool SpModeAreaRotate::left(SpCmdPtrList &dest, QPoint p, QColor color)
   {
-  if( mStep == 3 && mDoCopy )
+  if( stepLast() && mDoCopy ) {
+    dest.append( object( p, color ) );
     return true;
-  return SpModeArea::left();
+    }
+  return SpModeArea::left( dest, p, color );
   }

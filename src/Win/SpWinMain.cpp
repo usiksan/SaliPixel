@@ -77,6 +77,8 @@ SpWinMain::SpWinMain(QWidget *parent)
   menuDraw->addAction( tr("Arc"), mEditor, &SpWinEditor::cmDrawArc );
   menuDraw->addAction( tr("Arc2"), mEditor, &SpWinEditor::cmDrawArc2 );
   menuDraw->addAction( tr("Triangle"), mEditor, &SpWinEditor::cmDrawTriangle );
+  menuDraw->addAction( tr("Parallelogramm"), mEditor, &SpWinEditor::cmDrawParallelogramm );
+  menuDraw->addAction( tr("Round rect"), mEditor, &SpWinEditor::cmDrawRoundRect );
   menuDraw->addSeparator();
   menuDraw->addAction( tr("Filled rect"), mEditor, &SpWinEditor::cmDrawFillRect );
   menuDraw->addAction( tr("Filled circle"), mEditor, &SpWinEditor::cmDrawFillCircle );

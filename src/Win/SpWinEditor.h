@@ -85,6 +85,8 @@ class SpWinEditor : public QWidget
     void cmDrawCircle();
     void cmDrawCircle2();
     void cmDrawTriangle();
+    void cmDrawParallelogramm();
+    void cmDrawRoundRect();
     void cmDrawFillRect();
     void cmDrawFillCircle();
     void cmDrawFill();

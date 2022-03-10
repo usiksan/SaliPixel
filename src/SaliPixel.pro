@@ -32,8 +32,10 @@ SOURCES += \
     Mode/SpModeFillRect.cpp \
     Mode/SpModeIdle.cpp \
     Mode/SpModeLine.cpp \
+    Mode/SpModeParallelogramm.cpp \
     Mode/SpModePoint.cpp \
     Mode/SpModeRect.cpp \
+    Mode/SpModeRoundRect.cpp \
     Mode/SpModeTriangle.cpp \
     Object/SpCmd.cpp \
     Object/SpCmdArc.cpp \
@@ -54,7 +56,6 @@ SOURCES += \
     Object/SpCmdLine.cpp \
     Object/SpCmdPoint.cpp \
     Object/SpCmdRect.cpp \
-    Object/SpCmdTriangle.cpp \
     Win/SpDlgNew.cpp \
     Win/SpWinEditor.cpp \
     main.cpp \
@@ -85,8 +86,10 @@ HEADERS += \
     Mode/SpModeFillRect.h \
     Mode/SpModeIdle.h \
     Mode/SpModeLine.h \
+    Mode/SpModeParallelogramm.h \
     Mode/SpModePoint.h \
     Mode/SpModeRect.h \
+    Mode/SpModeRoundRect.h \
     Mode/SpModeTriangle.h \
     Object/SpCmd.h \
     Object/SpCmdArc.h \
@@ -107,7 +110,6 @@ HEADERS += \
     Object/SpCmdLine.h \
     Object/SpCmdPoint.h \
     Object/SpCmdRect.h \
-    Object/SpCmdTriangle.h \
     Object/SpJsonIO.h \
     SpConfig.h \
     SvLib/SvJsonIO.h \

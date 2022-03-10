@@ -17,7 +17,7 @@ class SpModeEditPoint : public SpMode
   public:
     virtual bool     showPoints() const override { return true; }
     virtual void     paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool     left() override;
+    virtual bool     left(SpCmdPtrList &dest, QPoint p, QColor color) override;
     virtual void     right() override;
     virtual QString  stepDescription() override;
   };

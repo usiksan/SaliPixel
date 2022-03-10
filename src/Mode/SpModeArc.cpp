@@ -38,6 +38,10 @@ QString SpModeArc::stepDescription()
   }
 
 
+
+
+
+
 SpCmd *SpModeArc::object(QPoint p, QColor color)
   {
   return new SpCmdArc( mCenter, mStart, p, color );

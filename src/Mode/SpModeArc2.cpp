@@ -64,8 +64,9 @@ QString SpModeArc2::stepDescription()
 
 
 
+
+
 SpCmd *SpModeArc2::object(QPoint p, QColor color)
   {
-  Q_UNUSED(p)
   return new SpCmdArc( mCenter, mStart, mStop, color );
   }

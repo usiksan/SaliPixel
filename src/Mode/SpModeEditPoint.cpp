@@ -23,19 +23,22 @@ void SpModeEditPoint::paint(SpImage &dest, QPoint p, QColor color)
     for( auto ptr : qAsConst(mObjects) )
       ptr->paint( dest );
     }
-  else {
-    mSource = p;
+  else
     dest.selectionPoint( p );
-    }
   }
 
 
-bool SpModeEditPoint::left()
+
+
+bool SpModeEditPoint::left(SpCmdPtrList &dest, QPoint p, QColor color)
   {
+  Q_UNUSED(dest)
+  Q_UNUSED(color)
   if( mStep == 0 ) {
     mStep = 1;
     //Accumulate selected points
     mSelection.clear();
+    mSource = p;
     auto selector = [this] (QPoint &p) {
       if( p == mSource )
         mSelection.append( &p );
@@ -47,6 +50,7 @@ bool SpModeEditPoint::left()
   mStep = 0;
   return true;
   }
+
 
 
 
@@ -67,6 +71,7 @@ QString SpModeEditPoint::stepDescription()
     return QObject::tr("Select point to move");
   return QObject::tr("Move selected point");
   }
+
 
 
 

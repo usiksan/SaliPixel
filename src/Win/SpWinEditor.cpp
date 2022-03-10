@@ -11,6 +11,8 @@
 #include "Mode/SpModeArc.h"
 #include "Mode/SpModeArc2.h"
 #include "Mode/SpModeTriangle.h"
+#include "Mode/SpModeParallelogramm.h"
+#include "Mode/SpModeRoundRect.h"
 #include "Mode/SpModeFillRect.h"
 #include "Mode/SpModeFillCircle.h"
 #include "Mode/SpModeFill.h"
@@ -86,7 +88,7 @@ void SpWinEditor::clear()
   mPath.clear();
   qDeleteAll( mObjects );
   mObjects.clear();
-  if( mMode ) mMode->reset();
+  if( mMode ) mMode->stepReset();
   mImage.clear();
   mWork = mImage;
   }
@@ -207,7 +209,7 @@ void SpWinEditor::cmEditUndo()
     delete mObjects.last();
     mObjects.removeLast();
     if( mMode != nullptr )
-      mMode->reset();
+      mMode->stepReset();
     mDirty = true;
     repaintObjects();
     update();
@@ -351,6 +353,16 @@ void SpWinEditor::cmDrawTriangle()
   setMode( new SpModeTriangle() );
   }
 
+void SpWinEditor::cmDrawParallelogramm()
+  {
+  setMode( new SpModeParallelogramm() );
+  }
+
+void SpWinEditor::cmDrawRoundRect()
+  {
+  setMode( new SpModeRoundRect() );
+  }
+
 void SpWinEditor::cmDrawFillRect()
   {
   setMode( new SpModeFillRect() );
@@ -464,11 +476,7 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
       }
     if( mPoint != div20( event->pos() ) )
       mouseMoveEvent( event );
-    if( mMode->left() ) {
-      //Append to undo
-      auto obj = mMode->object( mPoint, mColor );
-      if( obj != nullptr )
-        mObjects.append( obj );
+    if( mMode->left( mObjects, mPoint, mColor ) ) {
       //Apply current
       mImage.set( mWork );
       mDirty = true;

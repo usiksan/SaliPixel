@@ -1,5 +1,5 @@
 #include "SpModeTriangle.h"
-#include "Object/SpCmdTriangle.h"
+#include "Object/SpCmdLine.h"
 
 SpModeTriangle::SpModeTriangle() :
   SpMode{2}
@@ -38,7 +38,14 @@ QString SpModeTriangle::stepDescription()
   }
 
 
-SpCmd *SpModeTriangle::object(QPoint p, QColor color)
+
+
+bool SpModeTriangle::left(SpCmdPtrList &dest, QPoint p, QColor color)
   {
-  return new SpCmdTriangle( mFirst, mSecond, p, color );
+  if( stepLast() ) {
+    dest.append( new SpCmdLine( mFirst, mSecond, color ) );
+    dest.append( new SpCmdLine( mFirst, p, color ) );
+    dest.append( new SpCmdLine( mSecond, p, color ) );
+    }
+  return stepNext();
   }
