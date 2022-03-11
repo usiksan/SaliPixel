@@ -314,10 +314,13 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
       SpColor color2 = area.pixelGet( x0, y1 ).scale( rfpart(p.x()) * fpart(p.y()) );
       SpColor color3 = area.pixelGet( x1, y1 ).scale( fpart(p.x()) * fpart(p.y()) );
       //SpColor color = area.pixel( matrix.map(QPoint(x,y)) );
-      color.mRed   = qBound( 0, (color.alphaRed() + color1.alphaRed() + color2.alphaRed() + color3.alphaRed()) / 255, 255 );
-      color.mGreen = qBound( 0, (color.alphaGreen() + color1.alphaGreen() + color2.alphaGreen() + color3.alphaGreen()) / 255, 255 );
-      color.mBlue  = qBound( 0, (color.alphaBlue() + color1.alphaBlue() + color2.alphaBlue() + color3.alphaBlue()) / 255, 255 );
-      color.mAlpha = color.mAlpha + color1.mAlpha + color2.mAlpha + color3.mAlpha;
+      color.append( color1 );
+      color.append( color2 );
+      color.append( color3 );
+//      color.mRed   = qBound( 0, (color.alphaRed() + color1.alphaRed() + color2.alphaRed() + color3.alphaRed()) / 255, 255 );
+//      color.mGreen = qBound( 0, (color.alphaGreen() + color1.alphaGreen() + color2.alphaGreen() + color3.alphaGreen()) / 255, 255 );
+//      color.mBlue  = qBound( 0, (color.alphaBlue() + color1.alphaBlue() + color2.alphaBlue() + color3.alphaBlue()) / 255, 255 );
+//      color.mAlpha = color.mAlpha + color1.mAlpha + color2.mAlpha + color3.mAlpha;
       if( !color.isEmpty() ) {
         if( doOverride ) pixelSet( x, y, color );
         else             pixelAdd( x, y, color );

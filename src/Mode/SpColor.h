@@ -3,11 +3,12 @@
 
 #include <QColor>
 
-struct SpColor {
-    quint8 mAlpha;
+class SpColor {
+    quint8 mAlpha; //!< 0 - opacity, not 0 - colored
     quint8 mRed;
     quint8 mGreen;
     quint8 mBlue;
+  public:
 
     SpColor() : mAlpha(0), mRed(0), mGreen(0), mBlue(0) {}
 

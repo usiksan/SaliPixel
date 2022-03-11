@@ -15,8 +15,11 @@ Description
 #define SPWINMAIN_H
 
 #include "SpConfig.h"
+#include "Mode/SpMode.h"
 
 #include <QMainWindow>
+#include <QMenu>
+#include <QToolBar>
 
 class SpWinEditor;
 
@@ -25,6 +28,7 @@ class SpWinMain : public QMainWindow
     Q_OBJECT
 
     SpWinEditor *mEditor;
+    QAction     *mActiveMode;
   public:
     SpWinMain(QWidget *parent = nullptr);
     ~SpWinMain();
@@ -33,5 +37,8 @@ class SpWinMain : public QMainWindow
     // QWidget interface
   protected:
     virtual void closeEvent(QCloseEvent *event) override;
+
+  private:
+    void addMenu( SpMode *mode, QMenu *menu, QToolBar *bar = nullptr );
   };
 #endif // SPWINMAIN_H

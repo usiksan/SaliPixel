@@ -1,0 +1,97 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 7,
+                "y": 3
+            },
+            "stop": {
+                "x": 7,
+                "y": 24
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 7,
+                "y": 24
+            },
+            "stop": {
+                "x": 17,
+                "y": 30
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 17,
+                "y": 30
+            },
+            "stop": {
+                "x": 17,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 17,
+                "y": 9
+            },
+            "stop": {
+                "x": 7,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 7,
+                "y": 3
+            },
+            "stop": {
+                "x": 20,
+                "y": 5
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 20,
+                "y": 5
+            },
+            "stop": {
+                "x": 20,
+                "y": 28
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 20,
+                "y": 28
+            },
+            "stop": {
+                "x": 17,
+                "y": 25
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

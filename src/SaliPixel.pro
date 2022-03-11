@@ -33,6 +33,7 @@ SOURCES += \
     Mode/SpModeIdle.cpp \
     Mode/SpModeLine.cpp \
     Mode/SpModeParallelogramm.cpp \
+    Mode/SpModePasteFile.cpp \
     Mode/SpModePoint.cpp \
     Mode/SpModeRect.cpp \
     Mode/SpModeRoundRect.cpp \
@@ -53,7 +54,9 @@ SOURCES += \
     Object/SpCmdFill.cpp \
     Object/SpCmdFillCircle.cpp \
     Object/SpCmdFillRect.cpp \
+    Object/SpCmdImage.cpp \
     Object/SpCmdLine.cpp \
+    Object/SpCmdList.cpp \
     Object/SpCmdPoint.cpp \
     Object/SpCmdRect.cpp \
     Win/SpDlgNew.cpp \
@@ -87,6 +90,7 @@ HEADERS += \
     Mode/SpModeIdle.h \
     Mode/SpModeLine.h \
     Mode/SpModeParallelogramm.h \
+    Mode/SpModePasteFile.h \
     Mode/SpModePoint.h \
     Mode/SpModeRect.h \
     Mode/SpModeRoundRect.h \
@@ -107,7 +111,9 @@ HEADERS += \
     Object/SpCmdFill.h \
     Object/SpCmdFillCircle.h \
     Object/SpCmdFillRect.h \
+    Object/SpCmdImage.h \
     Object/SpCmdLine.h \
+    Object/SpCmdList.h \
     Object/SpCmdPoint.h \
     Object/SpCmdRect.h \
     Object/SpJsonIO.h \

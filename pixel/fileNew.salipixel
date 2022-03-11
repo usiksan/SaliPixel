@@ -4,29 +4,51 @@
             "color": "#1e49f6",
             "first": {
                 "x": 8,
-                "y": 4
+                "y": 3
             },
             "id": "Rect",
             "second": {
                 "x": 24,
-                "y": 27
+                "y": 29
             },
             "visible": true
         },
         {
             "color": "#1e49f6",
-            "id": "Triangle",
-            "vertext0": {
+            "id": "Line",
+            "start": {
                 "x": 18,
-                "y": 4
+                "y": 3
             },
-            "vertext1": {
+            "stop": {
                 "x": 24,
-                "y": 10
+                "y": 9
             },
-            "vertext2": {
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
                 "x": 18,
-                "y": 10
+                "y": 3
+            },
+            "stop": {
+                "x": 18,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 24,
+                "y": 9
+            },
+            "stop": {
+                "x": 18,
+                "y": 9
             },
             "visible": true
         },
@@ -38,8 +60,8 @@
             },
             "id": "ClearRect",
             "second": {
-                "x": 25,
-                "y": 4
+                "x": 24,
+                "y": 3
             },
             "visible": true
         },
@@ -47,12 +69,12 @@
             "color": "#000000",
             "first": {
                 "x": 24,
-                "y": 4
+                "y": 3
             },
             "id": "ClearRect",
             "second": {
                 "x": 26,
-                "y": 9
+                "y": 8
             },
             "visible": true
         }

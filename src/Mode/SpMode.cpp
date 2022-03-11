@@ -9,14 +9,13 @@ SpMode::SpMode( int stepMax ) :
 
 
 
-bool SpMode::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpMode::left(SpCmdList &dest, QPoint p, QColor color)
   {
   if( stepLast() ) {
     SpCmd *ptr = object( p, color );
     if( ptr != nullptr )
       dest.append( ptr );
     }
-  Q_UNUSED(dest)
   return stepNext();
   }
 
@@ -26,6 +25,28 @@ bool SpMode::left(SpCmdPtrList &dest, QPoint p, QColor color)
 void SpMode::right()
   {
   stepPrev();
+  }
+
+
+
+void SpMode::init(SpCmdList &objects, QWidget *parent)
+  {
+  Q_UNUSED(objects)
+  Q_UNUSED(parent)
+  }
+
+
+
+QString SpMode::iconName() const
+  {
+  return QString{};
+  }
+
+
+
+QString SpMode::menuName() const
+  {
+  return QString{};
   }
 
 

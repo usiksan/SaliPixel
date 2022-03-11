@@ -18,7 +18,7 @@ void SpModeIdle::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeIdle::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpModeIdle::left(SpCmdList &dest, QPoint p, QColor color)
   {
   Q_UNUSED(dest)
   Q_UNUSED(p)

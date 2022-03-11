@@ -40,7 +40,7 @@ QString SpModeTriangle::stepDescription()
 
 
 
-bool SpModeTriangle::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpModeTriangle::left(SpCmdList &dest, QPoint p, QColor color)
   {
   if( stepLast() ) {
     dest.append( new SpCmdLine( mFirst, mSecond, color ) );

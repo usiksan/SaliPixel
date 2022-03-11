@@ -13,7 +13,7 @@ class SpModeParallelogramm : public SpMode
     // SpMode interface
   public:
     virtual void paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool left(SpCmdPtrList &dest, QPoint p, QColor color) override;
+    virtual bool left(SpCmdList &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
   };
 

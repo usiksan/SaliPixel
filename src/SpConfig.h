@@ -23,6 +23,9 @@ History
   10.02.2022 v0.6  Refactor mode to possibility insert more than one objects into the drawing
                    Remove triangle as single object and replace it with three line objects
                    Append parallelogramm and round rect modes
+  11.03.2022 v0.7  Refactor code: append integral class SpCmdList instead of QList of SpCmd*
+                   Bring all list operations into SpCmdList includes file operations
+                   Change signatures for modes
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -35,7 +38,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             6
+#define SP_VERSION_MINOR             7
 
 #define SP_EXTENSION                 ".salipixel"
 

@@ -1,0 +1,185 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 17,
+                "y": 7
+            },
+            "stop": {
+                "x": 26,
+                "y": 16
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 17,
+                "y": 7
+            },
+            "stop": {
+                "x": 27,
+                "y": 6
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 26,
+                "y": 16
+            },
+            "stop": {
+                "x": 27,
+                "y": 6
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 25,
+                "y": 18
+            },
+            "color": "#1e49f6",
+            "id": "Arc",
+            "start": {
+                "x": 18,
+                "y": 26
+            },
+            "stop": {
+                "x": 20,
+                "y": 10
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 29,
+                "y": 16
+            },
+            "color": "#1e49f6",
+            "id": "Arc",
+            "start": {
+                "x": 26,
+                "y": 24
+            },
+            "stop": {
+                "x": 22,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 19,
+                "y": 26
+            },
+            "stop": {
+                "x": 25,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 27,
+                "y": 6
+            },
+            "select1": {
+                "x": 12,
+                "y": 26
+            },
+            "target": {
+                "x": 7,
+                "y": 25
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMirror",
+            "mirrorLine0": {
+                "x": 4,
+                "y": 16
+            },
+            "mirrorLine1": {
+                "x": 28,
+                "y": 16
+            },
+            "select0": {
+                "x": 9,
+                "y": 4
+            },
+            "select1": {
+                "x": 24,
+                "y": 26
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 8,
+                "y": 7
+            },
+            "select1": {
+                "x": 23,
+                "y": 27
+            },
+            "target": {
+                "x": 20,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 17,
+                "y": 1
+            },
+            "center": {
+                "x": 17,
+                "y": 16
+            },
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 6,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Point",
+            "point": {
+                "x": 23,
+                "y": 4
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

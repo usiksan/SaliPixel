@@ -26,11 +26,13 @@ QColor SpColor::color() const
 void SpColor::append(SpColor color)
   {
   //Mix both color
-  int alpha = qMin<int>( mAlpha, 255 - color.mAlpha );
-  mRed   = (mRed * alpha + color.mRed * color.mAlpha) >> 8;
-  mGreen = (mGreen * alpha + color.mGreen * color.mAlpha) >> 8;
-  mBlue  = (mBlue * alpha + color.mBlue * color.mAlpha) >> 8;
-  mAlpha = qBound<int>( 0, alpha + color.mAlpha, 255 );
+  int p100 = mAlpha + color.mAlpha;
+  if( p100 ) {
+    mRed   = (mRed * mAlpha + color.mRed * color.mAlpha) / p100;
+    mGreen = (mGreen * mAlpha + color.mGreen * color.mAlpha) / p100;
+    mBlue  = (mBlue * mAlpha + color.mBlue * color.mAlpha) / p100;
+    mAlpha = qBound<int>( 0, mAlpha + color.mAlpha, 255 );
+    }
   }
 
 void SpColor::invert()

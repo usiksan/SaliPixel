@@ -32,7 +32,7 @@ void SpModeParallelogramm::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeParallelogramm::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpModeParallelogramm::left(SpCmdList &dest, QPoint p, QColor color)
   {
   if( stepLast() ) {
     QPoint delta = p - mSecond;

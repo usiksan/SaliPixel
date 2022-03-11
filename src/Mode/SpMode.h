@@ -3,8 +3,9 @@
 
 #include "SpImage.h"
 #include "Object/SpCmd.h"
+#include "Object/SpCmdList.h"
 
-class SpCmd;
+class QWidget;
 
 class SpMode
   {
@@ -19,13 +20,19 @@ class SpMode
 
     virtual void    paint( SpImage &dest, QPoint p, QColor color ) = 0;
 
-    virtual bool    left( SpCmdPtrList &dest, QPoint p, QColor color );
+    virtual bool    left( SpCmdList &dest, QPoint p, QColor color );
 
     virtual void    right();
 
     virtual QString stepDescription() = 0;
 
     void            stepReset() { mStep = 0; }
+
+    virtual void    init( SpCmdList &objects, QWidget *parent );
+
+    virtual QString iconName() const;
+
+    virtual QString menuName() const;
 
   protected:
 

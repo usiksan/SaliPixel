@@ -33,7 +33,7 @@ void SpModeRoundRect::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeRoundRect::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpModeRoundRect::left(SpCmdList &dest, QPoint p, QColor color)
   {
   if( stepLast() ) {
     QPoint delta = p - mSecond;

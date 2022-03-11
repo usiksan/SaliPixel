@@ -1,0 +1,32 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 7,
+                "y": 20
+            },
+            "id": "Rect",
+            "second": {
+                "x": 24,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 13,
+                "y": 23
+            },
+            "id": "Rect",
+            "second": {
+                "x": 19,
+                "y": 24
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

@@ -2,7 +2,7 @@
 
 #include <QObject>
 
-SpModeEditPoint::SpModeEditPoint(SpCmdPtrList &objs) :
+SpModeEditPoint::SpModeEditPoint(SpCmdList &objs) :
   SpMode(1),
   mObjects(objs)
   {
@@ -15,13 +15,11 @@ void SpModeEditPoint::paint(SpImage &dest, QPoint p, QColor color)
   {
   Q_UNUSED(color)
   if( mStep == 1 ) {
-    dest.clear();
     //Change to current all selected points
     for( auto pointPtr : qAsConst(mSelection) )
       *pointPtr = p;
     //Draw new image
-    for( auto ptr : qAsConst(mObjects) )
-      ptr->paint( dest );
+    mObjects.paint( dest );
     }
   else
     dest.selectionPoint( p );
@@ -30,7 +28,7 @@ void SpModeEditPoint::paint(SpImage &dest, QPoint p, QColor color)
 
 
 
-bool SpModeEditPoint::left(SpCmdPtrList &dest, QPoint p, QColor color)
+bool SpModeEditPoint::left(SpCmdList &dest, QPoint p, QColor color)
   {
   Q_UNUSED(dest)
   Q_UNUSED(color)
@@ -43,8 +41,7 @@ bool SpModeEditPoint::left(SpCmdPtrList &dest, QPoint p, QColor color)
       if( p == mSource )
         mSelection.append( &p );
       };
-    for( auto ptr : qAsConst(mObjects) )
-      ptr->parsePoints( selector );
+    mObjects.parsePoints( selector );
     return false;
     }
   mStep = 0;

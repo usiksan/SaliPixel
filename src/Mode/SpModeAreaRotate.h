@@ -13,7 +13,7 @@ class SpModeAreaRotate : public SpModeArea
   public:
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
-    virtual bool    left(SpCmdPtrList &dest, QPoint p, QColor color) override;
+    virtual bool    left(SpCmdList &dest, QPoint p, QColor color) override;
 
     // SpMode interface
   protected:

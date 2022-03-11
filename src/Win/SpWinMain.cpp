@@ -14,6 +14,35 @@ Description
 #include "SpWinMain.h"
 #include "SpWinEditor.h"
 
+#include "Mode/SpModeIdle.h"
+#include "Mode/SpModePoint.h"
+#include "Mode/SpModeLine.h"
+#include "Mode/SpModeRect.h"
+#include "Mode/SpModeCircle.h"
+#include "Mode/SpModeCircle2.h"
+#include "Mode/SpModeArc.h"
+#include "Mode/SpModeArc2.h"
+#include "Mode/SpModeTriangle.h"
+#include "Mode/SpModeParallelogramm.h"
+#include "Mode/SpModeRoundRect.h"
+#include "Mode/SpModeFillRect.h"
+#include "Mode/SpModeFillCircle.h"
+#include "Mode/SpModeFill.h"
+
+#include "Mode/SpModeClearPoint.h"
+#include "Mode/SpModeClearRect.h"
+#include "Mode/SpModeClearCircle.h"
+
+#include "Mode/SpModeAreaMove.h"
+#include "Mode/SpModeAreaRotate.h"
+#include "Mode/SpModeAreaMirror.h"
+#include "Mode/SpModeAreaRectArray.h"
+#include "Mode/SpModeAreaRoundArray.h"
+#include "Mode/SpModeAreaScale.h"
+
+#include "Mode/SpModeEditPoint.h"
+
+
 #include <QSettings>
 #include <QGuiApplication>
 #include <QMenu>
@@ -37,8 +66,11 @@ SpWinMain::SpWinMain(QWidget *parent)
   mEditor = new SpWinEditor();
   setCentralWidget( mEditor );
 
+  QToolBar *toolBar = new QToolBar( tr("SaliPixel tool bar"), this );
+  addToolBar( toolBar );
+
   auto menuFile = new QMenu( tr("File") );
-  menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::cmFileNew );
+  toolBar->addAction( menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::cmFileNew ) );
   menuFile->addAction( tr("Open..."), mEditor, &SpWinEditor::cmFileOpen );
   menuFile->addAction( tr("Save"), mEditor, &SpWinEditor::cmFileSave );
   menuFile->addAction( tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs );
@@ -56,6 +88,7 @@ SpWinMain::SpWinMain(QWidget *parent)
   auto over = menuEdit->addAction( tr("Do override") );
   over->setCheckable(true);
   connect( over, &QAction::toggled, mEditor, &SpWinEditor::cmEditOverrideToggle );
+  //addMenu( new SpModeAreaMove(), menuEdit, )
   menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
   menuEdit->addAction( tr("Rotate"), mEditor, &SpWinEditor::cmEditRotate );
   menuEdit->addAction( tr("Mirror"), mEditor, &SpWinEditor::cmEditMirror );
@@ -117,4 +150,22 @@ void SpWinMain::closeEvent(QCloseEvent *event)
     event->accept();
     }
   else event->ignore();
+  }
+
+
+
+void SpWinMain::addMenu(SpMode *mode, QMenu *menu, QToolBar *bar)
+  {
+  QAction *action = menu->addAction( QIcon( QStringLiteral("qrc:/pic/") + mode->iconName()), mode->menuName() );
+  action->setCheckable( true );
+  connect( action, &QAction::triggered, this, [this, mode, action] () {
+    mEditor->setMode(mode);
+    if( mActiveMode != nullptr )
+      mActiveMode->setChecked(false);
+    mActiveMode = action;
+    mActiveMode->setChecked(true);
+    });
+
+  if( bar )
+    bar->addAction( action );
   }

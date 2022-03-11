@@ -86,7 +86,6 @@ void SpWinEditor::setMode(SpMode *md)
 void SpWinEditor::clear()
   {
   mPath.clear();
-  qDeleteAll( mObjects );
   mObjects.clear();
   if( mMode ) mMode->stepReset();
   mImage.clear();
@@ -106,9 +105,7 @@ QPoint SpWinEditor::div20(QPoint p) const
 
 void SpWinEditor::repaintObjects()
   {
-  mImage.clear();
-  for( auto ptr : qAsConst(mObjects) )
-    ptr->paint( mImage );
+  mObjects.paint( mImage );
   mWork = mImage;
   }
 
@@ -136,17 +133,8 @@ void SpWinEditor::cmFileOpen()
   if( canClose() ) {
     QString newPath = QFileDialog::getOpenFileName( this, tr("Enter file name for salipixel"), QString{}, QStringLiteral("SaliPixel files (*%1)").arg( QStringLiteral(SP_EXTENSION)) );
     if( !newPath.isEmpty() ) {
-      QFile file(newPath);
-      if( file.open(QIODevice::ReadOnly) ) {
+      if( mObjects.fileLoad(newPath) ) {
         mPath = newPath;
-        mDirty = false;
-        QJsonObject obj = svJsonObjectFromByteArray(file.readAll());
-        SvJsonReader js( obj );
-        int w, h;
-        js.jsonInt( "width", w );
-        js.jsonInt( "height", h );
-        js.jsonListPtr( "command", mObjects );
-        mImage.resize( w, h );
         repaintObjects();
         update();
         }
@@ -161,16 +149,7 @@ void SpWinEditor::cmFileSave()
   if( mPath.isEmpty() )
     cmFileSaveAs();
   else {
-    QFile file(mPath);
-    if( file.open(QIODevice::WriteOnly) ) {
-      SvJsonWriter js;
-      int w(mImage.width()), h(mImage.height());
-      js.jsonInt( "width", w );
-      js.jsonInt( "height", h );
-      js.jsonListPtr( "command", mObjects );
-      file.write( svJsonObjectToByteArray(js.object()) );
-      mDirty = false;
-      }
+    mObjects.fileSave(mPath);
     }
   }
 
@@ -205,16 +184,15 @@ void SpWinEditor::cmFileExport()
 
 void SpWinEditor::cmEditUndo()
   {
-  if( mObjects.count() ) {
-    delete mObjects.last();
-    mObjects.removeLast();
-    if( mMode != nullptr )
-      mMode->stepReset();
-    mDirty = true;
-    repaintObjects();
-    update();
-    }
+  mObjects.undo();
+  if( mMode != nullptr )
+    mMode->stepReset();
+  mDirty = true;
+  repaintObjects();
+  update();
   }
+
+
 
 void SpWinEditor::cmEditCopyToggle(bool state)
   {
@@ -301,10 +279,10 @@ void SpWinEditor::cmDrawBaseColor()
   QColor clr = QColorDialog::getColor( mColor, this, tr("Select draw color") );
   if( clr.isValid() ) {
     mImage.clear();
-    for( auto ptr : qAsConst(mObjects) ) {
+    mObjects.forEach( [this, clr] ( SpCmd *ptr ) {
       ptr->setColor( clr );
       ptr->paint( mImage );
-      }
+      });
     mWork = mImage;
     update();
     }
@@ -431,8 +409,7 @@ void SpWinEditor::paintEvent(QPaintEvent *event)
       };
     painter.setPen( QColor(Qt::red) );
     painter.setBrush( QColor(Qt::green) );
-    for( auto ptr : qAsConst(mObjects) )
-      ptr->parsePoints( drawer );
+    mObjects.parsePoints( drawer );
     }
 
   //Grid
