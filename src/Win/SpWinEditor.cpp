@@ -182,7 +182,13 @@ void SpWinEditor::cmFileSaveAs()
 
 void SpWinEditor::cmFileExport()
   {
-  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for image"), QString{}, QStringLiteral("PNG files (*.png)") );
+  QString defFile;
+  QString extension( SP_EXTENSION );
+  if( mPath.endsWith( extension ) ) {
+    defFile = mPath.left( mPath.length() - extension.length() );
+    defFile.append( ".png" );
+    }
+  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for image"), defFile, QStringLiteral("PNG files (*.png)") );
   if( !newPath.isEmpty() ) {
     if( !newPath.endsWith( QStringLiteral(".png") ) )
       newPath.append( QStringLiteral(".png") );
@@ -218,30 +224,6 @@ void SpWinEditor::cmEditOverrideToggle(bool state)
 
 
 
-void SpWinEditor::cmEditMove()
-  {
-  setMode( new SpModeAreaMove() );
-  }
-
-
-void SpWinEditor::cmEditRotate()
-  {
-  setMode( new SpModeAreaRotate() );
-  }
-
-void SpWinEditor::cmEditMirror()
-  {
-  setMode( new SpModeAreaMirror() );
-  }
-
-void SpWinEditor::cmEditRectArray()
-  {
-  SpDlgNew dlgDim(this);
-  dlgDim.setup( tr("Enter array dimesions"), tr("Column count:"), tr("Row count:"), 2, 2 );
-  if( dlgDim.exec() ) {
-    setMode( new SpModeAreaRectArray( qBound( 1, dlgDim.valueWidth(), 32), qBound( 1, dlgDim.valueHeight(), 32 ) ) );
-    }
-  }
 
 
 

@@ -36,6 +36,18 @@ QString SpModeAreaMirror::stepDescription()
 
 
 
+QString SpModeAreaMirror::iconName() const
+  {
+  return QStringLiteral("editMirror.png");
+  }
+
+QString SpModeAreaMirror::menuName() const
+  {
+  return QObject::tr("Mirror");
+  }
+
+
+
 
 
 
@@ -43,3 +55,5 @@ SpCmd *SpModeAreaMirror::object(QPoint p, QColor color)
   {
   return new SpCmdAreaMirror( mFirst, mSecond, mMirrorLine, p, mDoCopy, mDoOverride );
   }
+
+

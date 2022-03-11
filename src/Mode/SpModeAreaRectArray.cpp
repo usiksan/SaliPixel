@@ -1,12 +1,13 @@
 #include "SpModeAreaRectArray.h"
 #include "Object/SpCmdAreaRectArray.h"
+#include "Win/SpDlgNew.h"
 
 #include <QObject>
 
-SpModeAreaRectArray::SpModeAreaRectArray(int row, int column) :
+SpModeAreaRectArray::SpModeAreaRectArray() :
   SpModeArea(2),
-  mRowCount(row),
-  mColumnCount(column)
+  mRowCount(2),
+  mColumnCount(2)
   {
 
   }
@@ -36,8 +37,38 @@ QString SpModeAreaRectArray::stepDescription()
 
 
 
+void SpModeAreaRectArray::init(SpCmdList &objects, QWidget *parent)
+  {
+  Q_UNUSED(objects)
+  SpDlgNew dlgDim(parent);
+  dlgDim.setup( QObject::tr("Enter array dimesions"), QObject::tr("Column count:"), QObject::tr("Row count:"), 2, 2 );
+  if( dlgDim.exec() ) {
+    mColumnCount = qBound( 1, dlgDim.valueWidth(), 32);
+    mRowCount    = qBound( 1, dlgDim.valueHeight(), 32 );
+    }
+  }
+
+
+
+
+QString SpModeAreaRectArray::iconName() const
+  {
+  return QStringLiteral("editRectArray.png");
+  }
+
+
+
+QString SpModeAreaRectArray::menuName() const
+  {
+  return QObject::tr("Rectangle array");
+  }
+
+
+
+
 SpCmd *SpModeAreaRectArray::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)
   return new SpCmdAreaRectArray( mFirst, mSecond, p, mRowCount, mColumnCount, mDoOverride );
   }
+

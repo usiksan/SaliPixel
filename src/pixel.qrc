@@ -6,5 +6,7 @@
         <file>pic/fileSaveAs.png</file>
         <file>pic/editMove.png</file>
         <file>pic/editRotate.png</file>
+        <file>pic/editRectArray.png</file>
+        <file>pic/editMirror.png</file>
     </qresource>
 </RCC>

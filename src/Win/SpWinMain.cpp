@@ -98,10 +98,8 @@ SpWinMain::SpWinMain(QWidget *parent) :
   toolBar->addSeparator();
   addMode( new SpModeAreaMove(), menuEdit, toolBar );
   addMode( new SpModeAreaRotate(), menuEdit, toolBar );
-  //menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
-  //menuEdit->addAction( tr("Rotate"), mEditor, &SpWinEditor::cmEditRotate );
-  menuEdit->addAction( tr("Mirror"), mEditor, &SpWinEditor::cmEditMirror );
-  menuEdit->addAction( tr("Rectangle array"), mEditor, &SpWinEditor::cmEditRectArray );
+  addMode( new SpModeAreaMirror(), menuEdit, toolBar );
+  addMode( new SpModeAreaRectArray(), menuEdit, toolBar );
   menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
   menuEdit->addAction( tr("Scale"), mEditor, &SpWinEditor::cmEditScale );
   menuEdit->addSeparator();

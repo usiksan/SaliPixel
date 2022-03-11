@@ -71,10 +71,6 @@ class SpWinEditor : public QWidget
     void cmEditCopyToggle( bool state );
     void cmEditOverrideToggle( bool state );
 
-    void cmEditMove();
-    void cmEditRotate();
-    void cmEditMirror();
-    void cmEditRectArray();
     void cmEditRoundArray();
     void cmEditScale();
     void cmEditInsert();

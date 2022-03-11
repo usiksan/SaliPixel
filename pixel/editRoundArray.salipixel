@@ -1,0 +1,68 @@
+{
+    "command": [
+        {
+            "color": "#98abf7",
+            "first": {
+                "x": 14,
+                "y": 4
+            },
+            "id": "Rect",
+            "second": {
+                "x": 17,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 23,
+                "y": 10
+            },
+            "center": {
+                "x": 16,
+                "y": 15
+            },
+            "color": "#000000",
+            "doOverride": false,
+            "id": "AreaRoundArray",
+            "itemCount": 6,
+            "select0": {
+                "x": 14,
+                "y": 4
+            },
+            "select1": {
+                "x": 17,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "first": {
+                "x": 14,
+                "y": 4
+            },
+            "id": "ClearRect",
+            "second": {
+                "x": 17,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 14,
+                "y": 4
+            },
+            "id": "Rect",
+            "second": {
+                "x": 17,
+                "y": 7
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

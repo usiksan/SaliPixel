@@ -1,0 +1,116 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 19,
+                "y": 3
+            },
+            "stop": {
+                "x": 19,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 19,
+                "y": 3
+            },
+            "stop": {
+                "x": 29,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 19,
+                "y": 27
+            },
+            "stop": {
+                "x": 29,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 3
+            },
+            "stop": {
+                "x": 12,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 3
+            },
+            "stop": {
+                "x": 2,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 27
+            },
+            "stop": {
+                "x": 2,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 16,
+                "y": 0
+            },
+            "stop": {
+                "x": 16,
+                "y": 31
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 12,
+                "y": 2
+            },
+            "select1": {
+                "x": 2,
+                "y": 27
+            },
+            "target": {
+                "x": 3,
+                "y": 27
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

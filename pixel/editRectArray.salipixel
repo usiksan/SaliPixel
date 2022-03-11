@@ -1,0 +1,104 @@
+{
+    "command": [
+        {
+            "color": "#98abf7",
+            "first": {
+                "x": 4,
+                "y": 4
+            },
+            "id": "Rect",
+            "second": {
+                "x": 7,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "columns": 3,
+            "delta": {
+                "x": -8,
+                "y": -8
+            },
+            "doOverride": false,
+            "id": "AreaRectArray",
+            "rows": 3,
+            "select0": {
+                "x": 4,
+                "y": 4
+            },
+            "select1": {
+                "x": 7,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 4,
+                "y": 4
+            },
+            "select1": {
+                "x": 23,
+                "y": 23
+            },
+            "target": {
+                "x": 25,
+                "y": 25
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "columns": 3,
+            "delta": {
+                "x": -8,
+                "y": -9
+            },
+            "doOverride": false,
+            "id": "AreaRectArray",
+            "rows": 3,
+            "select0": {
+                "x": 6,
+                "y": 6
+            },
+            "select1": {
+                "x": 9,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "first": {
+                "x": 6,
+                "y": 6
+            },
+            "id": "ClearRect",
+            "second": {
+                "x": 9,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 6,
+                "y": 6
+            },
+            "id": "Rect",
+            "second": {
+                "x": 9,
+                "y": 9
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}
