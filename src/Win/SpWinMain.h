@@ -33,12 +33,14 @@ class SpWinMain : public QMainWindow
     SpWinMain(QWidget *parent = nullptr);
     ~SpWinMain();
 
+  private slots:
+    void fileName( const QString &fname );
 
     // QWidget interface
   protected:
     virtual void closeEvent(QCloseEvent *event) override;
 
   private:
-    void addMenu( SpMode *mode, QMenu *menu, QToolBar *bar = nullptr );
+    void addMode( SpMode *mode, QMenu *menu, QToolBar *bar = nullptr );
   };
 #endif // SPWINMAIN_H

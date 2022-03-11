@@ -10,6 +10,7 @@ class SpCmdImage : public SpCmd
     QImage mImage;
     QPoint mPoint;
   public:
+    SpCmdImage() : SpCmd() {}
     SpCmdImage(QPoint pos, QImage &im );
 
     // SpCmd interface

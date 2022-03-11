@@ -11,6 +11,7 @@ Web
 Description
   Main application window
 */
+#include "SpConfig.h"
 #include "SpWinMain.h"
 #include "SpWinEditor.h"
 
@@ -49,7 +50,7 @@ Description
 #include <QMenuBar>
 #include <QToolBar>
 #include <QCloseEvent>
-#include <QFileDialog>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QDesktopServices>
 #include <QVBoxLayout>
@@ -60,24 +61,30 @@ Description
 #include <QClipboard>
 #include <QStatusBar>
 
-SpWinMain::SpWinMain(QWidget *parent)
-  : QMainWindow(parent)
+SpWinMain::SpWinMain(QWidget *parent) :
+  QMainWindow(parent),
+  mActiveMode(nullptr)
   {
   mEditor = new SpWinEditor();
   setCentralWidget( mEditor );
+
+  //When file name changed
+  connect( mEditor, &SpWinEditor::fileName, this, &SpWinMain::fileName );
+  fileName( QString{} );
 
   QToolBar *toolBar = new QToolBar( tr("SaliPixel tool bar"), this );
   addToolBar( toolBar );
 
   auto menuFile = new QMenu( tr("File") );
-  toolBar->addAction( menuFile->addAction( tr("New file"), mEditor, &SpWinEditor::cmFileNew ) );
-  menuFile->addAction( tr("Open..."), mEditor, &SpWinEditor::cmFileOpen );
-  menuFile->addAction( tr("Save"), mEditor, &SpWinEditor::cmFileSave );
-  menuFile->addAction( tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs );
+  toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileNew.png")), tr("New file"), mEditor, &SpWinEditor::cmFileNew ) );
+  toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileOpen.png")), tr("Open..."), mEditor, &SpWinEditor::cmFileOpen ) );
+  toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileSave.png")), tr("Save"), mEditor, &SpWinEditor::cmFileSave ) );
+  toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileSaveAs.png")), tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs ) );
   menuFile->addSeparator();
   menuFile->addAction( tr("Export to png"), mEditor, &SpWinEditor::cmFileExport );
   menuFile->addSeparator();
   menuFile->addAction( tr("Exit"), this, &SpWinMain::close );
+  toolBar->addSeparator();
 
   auto menuEdit = new QMenu( tr("Edit") );
   menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
@@ -88,15 +95,19 @@ SpWinMain::SpWinMain(QWidget *parent)
   auto over = menuEdit->addAction( tr("Do override") );
   over->setCheckable(true);
   connect( over, &QAction::toggled, mEditor, &SpWinEditor::cmEditOverrideToggle );
-  //addMenu( new SpModeAreaMove(), menuEdit, )
-  menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
-  menuEdit->addAction( tr("Rotate"), mEditor, &SpWinEditor::cmEditRotate );
+  toolBar->addSeparator();
+  addMode( new SpModeAreaMove(), menuEdit, toolBar );
+  addMode( new SpModeAreaRotate(), menuEdit, toolBar );
+  //menuEdit->addAction( tr("Move"), mEditor, &SpWinEditor::cmEditMove );
+  //menuEdit->addAction( tr("Rotate"), mEditor, &SpWinEditor::cmEditRotate );
   menuEdit->addAction( tr("Mirror"), mEditor, &SpWinEditor::cmEditMirror );
   menuEdit->addAction( tr("Rectangle array"), mEditor, &SpWinEditor::cmEditRectArray );
   menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
   menuEdit->addAction( tr("Scale"), mEditor, &SpWinEditor::cmEditScale );
   menuEdit->addSeparator();
   menuEdit->addAction( tr("Move vertex point"), mEditor, &SpWinEditor::cmEditMovePoint );
+  menuEdit->addSeparator();
+  menuEdit->addAction( tr("Paste file"), mEditor, &SpWinEditor::cmEditPasteFile );
 
   auto menuDraw = new QMenu( tr("Draw") );
   menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );
@@ -143,6 +154,18 @@ SpWinMain::~SpWinMain()
 
 
 
+void SpWinMain::fileName(const QString &fname)
+  {
+  QString name( "noname" );
+  if( !fname.isEmpty() ) {
+    QFileInfo info(fname);
+    name = info.fileName();
+    }
+  setWindowTitle( tr("SaliPixel v%1.%2 [%3]").arg(SP_VERSION_MAJOR).arg(SP_VERSION_MINOR).arg(name) );
+  }
+
+
+
 void SpWinMain::closeEvent(QCloseEvent *event)
   {
   //If can close editor
@@ -154,12 +177,12 @@ void SpWinMain::closeEvent(QCloseEvent *event)
 
 
 
-void SpWinMain::addMenu(SpMode *mode, QMenu *menu, QToolBar *bar)
+void SpWinMain::addMode(SpMode *mode, QMenu *menu, QToolBar *bar)
   {
-  QAction *action = menu->addAction( QIcon( QStringLiteral("qrc:/pic/") + mode->iconName()), mode->menuName() );
+  QAction *action = menu->addAction( QIcon( QStringLiteral(":/pic/") + mode->iconName()), mode->menuName() );
   action->setCheckable( true );
   connect( action, &QAction::triggered, this, [this, mode, action] () {
-    mEditor->setMode(mode);
+    mEditor->setMode( mode, true );
     if( mActiveMode != nullptr )
       mActiveMode->setChecked(false);
     mActiveMode = action;

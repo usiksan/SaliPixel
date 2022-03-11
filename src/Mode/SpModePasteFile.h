@@ -12,7 +12,6 @@ class SpModePasteFile : public SpMode
     // SpMode interface
   public:
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool    left(SpCmdList &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
     virtual void init(SpCmdList &objects, QWidget *parent) override;
     virtual QString iconName() const override;

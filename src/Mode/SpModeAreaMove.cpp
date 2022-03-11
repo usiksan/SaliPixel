@@ -27,6 +27,18 @@ QString SpModeAreaMove::stepDescription()
   }
 
 
+QString SpModeAreaMove::iconName() const
+  {
+  return QStringLiteral("editMove.png");
+  }
+
+
+QString SpModeAreaMove::menuName() const
+  {
+  return QObject::tr("Move");
+  }
+
+
 
 
 SpCmd *SpModeAreaMove::object(QPoint p, QColor color)

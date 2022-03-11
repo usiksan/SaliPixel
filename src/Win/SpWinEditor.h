@@ -38,14 +38,15 @@ class SpWinEditor : public QWidget
     QPoint           mPoint;
     QString          mPath;
     int              mScale;
-    bool             mDirty;
+    bool             mStaticMode;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
     ~SpWinEditor() { clear(); }
 
     bool   canClose();
 
-    void   setMode( SpMode *md );
+    void   setMode(SpMode *md , bool staticMode = false );
+
   private:
 
     void   clear();
@@ -57,6 +58,8 @@ class SpWinEditor : public QWidget
   signals:
     void stepMessage( const QString msg );
 
+    void fileName( const QString &fname );
+
   public slots:
     void cmFileNew();
     void cmFileOpen();
@@ -67,6 +70,7 @@ class SpWinEditor : public QWidget
     void cmEditUndo();
     void cmEditCopyToggle( bool state );
     void cmEditOverrideToggle( bool state );
+
     void cmEditMove();
     void cmEditRotate();
     void cmEditMirror();
@@ -75,6 +79,7 @@ class SpWinEditor : public QWidget
     void cmEditScale();
     void cmEditInsert();
     void cmEditMovePoint();
+    void cmEditPasteFile();
 
     void cmDrawColor();
     void cmDrawBaseColor();

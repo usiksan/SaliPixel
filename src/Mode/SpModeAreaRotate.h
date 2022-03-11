@@ -13,6 +13,8 @@ class SpModeAreaRotate : public SpModeArea
   public:
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
+    virtual QString iconName() const override;
+    virtual QString menuName() const override;
     virtual bool    left(SpCmdList &dest, QPoint p, QColor color) override;
 
     // SpMode interface
@@ -25,7 +27,6 @@ class SpModeAreaRotate : public SpModeArea
     //! \return       Single object to insert into object list
     //!
     virtual SpCmd  *object(QPoint p, QColor color) override;
-
   };
 
 #endif // SPMODEAREAROTATE_H

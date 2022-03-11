@@ -1,0 +1,146 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 20,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 20,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 16,
+                "y": 16
+            },
+            "color": "#1e49f6",
+            "id": "Arc",
+            "start": {
+                "x": 24,
+                "y": 8
+            },
+            "stop": {
+                "x": 7,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 12,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 9
+            },
+            "target": {
+                "x": 10,
+                "y": 12
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 2,
+                "y": 6
+            },
+            "select1": {
+                "x": 10,
+                "y": 12
+            },
+            "target": {
+                "x": 27,
+                "y": 8
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 11,
+                "y": 2
+            },
+            "center": {
+                "x": 23,
+                "y": 8
+            },
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 19,
+                "y": 8
+            },
+            "select1": {
+                "x": 27,
+                "y": 2
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 9,
+                "y": 6
+            },
+            "center": {
+                "x": 6,
+                "y": 12
+            },
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 2,
+                "y": 6
+            },
+            "select1": {
+                "x": 10,
+                "y": 12
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

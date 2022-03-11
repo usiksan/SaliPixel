@@ -14,6 +14,8 @@ class SpCmdList
     SpCmdList();
     ~SpCmdList();
 
+    bool isDirty() const { return mDirty; }
+
     void clear();
 
     void setup( int w, int h );

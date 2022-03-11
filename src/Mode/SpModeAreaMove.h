@@ -12,6 +12,8 @@ class SpModeAreaMove : public SpModeArea
   public:
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
+    virtual QString iconName() const override;
+    virtual QString menuName() const override;
 
     // SpMode interface
   protected:
@@ -23,6 +25,7 @@ class SpModeAreaMove : public SpModeArea
     //! \return       Single object to insert into object list
     //!
     virtual SpCmd  *object(QPoint p, QColor color) override;
+
   };
 
 #endif // SPMODEAREAMOVE_H

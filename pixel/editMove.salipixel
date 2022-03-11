@@ -1,0 +1,127 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 20,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 20,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 16,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 16,
+                "y": 22
+            },
+            "center": {
+                "x": 16,
+                "y": 16
+            },
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 12,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 21,
+                "y": 16
+            },
+            "center": {
+                "x": 16,
+                "y": 16
+            },
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 12,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 11,
+                "y": 16
+            },
+            "center": {
+                "x": 16,
+                "y": 16
+            },
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 12,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 13
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

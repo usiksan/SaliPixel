@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pic/fileNew.png</file>
+        <file>pic/fileSave.png</file>
+        <file>pic/fileOpen.png</file>
+        <file>pic/fileSaveAs.png</file>
+        <file>pic/editMove.png</file>
+        <file>pic/editRotate.png</file>
+    </qresource>
+</RCC>

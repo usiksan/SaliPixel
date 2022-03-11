@@ -26,6 +26,10 @@ History
   11.03.2022 v0.7  Refactor code: append integral class SpCmdList instead of QList of SpCmd*
                    Bring all list operations into SpCmdList includes file operations
                    Change signatures for modes
+             v0.8  Append file paste mode and command
+                   Append show file name at window title
+                   Refactor modes: at now mode created staticaly and contains menu name and icon name,
+                   so there is single place to add mode to system - main window
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -38,7 +42,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             7
+#define SP_VERSION_MINOR             8
 
 #define SP_EXTENSION                 ".salipixel"
 

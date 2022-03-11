@@ -16,6 +16,7 @@
 #include "SpCmdLine.h"
 #include "SpCmdPoint.h"
 #include "SpCmdRect.h"
+#include "SpCmdImage.h"
 
 SpCmd::SpCmd() :
   mVisible(true)
@@ -63,5 +64,6 @@ SpCmd *SpCmd::build(SvJsonReader &js)
   if( id == SP_CMD_LINE )             return new SpCmdLine();
   if( id == SP_CMD_POINT )            return new SpCmdPoint();
   if( id == SP_CMD_RECT )             return new SpCmdRect();
+  if( id == SP_CMD_IMAGE )            return new SpCmdImage();
   return nullptr;
   }

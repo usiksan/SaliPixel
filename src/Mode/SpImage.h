@@ -52,7 +52,7 @@ class SpImage
 
     void    imageSet( const QImage &im );
 
-    void    imagePaste( QPoint pos, const QImage &im );
+    void    imagePaste(QPoint pos, const QImage &im , bool doOverride);
 
 
     void    clearPixel( QPoint p );

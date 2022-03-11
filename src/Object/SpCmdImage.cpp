@@ -11,7 +11,7 @@ SpCmdImage::SpCmdImage(QPoint pos, QImage &im) :
 
 void SpCmdImage::paint(SpImage &im)
   {
-  im.imagePaste( mPoint, mImage );
+  im.imagePaste( mPoint - QPoint( mImage.width() / 2, mImage.height() / 2 ), mImage, false );
   }
 
 

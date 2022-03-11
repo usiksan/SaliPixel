@@ -29,6 +29,7 @@
 #include "Mode/SpModeAreaScale.h"
 
 #include "Mode/SpModeEditPoint.h"
+#include "Mode/SpModePasteFile.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -40,10 +41,10 @@
 
 SpWinEditor::SpWinEditor(QWidget *parent) :
   QWidget{parent},
-  mMode{new SpModeIdle{} },
+  mMode{ new SpModeIdle{} },
   mColor{Qt::black},
   mScale{20},
-  mDirty{false}
+  mStaticMode(false)
   {
   mImage.resize( 32, 32 );
   mWork.set( mImage );
@@ -56,13 +57,13 @@ SpWinEditor::SpWinEditor(QWidget *parent) :
 
 bool SpWinEditor::canClose()
   {
-  if( mDirty ) {
+  if( mObjects.isDirty() ) {
     int res = QMessageBox::question( this, tr("Warning!"), tr("Image changes not saved! Save?") );
     if( res == QMessageBox::No )
       return true;
     if( res == QMessageBox::Yes ) {
       cmFileSave();
-      return !mDirty;
+      return !mObjects.isDirty();
       }
     return false;
     }
@@ -72,20 +73,29 @@ bool SpWinEditor::canClose()
 
 
 
-void SpWinEditor::setMode(SpMode *md)
+
+
+
+void SpWinEditor::setMode( SpMode *md, bool staticMode )
   {
-  if( mMode != nullptr )
+  if( !mStaticMode && mMode != nullptr )
     delete mMode;
   mMode = md;
-  if( mMode != nullptr )
+  mStaticMode = staticMode;
+  if( mMode != nullptr ) {
     emit stepMessage( mMode->stepDescription() );
+    mMode->init( mObjects, this );
+    }
   update();
   }
+
+
 
 
 void SpWinEditor::clear()
   {
   mPath.clear();
+  emit fileName( mPath );
   mObjects.clear();
   if( mMode ) mMode->stepReset();
   mImage.clear();
@@ -117,7 +127,6 @@ void SpWinEditor::cmFileNew()
   if( canClose() ) {
     SpDlgNew dlgNew(this);
     if( dlgNew.exec() ) {
-      mDirty = false;
       mImage.resize( dlgNew.imageWidth(), dlgNew.imageHeight() );
       clear();
       update();
@@ -135,6 +144,7 @@ void SpWinEditor::cmFileOpen()
     if( !newPath.isEmpty() ) {
       if( mObjects.fileLoad(newPath) ) {
         mPath = newPath;
+        emit fileName( mPath );
         repaintObjects();
         update();
         }
@@ -148,9 +158,8 @@ void SpWinEditor::cmFileSave()
   {
   if( mPath.isEmpty() )
     cmFileSaveAs();
-  else {
+  else
     mObjects.fileSave(mPath);
-    }
   }
 
 
@@ -163,6 +172,7 @@ void SpWinEditor::cmFileSaveAs()
       mPath = newPath;
     else
       mPath = newPath + QStringLiteral(SP_EXTENSION);
+    emit fileName( mPath );
     cmFileSave();
     }
   }
@@ -187,7 +197,6 @@ void SpWinEditor::cmEditUndo()
   mObjects.undo();
   if( mMode != nullptr )
     mMode->stepReset();
-  mDirty = true;
   repaintObjects();
   update();
   }
@@ -261,6 +270,11 @@ void SpWinEditor::cmEditInsert()
 void SpWinEditor::cmEditMovePoint()
   {
   setMode( new SpModeEditPoint( mObjects ) );
+  }
+
+void SpWinEditor::cmEditPasteFile()
+  {
+  setMode( new SpModePasteFile() );
   }
 
 
@@ -456,7 +470,6 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
     if( mMode->left( mObjects, mPoint, mColor ) ) {
       //Apply current
       mImage.set( mWork );
-      mDirty = true;
       }
     }
   else if( event->button() == Qt::RightButton ) {
@@ -484,7 +497,7 @@ void SpWinEditor::mouseMoveEvent(QMouseEvent *event)
 void SpWinEditor::wheelEvent(QWheelEvent *event)
   {
   int delta = event->angleDelta().y() / 120;
-  qDebug() << "delta" << delta;
+  //qDebug() << "delta" << delta;
   mScale = qBound( 1, mScale - delta, 32 );
   update();
   }

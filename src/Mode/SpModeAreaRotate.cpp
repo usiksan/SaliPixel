@@ -36,6 +36,19 @@ QString SpModeAreaRotate::stepDescription()
   }
 
 
+QString SpModeAreaRotate::iconName() const
+  {
+  return QStringLiteral("editRotate.png");
+  }
+
+
+
+QString SpModeAreaRotate::menuName() const
+  {
+  return QObject::tr("Rotate");
+  }
+
+
 
 SpCmd *SpModeAreaRotate::object(QPoint p, QColor color)
   {
