@@ -30,6 +30,7 @@ History
                    Append show file name at window title
                    Refactor modes: at now mode created staticaly and contains menu name and icon name,
                    so there is single place to add mode to system - main window
+  14.03.2022 v0.9  Append icons for undo, copy-move and scale commands
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -42,7 +43,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             8
+#define SP_VERSION_MINOR             9
 
 #define SP_EXTENSION                 ".salipixel"
 

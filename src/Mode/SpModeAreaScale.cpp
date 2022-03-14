@@ -29,6 +29,21 @@ QString SpModeAreaScale::stepDescription()
 
 
 
+QString SpModeAreaScale::iconName() const
+  {
+  return QStringLiteral("editScale.png");
+  }
+
+
+
+QString SpModeAreaScale::menuName() const
+  {
+  return QObject::tr("Scale");
+  }
+
+
+
+
 SpCmd *SpModeAreaScale::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)

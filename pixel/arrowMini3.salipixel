@@ -1,0 +1,100 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 20,
+                "y": 9
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 12,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 20,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 3
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 16,
+                "y": 9
+            },
+            "stop": {
+                "x": 16,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "angle": {
+                "x": 19,
+                "y": 13
+            },
+            "center": {
+                "x": 16,
+                "y": 13
+            },
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaRotate",
+            "select0": {
+                "x": 12,
+                "y": 3
+            },
+            "select1": {
+                "x": 20,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 16,
+                "y": 9
+            },
+            "select1": {
+                "x": 26,
+                "y": 17
+            },
+            "target": {
+                "x": 26,
+                "y": 20
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

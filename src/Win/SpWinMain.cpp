@@ -87,21 +87,23 @@ SpWinMain::SpWinMain(QWidget *parent) :
   toolBar->addSeparator();
 
   auto menuEdit = new QMenu( tr("Edit") );
-  menuEdit->addAction( tr("Undo"), mEditor, &SpWinEditor::cmEditUndo );
+  toolBar->addAction( menuEdit->addAction( QIcon( QStringLiteral(":/pic/editUndo.png")), tr("Undo"), mEditor, &SpWinEditor::cmEditUndo ) );
   menuEdit->addSeparator();
-  auto copy = menuEdit->addAction( tr("Copy or move") );
+  auto copy = menuEdit->addAction( QIcon( QStringLiteral(":/pic/editCopy.png")), tr("Copy or move") );
+  toolBar->addAction( copy );
   copy->setCheckable(true);
   connect( copy, &QAction::toggled, mEditor, &SpWinEditor::cmEditCopyToggle );
   auto over = menuEdit->addAction( tr("Do override") );
   over->setCheckable(true);
   connect( over, &QAction::toggled, mEditor, &SpWinEditor::cmEditOverrideToggle );
+
   toolBar->addSeparator();
   addMode( new SpModeAreaMove(), menuEdit, toolBar );
   addMode( new SpModeAreaRotate(), menuEdit, toolBar );
   addMode( new SpModeAreaMirror(), menuEdit, toolBar );
   addMode( new SpModeAreaRectArray(), menuEdit, toolBar );
-  menuEdit->addAction( tr("Round array"), mEditor, &SpWinEditor::cmEditRoundArray );
-  menuEdit->addAction( tr("Scale"), mEditor, &SpWinEditor::cmEditScale );
+  addMode( new SpModeAreaRoundArray(), menuEdit, toolBar );
+  addMode( new SpModeAreaScale(), menuEdit, toolBar );
   menuEdit->addSeparator();
   menuEdit->addAction( tr("Move vertex point"), mEditor, &SpWinEditor::cmEditMovePoint );
   menuEdit->addSeparator();

@@ -2,10 +2,11 @@
 #include "Object/SpCmdAreaRoundArray.h"
 
 #include <QObject>
+#include <QInputDialog>
 
-SpModeAreaRoundArray::SpModeAreaRoundArray(int itemCount) :
+SpModeAreaRoundArray::SpModeAreaRoundArray() :
   SpModeArea(3),
-  mItemCount(itemCount)
+  mItemCount(2)
   {
 
   }
@@ -41,8 +42,36 @@ QString SpModeAreaRoundArray::stepDescription()
 
 
 
+void SpModeAreaRoundArray::init(SpCmdList &objects, QWidget *parent)
+  {
+  Q_UNUSED(objects)
+  bool ok = true;
+  int items = QInputDialog::getInt( parent, QObject::tr("Enter round item count"), QObject::tr("Round item count:"), 2, 1, 100, 1, &ok );
+  if( ok )
+    mItemCount = items;
+  else
+    mItemCount = 2;
+  }
+
+
+
+QString SpModeAreaRoundArray::iconName() const
+  {
+  return QStringLiteral("editRoundArray.png");
+  }
+
+
+QString SpModeAreaRoundArray::menuName() const
+  {
+  return QObject::tr("Round array");
+  }
+
+
+
 SpCmd *SpModeAreaRoundArray::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)
   return new SpCmdAreaRoundArray( mFirst, mSecond, mCenter, p, mItemCount, mDoOverride );
   }
+
+

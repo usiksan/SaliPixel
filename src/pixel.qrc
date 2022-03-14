@@ -8,5 +8,9 @@
         <file>pic/editRotate.png</file>
         <file>pic/editRectArray.png</file>
         <file>pic/editMirror.png</file>
+        <file>pic/editRoundArray.png</file>
+        <file>pic/editUndo.png</file>
+        <file>pic/editCopy.png</file>
+        <file>pic/editScale.png</file>
     </qresource>
 </RCC>
