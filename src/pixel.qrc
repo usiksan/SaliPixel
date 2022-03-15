@@ -12,5 +12,21 @@
         <file>pic/editUndo.png</file>
         <file>pic/editCopy.png</file>
         <file>pic/editScale.png</file>
+        <file>pic/editPasteFile.png</file>
+        <file>pic/editMoveVertex.png</file>
+        <file>pic/drawPoint.png</file>
+        <file>pic/drawLine.png</file>
+        <file>pic/colors.png</file>
+        <file>pic/drawTriangle.png</file>
+        <file>pic/drawRoundRect.png</file>
+        <file>pic/drawRect.png</file>
+        <file>pic/drawParallelogramm.png</file>
+        <file>pic/drawFilledRect.png</file>
+        <file>pic/drawFillArea.png</file>
+        <file>pic/drawCircle2.png</file>
+        <file>pic/drawCircle.png</file>
+        <file>pic/drawArc2.png</file>
+        <file>pic/drawArc.png</file>
+        <file>pic/drawFilledCircle.png</file>
     </qresource>
 </RCC>

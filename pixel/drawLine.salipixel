@@ -1,0 +1,45 @@
+{
+    "command": [
+        {
+            "center": {
+                "x": 7,
+                "y": 24
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 9,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 23,
+                "y": 6
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 25,
+                "y": 4
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 9,
+                "y": 22
+            },
+            "stop": {
+                "x": 21,
+                "y": 8
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

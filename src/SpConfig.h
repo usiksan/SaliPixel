@@ -31,6 +31,9 @@ History
                    Refactor modes: at now mode created staticaly and contains menu name and icon name,
                    so there is single place to add mode to system - main window
   14.03.2022 v0.9  Append icons for undo, copy-move and scale commands
+  15.03.2022 v0.10 Refactor modes: at now return to dynamicaly creating modes
+                   menu name and icon name move into application menu creation
+                   Append icons for drawing modes
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -43,7 +46,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             9
+#define SP_VERSION_MINOR             10
 
 #define SP_EXTENSION                 ".salipixel"
 

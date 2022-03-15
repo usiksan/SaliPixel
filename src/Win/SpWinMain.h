@@ -23,6 +23,7 @@ Description
 
 class SpWinEditor;
 
+
 class SpWinMain : public QMainWindow
   {
     Q_OBJECT
@@ -41,6 +42,6 @@ class SpWinMain : public QMainWindow
     virtual void closeEvent(QCloseEvent *event) override;
 
   private:
-    void addMode( SpMode *mode, QMenu *menu, QToolBar *bar = nullptr );
+    void addMode( QMenu *menu, QToolBar *bar, const QString &menuName, const QString &iconName, SpMode *(*modeBuilder)() );
   };
 #endif // SPWINMAIN_H

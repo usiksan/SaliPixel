@@ -1,0 +1,45 @@
+{
+    "command": [
+        {
+            "center": {
+                "x": 16,
+                "y": 8
+            },
+            "color": "#cc0000",
+            "id": "FillCircle",
+            "radius": {
+                "x": 20,
+                "y": 5
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 8,
+                "y": 23
+            },
+            "color": "#73d216",
+            "id": "FillCircle",
+            "radius": {
+                "x": 11,
+                "y": 19
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 24,
+                "y": 23
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 27,
+                "y": 19
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

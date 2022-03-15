@@ -51,20 +51,6 @@ void SpModeAreaRectArray::init(SpCmdList &objects, QWidget *parent)
 
 
 
-QString SpModeAreaRectArray::iconName() const
-  {
-  return QStringLiteral("editRectArray.png");
-  }
-
-
-
-QString SpModeAreaRectArray::menuName() const
-  {
-  return QObject::tr("Rectangle array");
-  }
-
-
-
 
 SpCmd *SpModeAreaRectArray::object(QPoint p, QColor color)
   {

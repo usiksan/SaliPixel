@@ -43,8 +43,7 @@ SpWinEditor::SpWinEditor(QWidget *parent) :
   QWidget{parent},
   mMode{ new SpModeIdle{} },
   mColor{Qt::black},
-  mScale{20},
-  mStaticMode(false)
+  mScale{20}
   {
   mImage.resize( 32, 32 );
   mWork.set( mImage );
@@ -76,12 +75,11 @@ bool SpWinEditor::canClose()
 
 
 
-void SpWinEditor::setMode( SpMode *md, bool staticMode )
+void SpWinEditor::setMode( SpMode *md )
   {
-  if( !mStaticMode && mMode != nullptr )
+  if( mMode != nullptr )
     delete mMode;
   mMode = md;
-  mStaticMode = staticMode;
   if( mMode != nullptr ) {
     emit stepMessage( mMode->stepDescription() );
     mMode->init( mObjects, this );
@@ -236,16 +234,6 @@ void SpWinEditor::cmEditInsert()
 
   }
 
-void SpWinEditor::cmEditMovePoint()
-  {
-  setMode( new SpModeEditPoint( mObjects ) );
-  }
-
-void SpWinEditor::cmEditPasteFile()
-  {
-  setMode( new SpModePasteFile() );
-  }
-
 
 
 
@@ -274,15 +262,6 @@ void SpWinEditor::cmDrawBaseColor()
 
 
 
-void SpWinEditor::cmDrawPoint()
-  {
-  setMode( new SpModePoint() );
-  }
-
-void SpWinEditor::cmDrawLine()
-  {
-  setMode( new SpModeLine() );
-  }
 
 void SpWinEditor::cmDrawRect()
   {

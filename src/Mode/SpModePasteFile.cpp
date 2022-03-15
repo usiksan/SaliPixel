@@ -57,20 +57,6 @@ void SpModePasteFile::init(SpCmdList &objects, QWidget *parent)
 
 
 
-QString SpModePasteFile::iconName() const
-  {
-  return QStringLiteral("editPasteFile.png");
-  }
-
-
-
-QString SpModePasteFile::menuName() const
-  {
-  return QObject::tr("Paste file...");
-  }
-
-
-
 
 SpCmd *SpModePasteFile::object(QPoint p, QColor color)
   {

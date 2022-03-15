@@ -42,6 +42,7 @@ Description
 #include "Mode/SpModeAreaScale.h"
 
 #include "Mode/SpModeEditPoint.h"
+#include "Mode/SpModePasteFile.h"
 
 
 #include <QSettings>
@@ -98,35 +99,37 @@ SpWinMain::SpWinMain(QWidget *parent) :
   connect( over, &QAction::toggled, mEditor, &SpWinEditor::cmEditOverrideToggle );
 
   toolBar->addSeparator();
-  addMode( new SpModeAreaMove(), menuEdit, toolBar );
-  addMode( new SpModeAreaRotate(), menuEdit, toolBar );
-  addMode( new SpModeAreaMirror(), menuEdit, toolBar );
-  addMode( new SpModeAreaRectArray(), menuEdit, toolBar );
-  addMode( new SpModeAreaRoundArray(), menuEdit, toolBar );
-  addMode( new SpModeAreaScale(), menuEdit, toolBar );
+  addMode( menuEdit, toolBar, tr("Move"),            QStringLiteral("editMove.png"), [] () -> SpMode* { return new SpModeAreaMove(); } );
+  addMode( menuEdit, toolBar, tr("Rotate"),          QStringLiteral("editRotate.png"), [] () -> SpMode* { return new SpModeAreaRotate(); } );
+  addMode( menuEdit, toolBar, tr("Mirror"),          QStringLiteral("editMirror.png"), [] () -> SpMode* { return new SpModeAreaMirror(); } );
+  addMode( menuEdit, toolBar, tr("Rectangle array"), QStringLiteral("editRectArray.png"), [] () -> SpMode* { return new SpModeAreaRectArray(); } );
+  addMode( menuEdit, toolBar, tr("Round array"),     QStringLiteral("editRoundArray.png"), [] () -> SpMode* { return new SpModeAreaRoundArray(); } );
+  addMode( menuEdit, toolBar, tr("Scale"),           QStringLiteral("editScale.png"), [] () -> SpMode* { return new SpModeAreaScale(); } );
   menuEdit->addSeparator();
-  menuEdit->addAction( tr("Move vertex point"), mEditor, &SpWinEditor::cmEditMovePoint );
+  addMode( menuEdit, toolBar, tr("Move vertex point"), QStringLiteral("editMoveVertex.png"), [] () -> SpMode* { return new SpModeEditPoint(); } );
   menuEdit->addSeparator();
-  menuEdit->addAction( tr("Paste file"), mEditor, &SpWinEditor::cmEditPasteFile );
+  addMode( menuEdit, toolBar, tr("Paste file..."),     QStringLiteral("editPasteFile.png"), [] () -> SpMode* { return new SpModePasteFile(); } );
 
+  toolBar = new QToolBar( tr("SaliPixel draw tool bar"), this );
+  addToolBar( Qt::LeftToolBarArea, toolBar );
   auto menuDraw = new QMenu( tr("Draw") );
-  menuDraw->addAction( tr("Color"), mEditor, &SpWinEditor::cmDrawColor );
+  toolBar->addAction( menuDraw->addAction( QIcon( QStringLiteral(":/pic/colors.png")), tr("Color"), mEditor, &SpWinEditor::cmDrawColor ) );
   menuDraw->addAction( tr("Base color"), mEditor, &SpWinEditor::cmDrawBaseColor );
   menuDraw->addSeparator();
-  menuDraw->addAction( tr("Point"), mEditor, &SpWinEditor::cmDrawPoint );
-  menuDraw->addAction( tr("Line"), mEditor, &SpWinEditor::cmDrawLine );
-  menuDraw->addAction( tr("Rect"), mEditor, &SpWinEditor::cmDrawRect );
-  menuDraw->addAction( tr("Circle"), mEditor, &SpWinEditor::cmDrawCircle );
-  menuDraw->addAction( tr("Circle2"), mEditor, &SpWinEditor::cmDrawCircle2 );
-  menuDraw->addAction( tr("Arc"), mEditor, &SpWinEditor::cmDrawArc );
-  menuDraw->addAction( tr("Arc2"), mEditor, &SpWinEditor::cmDrawArc2 );
-  menuDraw->addAction( tr("Triangle"), mEditor, &SpWinEditor::cmDrawTriangle );
-  menuDraw->addAction( tr("Parallelogramm"), mEditor, &SpWinEditor::cmDrawParallelogramm );
-  menuDraw->addAction( tr("Round rect"), mEditor, &SpWinEditor::cmDrawRoundRect );
+  addMode( menuDraw, toolBar, tr("Point"),           QStringLiteral("drawPoint.png"), [] () -> SpMode* { return new SpModePoint(); } );
+  addMode( menuDraw, toolBar, tr("Line"),            QStringLiteral("drawLine.png"), [] () -> SpMode* { return new SpModeLine(); } );
+  addMode( menuDraw, toolBar, tr("Rect"),            QStringLiteral("drawRect.png"), [] () -> SpMode* { return new SpModeRect(); } );
+  addMode( menuDraw, toolBar, tr("Circle"),          QStringLiteral("drawCircle.png"), [] () -> SpMode* { return new SpModeCircle(); } );
+  addMode( menuDraw, toolBar, tr("Circle 2"),        QStringLiteral("drawCircle2.png"), [] () -> SpMode* { return new SpModeCircle2(); } );
+  addMode( menuDraw, toolBar, tr("Arc"),             QStringLiteral("drawArc.png"), [] () -> SpMode* { return new SpModeArc(); } );
+  addMode( menuDraw, toolBar, tr("Arc 2"),           QStringLiteral("drawArc2.png"), [] () -> SpMode* { return new SpModeArc2(); } );
+  addMode( menuDraw, toolBar, tr("Triangle"),        QStringLiteral("drawTriangle.png"), [] () -> SpMode* { return new SpModeTriangle(); } );
+  addMode( menuDraw, toolBar, tr("Parallelogramm"),  QStringLiteral("drawParallelogramm.png"), [] () -> SpMode* { return new SpModeParallelogramm(); } );
+  addMode( menuDraw, toolBar, tr("Round rect"),      QStringLiteral("drawRoundRect.png"), [] () -> SpMode* { return new SpModeRoundRect(); } );
   menuDraw->addSeparator();
-  menuDraw->addAction( tr("Filled rect"), mEditor, &SpWinEditor::cmDrawFillRect );
-  menuDraw->addAction( tr("Filled circle"), mEditor, &SpWinEditor::cmDrawFillCircle );
-  menuDraw->addAction( tr("Fill area"), mEditor, &SpWinEditor::cmDrawFill );
+  addMode( menuDraw, toolBar, tr("Filled rect"),     QStringLiteral("drawFilledRect.png"), [] () -> SpMode* { return new SpModeFillRect(); } );
+  addMode( menuDraw, toolBar, tr("Filled circle"),   QStringLiteral("drawFilledCircle.png"), [] () -> SpMode* { return new SpModeFillCircle(); } );
+  addMode( menuDraw, toolBar, tr("Fill area"),       QStringLiteral("drawFillArea.png"), [] () -> SpMode* { return new SpModeFill(); } );
 
   auto menuClear = new QMenu( tr("Erase") );
   menuClear->addAction( tr("Point"), mEditor, &SpWinEditor::cmClearPoint );
@@ -177,12 +180,13 @@ void SpWinMain::closeEvent(QCloseEvent *event)
 
 
 
-void SpWinMain::addMode(SpMode *mode, QMenu *menu, QToolBar *bar)
+
+void SpWinMain::addMode(QMenu *menu, QToolBar *bar, const QString &menuName, const QString &iconName, SpMode *(*modeBuilder)())
   {
-  QAction *action = menu->addAction( QIcon( QStringLiteral(":/pic/") + mode->iconName()), mode->menuName() );
+  QAction *action = menu->addAction( QIcon( QStringLiteral(":/pic/") + iconName ), menuName );
   action->setCheckable( true );
-  connect( action, &QAction::triggered, this, [this, mode, action] () {
-    mEditor->setMode( mode, true );
+  connect( action, &QAction::triggered, this, [this, modeBuilder, action] () {
+    mEditor->setMode( modeBuilder() );
     if( mActiveMode != nullptr )
       mActiveMode->setChecked(false);
     mActiveMode = action;
@@ -192,3 +196,6 @@ void SpWinMain::addMode(SpMode *mode, QMenu *menu, QToolBar *bar)
   if( bar )
     bar->addAction( action );
   }
+
+
+

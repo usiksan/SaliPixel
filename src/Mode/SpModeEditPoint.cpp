@@ -2,9 +2,9 @@
 
 #include <QObject>
 
-SpModeEditPoint::SpModeEditPoint(SpCmdList &objs) :
+SpModeEditPoint::SpModeEditPoint() :
   SpMode(1),
-  mObjects(objs)
+  mObjects(nullptr)
   {
 
   }
@@ -19,7 +19,8 @@ void SpModeEditPoint::paint(SpImage &dest, QPoint p, QColor color)
     for( auto pointPtr : qAsConst(mSelection) )
       *pointPtr = p;
     //Draw new image
-    mObjects.paint( dest );
+    if( mObjects != nullptr )
+      mObjects->paint( dest );
     }
   else
     dest.selectionPoint( p );
@@ -41,7 +42,8 @@ bool SpModeEditPoint::left(SpCmdList &dest, QPoint p, QColor color)
       if( p == mSource )
         mSelection.append( &p );
       };
-    mObjects.parsePoints( selector );
+    if( mObjects != nullptr )
+      mObjects->parsePoints( selector );
     return false;
     }
   mStep = 0;
@@ -72,4 +74,10 @@ QString SpModeEditPoint::stepDescription()
 
 
 
+
+void SpModeEditPoint::init(SpCmdList &objects, QWidget *parent)
+  {
+  Q_UNUSED(parent)
+  mObjects = &objects;
+  }
 

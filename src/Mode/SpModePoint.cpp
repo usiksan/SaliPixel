@@ -24,6 +24,8 @@ QString SpModePoint::stepDescription()
   }
 
 
+
+
 SpCmd *SpModePoint::object(QPoint p, QColor color)
   {
   return new SpCmdPoint( p, color );

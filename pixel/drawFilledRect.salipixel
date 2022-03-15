@@ -1,0 +1,54 @@
+{
+    "command": [
+        {
+            "center": {
+                "x": 8,
+                "y": 6
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 10,
+                "y": 4
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 24,
+                "y": 24
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 26,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "first": {
+                "x": 8,
+                "y": 6
+            },
+            "id": "Rect",
+            "second": {
+                "x": 24,
+                "y": 24
+            },
+            "visible": true
+        },
+        {
+            "color": "#98abf7",
+            "id": "Fill",
+            "source": {
+                "x": 16,
+                "y": 15
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

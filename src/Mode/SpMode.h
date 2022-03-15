@@ -30,10 +30,6 @@ class SpMode
 
     virtual void    init( SpCmdList &objects, QWidget *parent );
 
-    virtual QString iconName() const;
-
-    virtual QString menuName() const;
-
   protected:
 
     //!

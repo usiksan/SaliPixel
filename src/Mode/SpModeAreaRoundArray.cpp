@@ -55,19 +55,6 @@ void SpModeAreaRoundArray::init(SpCmdList &objects, QWidget *parent)
 
 
 
-QString SpModeAreaRoundArray::iconName() const
-  {
-  return QStringLiteral("editRoundArray.png");
-  }
-
-
-QString SpModeAreaRoundArray::menuName() const
-  {
-  return QObject::tr("Round array");
-  }
-
-
-
 SpCmd *SpModeAreaRoundArray::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)

@@ -37,19 +37,6 @@ void SpMode::init(SpCmdList &objects, QWidget *parent)
 
 
 
-QString SpMode::iconName() const
-  {
-  return QString{};
-  }
-
-
-
-QString SpMode::menuName() const
-  {
-  return QString{};
-  }
-
-
 
 
 SpCmd *SpMode::object(QPoint p, QColor color)

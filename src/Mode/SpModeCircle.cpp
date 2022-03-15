@@ -39,3 +39,4 @@ SpCmd *SpModeCircle::object(QPoint p, QColor color)
   {
   return new SpCmdCircle( mCenter, p, color );
   }
+

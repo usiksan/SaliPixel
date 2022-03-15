@@ -1,0 +1,128 @@
+{
+    "command": [
+        {
+            "center": {
+                "x": 8,
+                "y": 7
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 10,
+                "y": 5
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 6,
+                "y": 5
+            },
+            "select1": {
+                "x": 10,
+                "y": 9
+            },
+            "target": {
+                "x": 10,
+                "y": 27
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 6,
+                "y": 23
+            },
+            "select1": {
+                "x": 10,
+                "y": 27
+            },
+            "target": {
+                "x": 23,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 6,
+                "y": 5
+            },
+            "select1": {
+                "x": 23,
+                "y": 27
+            },
+            "target": {
+                "x": 25,
+                "y": 30
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 10
+            },
+            "stop": {
+                "x": 10,
+                "y": 28
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 28
+            },
+            "stop": {
+                "x": 23,
+                "y": 23
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 23,
+                "y": 23
+            },
+            "stop": {
+                "x": 23,
+                "y": 5
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 23,
+                "y": 5
+            },
+            "stop": {
+                "x": 10,
+                "y": 10
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

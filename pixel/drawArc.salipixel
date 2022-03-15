@@ -1,0 +1,93 @@
+{
+    "command": [
+        {
+            "center": {
+                "x": 16,
+                "y": 15
+            },
+            "color": "#1e49f6",
+            "id": "Arc",
+            "start": {
+                "x": 4,
+                "y": 15
+            },
+            "stop": {
+                "x": 27,
+                "y": 15
+            },
+            "visible": true
+        },
+        {
+            "center": {
+                "x": 16,
+                "y": 15
+            },
+            "color": "#1e49f6",
+            "id": "FillCircle",
+            "radius": {
+                "x": 18,
+                "y": 13
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 14,
+                "y": 13
+            },
+            "select1": {
+                "x": 18,
+                "y": 17
+            },
+            "target": {
+                "x": 7,
+                "y": 17
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": true,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 14,
+                "y": 13
+            },
+            "select1": {
+                "x": 18,
+                "y": 17
+            },
+            "target": {
+                "x": 29,
+                "y": 17
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 2,
+                "y": 2
+            },
+            "select1": {
+                "x": 30,
+                "y": 19
+            },
+            "target": {
+                "x": 30,
+                "y": 23
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

@@ -1,0 +1,84 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 20
+            },
+            "stop": {
+                "x": 14,
+                "y": 24
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 20
+            },
+            "stop": {
+                "x": 6,
+                "y": 28
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 14,
+                "y": 24
+            },
+            "stop": {
+                "x": 6,
+                "y": 28
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 20
+            },
+            "stop": {
+                "x": 23,
+                "y": 8
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 23,
+                "y": 8
+            },
+            "stop": {
+                "x": 27,
+                "y": 12
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 27,
+                "y": 12
+            },
+            "stop": {
+                "x": 14,
+                "y": 24
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

@@ -3,10 +3,12 @@
 
 #include <QObject>
 
+
 SpModeRect::SpModeRect()
   {
 
   }
+
 
 
 void SpModeRect::paint(SpImage &dest, QPoint p, QColor color)
@@ -21,6 +23,8 @@ void SpModeRect::paint(SpImage &dest, QPoint p, QColor color)
   }
 
 
+
+
 QString SpModeRect::stepDescription()
   {
   if( mStep == 0 )
@@ -29,7 +33,11 @@ QString SpModeRect::stepDescription()
   }
 
 
+
+
 SpCmd *SpModeRect::object(QPoint p, QColor color)
   {
   return new SpCmdRect( mFirst, p, color );
   }
+
+

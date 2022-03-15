@@ -38,14 +38,13 @@ class SpWinEditor : public QWidget
     QPoint           mPoint;
     QString          mPath;
     int              mScale;
-    bool             mStaticMode;
   public:
     explicit SpWinEditor(QWidget *parent = nullptr);
     ~SpWinEditor() { clear(); }
 
     bool   canClose();
 
-    void   setMode(SpMode *md , bool staticMode = false );
+    void   setMode(SpMode *md );
 
   private:
 
@@ -72,13 +71,10 @@ class SpWinEditor : public QWidget
     void cmEditOverrideToggle( bool state );
 
     void cmEditInsert();
-    void cmEditMovePoint();
-    void cmEditPasteFile();
 
     void cmDrawColor();
     void cmDrawBaseColor();
-    void cmDrawPoint();
-    void cmDrawLine();
+
     void cmDrawRect();
     void cmDrawArc();
     void cmDrawArc2();

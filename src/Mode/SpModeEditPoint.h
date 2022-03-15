@@ -8,11 +8,11 @@
 
 class SpModeEditPoint : public SpMode
   {
-    SpCmdList      &mObjects;
+    SpCmdList      *mObjects;
     QList<QPoint*>  mSelection;
     QPoint          mSource;
   public:
-    SpModeEditPoint( SpCmdList &objs );
+    SpModeEditPoint();
 
     // SpMode interface
   public:
@@ -21,6 +21,7 @@ class SpModeEditPoint : public SpMode
     virtual bool     left(SpCmdList &dest, QPoint p, QColor color) override;
     virtual void     right() override;
     virtual QString  stepDescription() override;
+    virtual void     init(SpCmdList &objects, QWidget *parent) override;
   };
 
 #endif // SPMODEEDITPOINT_H

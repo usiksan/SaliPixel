@@ -13,8 +13,6 @@ class SpModeAreaMirror : public SpModeArea
   public:
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
     virtual QString stepDescription() override;
-    virtual QString iconName() const override;
-    virtual QString menuName() const override;
 
     // SpMode interface
   protected:

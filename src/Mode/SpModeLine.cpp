@@ -31,7 +31,11 @@ QString SpModeLine::stepDescription()
   }
 
 
+
+
 SpCmd *SpModeLine::object(QPoint p, QColor color)
   {
   return new SpCmdLine( mFirst, p, color );
   }
+
+

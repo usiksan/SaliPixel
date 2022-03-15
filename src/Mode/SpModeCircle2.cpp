@@ -34,3 +34,6 @@ SpCmd *SpModeCircle2::object(QPoint p, QColor color)
   {
   return new SpCmdCircle( SpImage::center( mFirst, p ), p, color );
   }
+
+
+
