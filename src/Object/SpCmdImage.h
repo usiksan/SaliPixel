@@ -9,9 +9,10 @@ class SpCmdImage : public SpCmd
   {
     QImage mImage;
     QPoint mPoint;
+    bool   mDoOverride;
   public:
     SpCmdImage() : SpCmd() {}
-    SpCmdImage(QPoint pos, QImage &im );
+    SpCmdImage(QPoint pos, QImage &im, bool doOverride );
 
     // SpCmd interface
   public:

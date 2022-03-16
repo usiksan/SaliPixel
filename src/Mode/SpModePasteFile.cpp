@@ -1,5 +1,6 @@
 #include "SpConfig.h"
 #include "SpModePasteFile.h"
+#include "SpModeArea.h"
 #include "Object/SpCmdImage.h"
 
 
@@ -19,7 +20,7 @@ SpModePasteFile::SpModePasteFile() :
 void SpModePasteFile::paint(SpImage &dest, QPoint p, QColor color)
   {
   Q_UNUSED(color)
-  dest.imagePaste( p - QPoint( mImage.width() / 2, mImage.height() / 2 ), mImage, false );
+  dest.imagePaste( p - QPoint( mImage.width() / 2, mImage.height() / 2 ), mImage, SpModeArea::mDoOverride, true );
   }
 
 
@@ -61,5 +62,5 @@ void SpModePasteFile::init(SpCmdList &objects, QWidget *parent)
 SpCmd *SpModePasteFile::object(QPoint p, QColor color)
   {
   Q_UNUSED(color)
-  return new SpCmdImage( p, mImage );
+  return new SpCmdImage( p, mImage, SpModeArea::mDoOverride );
   }

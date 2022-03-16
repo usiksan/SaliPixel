@@ -34,6 +34,9 @@ History
   15.03.2022 v0.10 Refactor modes: at now return to dynamicaly creating modes
                    menu name and icon name move into application menu creation
                    Append icons for drawing modes
+  16.03.2022 v0.11 Append icons for all erasing modes
+                   Append override for image paste
+                   Fix: not save origin for image paste
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -46,7 +49,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             10
+#define SP_VERSION_MINOR             11
 
 #define SP_EXTENSION                 ".salipixel"
 

@@ -177,23 +177,25 @@ void SpImage::imageSet(const QImage &im)
   if( im.width() <= 0 || im.height() <= 0 )
     return;
   resize( im.width(), im.height() );
-  imagePaste( QPoint(), im, true );
+  imagePaste( QPoint(), im, true, false );
   }
 
 
 
-void SpImage::imagePaste(QPoint pos, const QImage &im, bool doOverride )
+void SpImage::imagePaste(QPoint pos, const QImage &im, bool doOverride, bool useTransparent )
   {
   for( int x = 0; x < im.width(); x++ )
     for( int y = 0; y < im.height(); y++ )
-      if( doOverride )
-        pixelSet( pos.x() + x, pos.y() + y, SpColor( im.pixelColor(x,y) )  );
+      if( doOverride ) {
+        SpColor clr( im.pixelColor(x,y) );
+        if( !useTransparent || !clr.isOpacity() )
+          pixelSet( pos.x() + x, pos.y() + y, clr );
+        }
       else {
         pixelAdd( pos.x() + x, pos.y() + y, SpColor( im.pixelColor(x,y) ) );
-//        SpColor clr( im.pixelColor(x,y) );
-//        if( clr.)
         }
   }
+
 
 
 
@@ -349,7 +351,7 @@ void SpImage::editScale(QPoint a, QPoint b, QPoint scale)
     QImage scaled = area.toImage().scaled( w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation );
 
     QPoint dest( qMin(a.x(), scale.x()), qMin(a.y(), scale.y()) );
-    imagePaste( dest, scaled, true );
+    imagePaste( dest, scaled, true, false );
     }
 
   }

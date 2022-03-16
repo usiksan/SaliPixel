@@ -132,9 +132,10 @@ SpWinMain::SpWinMain(QWidget *parent) :
   addMode( menuDraw, toolBar, tr("Fill area"),       QStringLiteral("drawFillArea.png"), [] () -> SpMode* { return new SpModeFill(); } );
 
   auto menuClear = new QMenu( tr("Erase") );
-  menuClear->addAction( tr("Point"), mEditor, &SpWinEditor::cmClearPoint );
-  menuClear->addAction( tr("Rect"), mEditor, &SpWinEditor::cmClearRect );
-  menuClear->addAction( tr("Circle"), mEditor, &SpWinEditor::cmClearCircle );
+  toolBar->addSeparator();
+  addMode( menuClear, toolBar, tr("Point"),  QStringLiteral("erasePoint.png"), [] () -> SpMode* { return new SpModeClearPoint(); } );
+  addMode( menuClear, toolBar, tr("Rect"),   QStringLiteral("eraseRect.png"), [] () -> SpMode* { return new SpModeClearRect(); } );
+  addMode( menuClear, toolBar, tr("Circle"), QStringLiteral("eraseCircle.png"), [] () -> SpMode* { return new SpModeClearCircle(); } );
 
   menuBar()->addMenu( menuFile );
   menuBar()->addMenu( menuEdit );

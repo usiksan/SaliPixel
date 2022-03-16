@@ -1,0 +1,99 @@
+{
+    "command": [
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 16,
+                "y": 7
+            },
+            "stop": {
+                "x": 5,
+                "y": 24
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 5,
+                "y": 24
+            },
+            "stop": {
+                "x": 14,
+                "y": 29
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 14,
+                "y": 29
+            },
+            "stop": {
+                "x": 25,
+                "y": 12
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 25,
+                "y": 12
+            },
+            "stop": {
+                "x": 16,
+                "y": 7
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Line",
+            "start": {
+                "x": 10,
+                "y": 16
+            },
+            "stop": {
+                "x": 19,
+                "y": 21
+            },
+            "visible": true
+        },
+        {
+            "color": "#1e49f6",
+            "id": "Fill",
+            "source": {
+                "x": 10,
+                "y": 22
+            },
+            "visible": true
+        },
+        {
+            "color": "#000000",
+            "doCopy": false,
+            "doOverride": false,
+            "id": "AreaMove",
+            "select0": {
+                "x": 4,
+                "y": 29
+            },
+            "select1": {
+                "x": 26,
+                "y": 7
+            },
+            "target": {
+                "x": 31,
+                "y": 1
+            },
+            "visible": true
+        }
+    ],
+    "height": 32,
+    "width": 32
+}

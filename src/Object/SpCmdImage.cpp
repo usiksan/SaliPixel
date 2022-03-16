@@ -1,9 +1,10 @@
 #include "SpCmdImage.h"
 
-SpCmdImage::SpCmdImage(QPoint pos, QImage &im) :
+SpCmdImage::SpCmdImage(QPoint pos, QImage &im, bool doOverride) :
   SpCmd(),
   mImage(im),
-  mPoint(pos)
+  mPoint(pos),
+  mDoOverride(doOverride)
   {
 
   }
@@ -11,7 +12,7 @@ SpCmdImage::SpCmdImage(QPoint pos, QImage &im) :
 
 void SpCmdImage::paint(SpImage &im)
   {
-  im.imagePaste( mPoint - QPoint( mImage.width() / 2, mImage.height() / 2 ), mImage, false );
+  im.imagePaste( mPoint - QPoint( mImage.width() / 2, mImage.height() / 2 ), mImage, mDoOverride, true );
   }
 
 
@@ -23,6 +24,8 @@ void SpCmdImage::jsonWrite(SvJsonWriter &js)
   int h = mImage.height();
   js.jsonInt( "width", w );
   js.jsonInt( "height", h );
+  js.jsonPoint( "pos", mPoint );
+  js.jsonBool( "over", mDoOverride );
   QList<int> im;
   for( int x = 0; x < w; x++ )
     for( int y = 0; y < h; y++ ) {
@@ -43,6 +46,8 @@ void SpCmdImage::jsonRead(SvJsonReader &js)
   int w,h;
   js.jsonInt( "width", w );
   js.jsonInt( "height", h );
+  js.jsonPoint( "pos", mPoint );
+  js.jsonBool( "over", mDoOverride );
   QList<int> im;
   js.jsonListInt( "image", im );
   mImage = QImage( w, h, QImage::Format_ARGB32 );

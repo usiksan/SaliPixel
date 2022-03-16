@@ -28,5 +28,8 @@
         <file>pic/drawArc2.png</file>
         <file>pic/drawArc.png</file>
         <file>pic/drawFilledCircle.png</file>
+        <file>pic/eraseRect.png</file>
+        <file>pic/erasePoint.png</file>
+        <file>pic/eraseCircle.png</file>
     </qresource>
 </RCC>
