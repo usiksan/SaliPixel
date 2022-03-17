@@ -1,3 +1,18 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpImage - internal representation of pixel image
+
+  Image contains of SpColor pixels
+*/
 #ifndef SPIMAGE_H
 #define SPIMAGE_H
 
@@ -8,32 +23,76 @@
 #include <QTransform>
 #include <functional>
 
+//!
+//! \brief The SpImage class SpColor pixel image
+//!
 class SpImage
   {
-    int      mWidth;
-    int      mHeight;
-    SpColor *mArea;
+    int      mWidth;  //!< Width of image in pixels
+    int      mHeight; //!< Height of image in pixels
+    SpColor *mArea;   //!< Pixels array. It is one-dimensional internal representation.
+                      //!  Two-dimensional access is throught pixelXXX functions
 
   public:
+    //!
+    //! \brief SpImage Builds empty image
+    //!
     SpImage();
+
+    //!
+    //! \brief SpImage Builds copy of src image. It perform deep copy
+    //! \param src     Source image
+    //!
     SpImage( const SpImage &src ) : mWidth{0}, mHeight{0}, mArea{nullptr} { set(src); }
+
     ~SpImage();
 
 
+    //!
+    //! \brief width Returns width of image
+    //! \return      Width of image
+    //!
     int     width() const { return mWidth; }
 
+    //!
+    //! \brief height Returns height of image
+    //! \return       Height of image
+    //!
     int     height() const { return mHeight; }
 
 
+    //!
+    //! \brief resize Resize image to new dimensionals
+    //! \param w      New width of image
+    //! \param h      New height of image
+    //!
     void    resize( int w, int h );
 
+    //!
+    //! \brief clear Make all pixels of image fully transparent color
+    //!
     void    clear();
 
+    //!
+    //! \brief set Set current image as copy of source image including dimensions
+    //! \param src Source image
+    //!
     void    set( const SpImage &src );
 
+    //!
+    //! \brief operator = Overloading operator as set function
+    //! \param src        Source image
+    //!
     void    operator = ( const SpImage &src ) { set(src); }
 
 
+
+    //!
+    //! \brief pixelSet Set pixel at specified coords with specified color. New color is override previous color.
+    //! \param x        Pixel destignation coords
+    //! \param y
+    //! \param color    New color of pixel
+    //!
     void    pixelSet( int x, int y, SpColor color );
 
     void    pixelAdd( int x, int y, SpColor color );

@@ -1,5 +1,5 @@
 /*
-Project "Combine vector-pixel graphic editor"
+Project "Combine vector-pixel graphic editor for small image like icon"
 
 Author
   Sibilev Alexander S.
