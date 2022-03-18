@@ -72,18 +72,28 @@ SpImage::SpImage() :
 SpImage::~SpImage()
   {
   if( mArea != nullptr )
-    delete mArea;
+    delete []mArea;
   }
 
+
+
+
+//!
+//! \brief resize Resize image to new dimensionals
+//! \param w      New width of image
+//! \param h      New height of image
+//!
 void SpImage::resize(int w, int h)
   {
   //Check invalid size
   if( w <= 0 || h <= 0 )
     return;
 
+  //Delete previous pixel area if present
   if( mArea != nullptr )
-    delete mArea;
+    delete []mArea;
 
+  //Allocate new pixel area with default pixels (fully transparent)
   mWidth = w;
   mHeight = h;
   mArea = new SpColor[mWidth * mHeight];
@@ -91,6 +101,9 @@ void SpImage::resize(int w, int h)
 
 
 
+//!
+//! \brief clear Make all pixels of image fully transparent color
+//!
 void SpImage::clear()
   {
   SpColor color;
@@ -101,11 +114,18 @@ void SpImage::clear()
 
 
 
+
+//!
+//! \brief set Set current image as copy of source image including dimensions
+//! \param src Source image
+//!
 void SpImage::set(const SpImage &src)
   {
+  //If current dimensions are not equals to source dimensions - resize current image
   if( mWidth != src.width() || mHeight != src.height() )
     resize( src.width(), src.height() );
 
+  //Copy color pixels
   int size = mWidth * mHeight;
   for( int i = 0; i < size; i++ )
     mArea[i] = src.mArea[i];
@@ -113,49 +133,92 @@ void SpImage::set(const SpImage &src)
 
 
 
+
+
+//!
+//! \brief pixelSet Set pixel at specified coords with specified color. New color is override previous color.
+//! \param x        Pixel destignation coords
+//! \param y
+//! \param color    New color of pixel
+//!
 void SpImage::pixelSet(int x, int y, SpColor color)
   {
+  //Check if pixel inside image area
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
     return;
 
+  //Set pixel to new color
   mArea[ x + y * mWidth ] = color;
   }
 
 
 
+//!
+//! \brief pixelAdd Mix pixel at specified coords with specified color
+//! \param x        Pixel destignation coords
+//! \param y
+//! \param color    Color to append to current pixel color
+//!
 void SpImage::pixelAdd(int x, int y, SpColor color)
   {
+  //Check if pixel inside image area
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
     return;
 
+  //Append new color to current pixel color
   mArea[ x + y * mWidth ].append( color );
   }
 
 
 
+
+
+//!
+//! \brief pixelInvert Invert color of pixel with coords
+//! \param x           Pixel coords
+//! \param y
+//!
 void SpImage::pixelInvert(int x, int y)
   {
+  //Check if pixel inside image area
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
     return;
 
+  //Invert pixel
   mArea[ x + y * mWidth ].invert();
   }
 
 
 
 
+//!
+//! \brief pixelClear Set pixel with specified coords to fully transparent color
+//! \param x          Pixel corrds
+//! \param y
+//!
 void SpImage::pixelClear(int x, int y)
   {
+  //By default color is fully transparent
   pixelSet( x, y, SpColor() );
   }
 
 
 
+
+//!
+//! \brief pixelGet Returns pixel color
+//! \param x        Pixel coords
+//! \param y
+//! \return         Pixel color
+//!
 SpColor SpImage::pixelGet(int x, int y) const
   {
+  //Check if pixel inside image area
   if( x < 0 || x >= mWidth || y < 0 || y >= mHeight )
+    //For all outline pixels we return fully transparent color
     return SpColor{};
 
+  //Return pixel color
   return mArea[ x + y * mWidth ];
   }
 
@@ -182,16 +245,27 @@ void SpImage::imageSet(const QImage &im)
 
 
 
+//!
+//! \brief imagePaste      Paste QImage into current image at specified point.
+//! \param pos             Coords of insertion (top left corner of image)
+//! \param im              Image to paste
+//! \param doOverride      If it true then destignation pixels overrides with source pixels,
+//!                        if false then source pixels appended to the destignation pixels
+//! \param useTransparent  If it true then transparent pixels of source not affected to destignation
+//!                        if false then source pixels overrides destignation pixels
+//!
 void SpImage::imagePaste(QPoint pos, const QImage &im, bool doOverride, bool useTransparent )
   {
   for( int x = 0; x < im.width(); x++ )
     for( int y = 0; y < im.height(); y++ )
       if( doOverride ) {
         SpColor clr( im.pixelColor(x,y) );
+        //If useTransparent is true and source pixel is opacity then we leave existing pixel untoughed
         if( !useTransparent || !clr.isOpacity() )
           pixelSet( pos.x() + x, pos.y() + y, clr );
         }
       else {
+        //Without override we mix existing and source pixels
         pixelAdd( pos.x() + x, pos.y() + y, SpColor( im.pixelColor(x,y) ) );
         }
   }
@@ -199,6 +273,10 @@ void SpImage::imagePaste(QPoint pos, const QImage &im, bool doOverride, bool use
 
 
 
+//!
+//! \brief clearPixel This is an overloaded function. It set pixel with specified coords to fully transparent color
+//! \param p          Pixel coord
+//!
 void SpImage::clearPixel(QPoint p)
   {
   pixelClear( p.x(), p.y() );
@@ -206,6 +284,12 @@ void SpImage::clearPixel(QPoint p)
 
 
 
+//!
+//! \brief clearHLine Set all pixels of horizontal line to fully transparent color
+//! \param x0         Begin of horizontal line
+//! \param x1         End of horizontal line
+//! \param y          Vertical position of line
+//!
 void SpImage::clearHLine(int x0, int x1, int y)
   {
   if( x1 < x0 )
@@ -214,6 +298,14 @@ void SpImage::clearHLine(int x0, int x1, int y)
     pixelClear( x0++, y );
   }
 
+
+
+
+//!
+//! \brief clearCircle Set all pixels of circle and fill it with fully transparent color
+//! \param center      Center of circle
+//! \param p           Point on outline of circle
+//!
 void SpImage::clearCircle(QPoint center, QPoint p)
   {
   // R - радиус, X1, Y1 - координаты центра
@@ -221,6 +313,7 @@ void SpImage::clearCircle(QPoint center, QPoint p)
   int y = distance( center, p );
   int delta = 1 - 2 * y;
   int error = 0;
+  //We use algorith of Bresenham to calculate coords of 4 lines of circle interior
   while( y >= x ) {
     clearHLine( center.x() - x, center.x() + x, center.y() + y );
     clearHLine( center.x() - x, center.x() + x, center.y() - y );
@@ -241,6 +334,11 @@ void SpImage::clearCircle(QPoint center, QPoint p)
 
 
 
+//!
+//! \brief clearRect Set all pixels of rectangle and fill it with fully transparent color
+//! \param a         First corner of rectangle
+//! \param b         Second corner of rectangle
+//!
 void SpImage::clearRect(QPoint a, QPoint b)
   {
   int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
@@ -248,10 +346,22 @@ void SpImage::clearRect(QPoint a, QPoint b)
     qSwap( x0, x1 );
   if( y1 < y0 )
     qSwap( y0, y1 );
+  //Fill rectangle as array of horizontal lines
   while( y0 <= y1 )
     clearHLine( x0, x1, y0++ );
   }
 
+
+
+
+//!
+//! \brief editArea Copy area bounded by rectangle of corners a and b into dest image
+//! \param dest     Destignation image. Its dimensions are resized to selection bounded rectangle
+//! \param a        First corner of selection bounded rectangle
+//! \param b        Second corner of selection bounded rectangle
+//! \param cut      If true then source pixels are replased with fully transparent color,
+//!                 if false then source pixels are leave untoughed
+//!
 void SpImage::editArea(SpImage &dest, QPoint a, QPoint b, bool cut)
   {
   int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
@@ -259,10 +369,15 @@ void SpImage::editArea(SpImage &dest, QPoint a, QPoint b, bool cut)
     qSwap( x0, x1 );
   if( y1 < y0 )
     qSwap( y0, y1 );
+
+  //Resize destignation image to selection bounded rectangle
   dest.resize( x1 - x0 + 1, y1 - y0 + 1 );
+
+  //Copy pixels from selection bounded rectangle to destignation image
   for( int x = 0; x < dest.width(); x++ )
     for( int y = 0; y < dest.height(); y++ ) {
       dest.pixelSet( x, y, pixelGet( x0 + x, y0 + y ) );
+      //For cut = true we replace source color with fully transparent color
       if( cut )
         pixelClear( x0 + x, y0 + y );
       }

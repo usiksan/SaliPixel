@@ -65,8 +65,10 @@ QColor SpColor::color() const
 void SpColor::append(SpColor color)
   {
   //Mix both color
+  //Summ of alpha channel is 100%
   int p100 = mAlpha + color.mAlpha;
   if( p100 ) {
+    //Resulting color is mix of source colors in proportional their alpha channel value
     mRed   = (mRed * mAlpha + color.mRed * color.mAlpha) / p100;
     mGreen = (mGreen * mAlpha + color.mGreen * color.mAlpha) / p100;
     mBlue  = (mBlue * mAlpha + color.mBlue * color.mAlpha) / p100;
