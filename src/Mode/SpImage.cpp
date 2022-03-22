@@ -384,16 +384,41 @@ void SpImage::editArea(SpImage &dest, QPoint a, QPoint b, bool cut)
   }
 
 
+
+
+//!
+//! \brief editMove   Move area bounded by rectangle to trarget point
+//! \param a          Firts corner of selction bounded rectangle
+//! \param b          Second corner of selection bounded rectangle
+//! \param target     Target point of moving
+//! \param doCopy     If true then moved copy of source selected rectangle
+//!                   otherwise source place of rectangle made fully transparent
+//! \param doOverride If true then destignation rectangle fully overrided with moving selected rectangle
+//!                   otherwise moving rectangle added to existing image
+//!
 void SpImage::editMove(QPoint a, QPoint b, QPoint target, bool doCopy, bool doOverride)
   {
+  //We construct transform matrix and apply it with transfer function
   QTransform move( QTransform::fromTranslate( -target.x() + qMax( 0, b.x() - a.x() ), -target.y() + qMax( 0, b.y() - a.y() ) ) );
   editTransfer( a, b, move, doCopy, doOverride );
   }
 
 
 
+//!
+//! \brief editRotate Rotate area bouded by rectangle to defined angle around defined center
+//! \param a          Firts corner of selction bounded rectangle
+//! \param b          Second corner of selection bounded rectangle
+//! \param center     Center point of rotation
+//! \param angle      Point which define angle of rotation as angle beatween center of selected rectangle and point angle
+//! \param doCopy     If true then moved copy of source selected rectangle
+//!                   otherwise source place of rectangle made fully transparent
+//! \param doOverride If true then destignation rectangle fully overrided with moving selected rectangle
+//!                   otherwise moving rectangle added to existing image
+//!
 void SpImage::editRotate(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
   {
+  //We construct transform matrix and apply it with transfer function
   QRect r(a,b);
   float zero = arcAngle( center, r.center() );
   QTransform rotate( QTransform::fromTranslate( -center.x(), -center.y() ) );
@@ -405,8 +430,20 @@ void SpImage::editRotate(QPoint a, QPoint b, QPoint center, QPoint angle, bool d
 
 
 
+//!
+//! \brief editMirror Mirror area bounded by rectangle throught line difined center and angle points
+//! \param a          Firts corner of selction bounded rectangle
+//! \param b          Second corner of selection bounded rectangle
+//! \param center     Center point of mirror
+//! \param angle      Point which define second line of mirror line
+//! \param doCopy     If true then moved copy of source selected rectangle
+//!                   otherwise source place of rectangle made fully transparent
+//! \param doOverride If true then destignation rectangle fully overrided with moving selected rectangle
+//!                   otherwise moving rectangle added to existing image
+//!
 void SpImage::editMirror(QPoint a, QPoint b, QPoint center, QPoint angle, bool doCopy, bool doOverride)
   {
+  //We construct transform matrix and apply it with transfer function
   QTransform mirror( QTransform::fromTranslate( -center.x(), -center.y() ) );
   float ang = arcAngle( center, angle ) + M_PI_2;
   mirror *= QTransform::fromScale(1.0,1.0).rotateRadians( -ang );
@@ -418,6 +455,16 @@ void SpImage::editMirror(QPoint a, QPoint b, QPoint center, QPoint angle, bool d
 
 
 
+//!
+//! \brief editTransfer Perform transfer of area bounded by rectangle. Transfer operation define by transformation matrix
+//! \param a            Firts corner of selction bounded rectangle
+//! \param b            Second corner of selection bounded rectangle
+//! \param matrix       Matrix which define transformation operation
+//! \param doCopy       If true then moved copy of source selected rectangle
+//!                     otherwise source place of rectangle made fully transparent
+//! \param doOverride   If true then destignation rectangle fully overrided with moving selected rectangle
+//!                     otherwise moving rectangle added to existing image
+//!
 void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, bool doOverride)
   {
   //Copy selected
@@ -436,14 +483,9 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
       SpColor color1 = area.pixelGet( x1, y0 ).scale( fpart(p.x()) * rfpart(p.y()) );
       SpColor color2 = area.pixelGet( x0, y1 ).scale( rfpart(p.x()) * fpart(p.y()) );
       SpColor color3 = area.pixelGet( x1, y1 ).scale( fpart(p.x()) * fpart(p.y()) );
-      //SpColor color = area.pixel( matrix.map(QPoint(x,y)) );
       color.append( color1 );
       color.append( color2 );
       color.append( color3 );
-//      color.mRed   = qBound( 0, (color.alphaRed() + color1.alphaRed() + color2.alphaRed() + color3.alphaRed()) / 255, 255 );
-//      color.mGreen = qBound( 0, (color.alphaGreen() + color1.alphaGreen() + color2.alphaGreen() + color3.alphaGreen()) / 255, 255 );
-//      color.mBlue  = qBound( 0, (color.alphaBlue() + color1.alphaBlue() + color2.alphaBlue() + color3.alphaBlue()) / 255, 255 );
-//      color.mAlpha = color.mAlpha + color1.mAlpha + color2.mAlpha + color3.mAlpha;
       if( !color.isEmpty() ) {
         if( doOverride ) pixelSet( x, y, color );
         else             pixelAdd( x, y, color );
@@ -454,15 +496,23 @@ void SpImage::editTransfer(QPoint a, QPoint b, QTransform &matrix, bool doCopy, 
 
 
 
+//!
+//! \brief editScale Scale area bounded by rectangle
+//! \param a         Firts corner of selction bounded rectangle
+//! \param b         Second corner of selection bounded rectangle
+//! \param scale     Point defined scale factor. It define as ratio of distance a-b and a-scale
+//!
 void SpImage::editScale(QPoint a, QPoint b, QPoint scale)
   {
   //Copy selected
   SpImage area;
   editArea( area, a, b, true );
+  //Calculate destignation width and height
   int w = qAbs( scale.x() - a.x() );
   int h = qAbs( scale.y() - a.y() );
 
   if( w != 0 && h != 0 ) {
+    //Perform scaling throught QImage operation
     QImage scaled = area.toImage().scaled( w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation );
 
     QPoint dest( qMin(a.x(), scale.x()), qMin(a.y(), scale.y()) );
@@ -473,6 +523,12 @@ void SpImage::editScale(QPoint a, QPoint b, QPoint scale)
 
 
 
+
+
+//!
+//! \brief selectionPoint Draw selection point
+//! \param p              Place of selection point
+//!
 void SpImage::selectionPoint(QPoint p)
   {
   pixelInvert(p.x(), p.y());
@@ -480,6 +536,11 @@ void SpImage::selectionPoint(QPoint p)
 
 
 
+//!
+//! \brief selectionLine Draw selection line. Selection is simple inversion of source color
+//! \param a             Starting point of line
+//! \param b             Ending point of line
+//!
 void SpImage::selectionLine(QPoint a, QPoint b)
   {
   hardLine( a, b, [this] (int x, int y) { pixelInvert(x,y); });
@@ -487,6 +548,11 @@ void SpImage::selectionLine(QPoint a, QPoint b)
 
 
 
+//!
+//! \brief selectionRect Draw selection rectangle. Selection is simple inversion of source color
+//! \param a             First corner of selection rectangle
+//! \param b             Second corner of selection rectangle
+//!
 void SpImage::selectionRect(QPoint a, QPoint b)
   {
   int x0(a.x()), y0(a.y()), x1(b.x()), y1(b.y());
@@ -510,6 +576,13 @@ void SpImage::selectionRect(QPoint a, QPoint b)
 
 
 
+
+
+//!
+//! \brief drawPixel Draw pixel with color. New color is added to existing color
+//! \param p         Point of pixel
+//! \param color     New color of pixel
+//!
 void SpImage::drawPixel(QPoint p, SpColor color)
   {
   pixelAdd( p.x(), p.y(), color );
@@ -519,8 +592,15 @@ void SpImage::drawPixel(QPoint p, SpColor color)
 
 
 
+//!
+//! \brief drawLine Draw line with color. New color of line is added to existing color of image pixels
+//! \param a        Starting point of line
+//! \param b        Ending point of line
+//! \param color    Color of line
+//!
 void SpImage::drawLine(QPoint a, QPoint b, SpColor color)
   {
+  //Smooth algorithm Bresenham
   int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
 
   const bool steep = abs(y1 - y0) > abs(x1 - x0);
@@ -593,6 +673,13 @@ void SpImage::drawLine(QPoint a, QPoint b, SpColor color)
 
 
 
+//!
+//! \brief drawHLine Draw horizontal line with color. New color of line is added to existing color of image pixels
+//! \param x0        Starting x coord of horizontal line
+//! \param x1        Ending x coord of horizontal line
+//! \param y         y coord of horizontal line
+//! \param color     Color of line
+//!
 void SpImage::drawHLine(int x0, int x1, int y, SpColor color)
   {
   if( x1 < x0 )
@@ -601,6 +688,16 @@ void SpImage::drawHLine(int x0, int x1, int y, SpColor color)
     pixelAdd( x0++, y, color );
   }
 
+
+
+
+//!
+//! \brief drawVLine Draw vertical line with color. New color of line is added to existing color of image pixels
+//! \param x         x coord of vertical line
+//! \param y0        Starting y coord of vertical line
+//! \param y1        Ending y coord of vertical line
+//! \param color     Color of line
+//!
 void SpImage::drawVLine(int x, int y0, int y1, SpColor color)
   {
   if( y1 < y0 )
@@ -612,6 +709,12 @@ void SpImage::drawVLine(int x, int y0, int y1, SpColor color)
 
 
 
+//!
+//! \brief drawRect Draw rectangle with color. Draw only contour without filling. New color of rectangles lines is added to existing color of image pixels
+//! \param a        Frist corner of rectangle
+//! \param b        Second corner of rectangle
+//! \param color    Color of rectangles lines
+//!
 void SpImage::drawRect(QPoint a, QPoint b, SpColor color)
   {
   drawHLine( a.x(), b.x(), a.y(), color );
@@ -620,6 +723,15 @@ void SpImage::drawRect(QPoint a, QPoint b, SpColor color)
   drawVLine( b.x(), a.y(), b.y(), color );
   }
 
+
+
+
+//!
+//! \brief drawFillRect Draw filled rectangle with color. New color of rectangle is added to existing color of image pixels
+//! \param a            First corner of rectangle
+//! \param b            Second corner of rectangle
+//! \param color        Color of rectangle
+//!
 void SpImage::drawFillRect(QPoint a, QPoint b, SpColor color)
   {
   int x0(a.x()), x1(b.x()), y0(a.y()), y1(b.y());
@@ -627,13 +739,23 @@ void SpImage::drawFillRect(QPoint a, QPoint b, SpColor color)
     qSwap( x0, x1 );
   if( y1 < y0 )
     qSwap( y0, y1 );
+  //Fill rectangle with vertical lines
   while( x0 <= x1 )
     drawVLine( x0++, y0, y1, color );
   }
 
 
+
+
+//!
+//! \brief drawCircle Draw circle with color. Draw only contour without filling. New color of circle countour is added to existing color if image pixels
+//! \param center     Center of circle
+//! \param p          Pointer on circle which define circle radius
+//! \param color      Circle contour color
+//!
 void SpImage::drawCircle(QPoint center, QPoint p, SpColor color)
   {
+  //We use smooth algorithm of Bresenham
   float radius = distance( center, p );
   if( radius < 1.0 )
     return;
@@ -665,8 +787,16 @@ void SpImage::drawCircle(QPoint center, QPoint p, SpColor color)
 
 
 
+//!
+//! \brief drawFillCircle Draw filled circle with color. New color of circle is added to existing color of image pixels
+//! \param center         Center of circle
+//! \param p              Pointer on circle which define circle radius
+//! \param color          Circle color
+//!
 void SpImage::drawFillCircle(QPoint center, QPoint p, SpColor color)
   {
+  //We use smooth algorithm of Bresenham to calculate contour of circle
+  //and fill contents beatween contour points with solid lines
   float radius = distance( center, p );
   if( radius < 1.0 )
     return;
@@ -702,8 +832,17 @@ void SpImage::drawFillCircle(QPoint center, QPoint p, SpColor color)
 
 
 
+//!
+//! \brief drawArc Draw arc with color. New color of arc is added to existing color of image pixels
+//! \param center  Center of arc
+//! \param start   Start point of arc. Arc is draw from start point to end point by CW
+//! \param stop    End point of arc
+//! \param color   Arc color
+//!
 void SpImage::drawArc(QPoint center, QPoint start, QPoint stop, SpColor color)
   {
+  //We use smooth algorithm of Bresenham to draw circle
+  //But contour pixels are draw only if they beatween start and stop point
   float radius = distance( center, start );
   if( radius < 1.0 )
     return;
@@ -736,9 +875,16 @@ void SpImage::drawArc(QPoint center, QPoint start, QPoint stop, SpColor color)
 
 
 
+//!
+//! \brief drawFill Fill cloused contour with color. New color is added to existing color of image pixels
+//! \param start    Start point inside of contour
+//! \param color    Filled color
+//!
 void SpImage::drawFill(QPoint start, SpColor color)
   {
+  //We use wave algorithm
   QStack<QPoint> points;
+  //We start from first point
   if( isInside(start) )
     points.append( start );
   while( points.count() ) {
@@ -760,14 +906,31 @@ void SpImage::drawFill(QPoint start, SpColor color)
 
 
 
+
+
+//!
+//! \brief center Helper functionf which calculate center point beatween two points
+//! \param p0     First point
+//! \param p1     Second point
+//! \return       Center point
+//!
 QPoint SpImage::center(QPoint p0, QPoint p1)
   {
+  //We calculate center point as middle of p0 and p1
   return QPoint( (p0.x() + p1.x()) / 2, (p0.y() + p1.y()) / 2 );
   }
 
 
 
 
+//!
+//! \brief rotate Helper function. Rotate source point to angle multiple to source angle and index
+//! \param center Center of rotation
+//! \param zero   Source point
+//! \param axiz   Point which define source angle
+//! \param index  Index of rotation angle. Destignation angle is source angle multiply to index
+//! \return       Rotated point
+//!
 QPoint SpImage::rotate(QPoint center, QPoint zero, QPoint axiz, int index)
   {
   float zeroAng  = arcAngle( center, zero );
@@ -782,6 +945,12 @@ QPoint SpImage::rotate(QPoint center, QPoint zero, QPoint axiz, int index)
 
 
 
+//!
+//! \brief distance Helper function. Calculate distance beatween p0 and p1
+//! \param p0       First point
+//! \param p1       Second point
+//! \return         Distance beatween first and second points
+//!
 float SpImage::distance(QPoint p0, QPoint p1)
   {
   float dx = p0.x() - p1.x();
