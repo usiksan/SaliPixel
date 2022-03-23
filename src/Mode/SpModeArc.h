@@ -1,3 +1,18 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeArc Arc drawing mode. At first step we select center of arc
+  at second step we select start point of arc and at third step
+  we select end point of arc.
+*/
 #ifndef SPMODEARC_H
 #define SPMODEARC_H
 
@@ -5,14 +20,25 @@
 
 class SpModeArc : public SpMode
   {
-    QPoint mCenter;
-    QPoint mStart;
+    QPoint mCenter; //!< Center point of arc
+    QPoint mStart;  //!< Start point of arc
   public:
     SpModeArc();
 
     // SpMode interface
   public:
+    //!
+    //! \brief paint Called when contents of mode in dependence current mode step need to be paint
+    //! \param dest  Destignation of image into which need to be drawen mode contents
+    //! \param p     Current mouse point
+    //! \param color Current selected color
+    //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

@@ -8,6 +8,7 @@
     записи и чтения
   History
     05.02.2022 v1 Begin version support
+    05.03.2022 v2 Append QPoint support
 */
 #ifndef SVJSONIO_H
 #define SVJSONIO_H
@@ -19,7 +20,7 @@
 #include <QMap>
 #include <QPoint>
 
-#define SV_JSON_VERSION 1
+#define SV_JSON_VERSION 2
 
 //!
 //! \brief The SvJsonWriter class Unificate json io class, through which json written
