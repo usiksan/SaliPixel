@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeCircle Circle drawing mode. At first step we select center of circle
+  at second step we define radius of circle by any point on circle
+*/
 #ifndef SPMODECIRCLE_H
 #define SPMODECIRCLE_H
 
@@ -6,7 +20,7 @@
 class SpModeCircle : public SpMode
   {
   protected:
-    QPoint mCenter;
+    QPoint mCenter; //!< Center of circle
   public:
     SpModeCircle();
 
@@ -19,6 +33,11 @@ class SpModeCircle : public SpMode
     //! \param color Current selected color
     //!
     virtual void    paint( SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

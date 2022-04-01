@@ -19,7 +19,20 @@ class SpModeParallelogramm : public SpMode
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
-    virtual bool left(SpCmdList &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief left  Called when left mouse button pressed. By default next step selected
+    //! \param dest  Current project command list
+    //! \param p     Mouse point where left button is pressed
+    //! \param color Current color
+    //! \return      true when new command appended to list
+    //!
+    virtual bool    left(SpCmdList &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
   };
 

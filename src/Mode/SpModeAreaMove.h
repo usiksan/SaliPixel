@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeAreaMove move area mode. Selected area moved to other place without any transformation
+*/
 #ifndef SPMODEAREAMOVE_H
 #define SPMODEAREAMOVE_H
 
@@ -17,6 +30,11 @@ class SpModeAreaMove : public SpModeArea
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

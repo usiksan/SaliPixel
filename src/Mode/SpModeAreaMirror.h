@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeAreaMirror mirror area mode. Selected area mirrored regarding auxiliary mirror line
+*/
 #ifndef SPMODEAREAMIRROR_H
 #define SPMODEAREAMIRROR_H
 
@@ -5,7 +18,7 @@
 
 class SpModeAreaMirror : public SpModeArea
   {
-    QPoint mMirrorLine;
+    QPoint mMirrorLine; //!< First point of mirror line regarding which image mirrored
   public:
     SpModeAreaMirror();
 
@@ -18,6 +31,11 @@ class SpModeAreaMirror : public SpModeArea
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

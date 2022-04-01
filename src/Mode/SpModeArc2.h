@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeArc2 arc drawing mode. Arc drawn throught first point of arc, end point of arc and center of
+  arc which define radius of arc.
+*/
 #ifndef SPMODEARC2_H
 #define SPMODEARC2_H
 
@@ -5,9 +19,9 @@
 
 class SpModeArc2 : public SpMode
   {
-    QPoint mCenter;
-    QPoint mStart;
-    QPoint mStop;
+    QPoint mCenter; //!< Center point of arc
+    QPoint mStart;  //!< Start of arc
+    QPoint mStop;   //!< End of arc
   public:
     SpModeArc2();
 
@@ -20,6 +34,11 @@ class SpModeArc2 : public SpMode
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeAreaRoundArray reproduce selected area by rotate it around defined center specified number of times
+*/
 #ifndef SPMODEAREAROUNDARRAY_H
 #define SPMODEAREAROUNDARRAY_H
 
@@ -5,8 +18,8 @@
 
 class SpModeAreaRoundArray : public SpModeArea
   {
-    QPoint mCenter;
-    int    mItemCount;
+    QPoint mCenter;    //!< Center of rotation
+    int    mItemCount; //!< Count of item in round array
   public:
     SpModeAreaRoundArray();
 
@@ -19,8 +32,19 @@ class SpModeAreaRoundArray : public SpModeArea
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
-    virtual void init(SpCmdList &objects, QWidget *parent) override;
+
+    //!
+    //! \brief init    Inits mode with project command list. By default do nothing
+    //! \param objects Project command list
+    //! \param parent  Widget for show dialog for mode if need
+    //!
+    virtual void    init(SpCmdList &objects, QWidget *parent) override;
 
     // SpMode interface
   protected:

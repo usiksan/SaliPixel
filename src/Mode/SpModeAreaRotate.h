@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeAreaRotate rotate area mode. Selected area rotated to any angle around center point
+*/
 #ifndef SPMODEAREAROTATE_H
 #define SPMODEAREAROTATE_H
 
@@ -5,7 +18,7 @@
 
 class SpModeAreaRotate : public SpModeArea
   {
-    QPoint mCenter;
+    QPoint mCenter; //!< Center point of rotation
   public:
     SpModeAreaRotate();
 
@@ -18,7 +31,20 @@ class SpModeAreaRotate : public SpModeArea
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
+
+    //!
+    //! \brief left  Called when left mouse button pressed. By default next step selected
+    //! \param dest  Current project command list
+    //! \param p     Mouse point where left button is pressed
+    //! \param color Current color
+    //! \return      true when new command appended to list
+    //!
     virtual bool    left(SpCmdList &dest, QPoint p, QColor color) override;
 
     // SpMode interface

@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeAreaRectArray reproduce selected area to rectangle array of areas
+*/
 #ifndef SPMODEAREARECTARRAY_H
 #define SPMODEAREARECTARRAY_H
 
@@ -5,8 +18,8 @@
 
 class SpModeAreaRectArray : public SpModeArea
   {
-    int mRowCount;
-    int mColumnCount;
+    int mRowCount;    //!< Count of rows of array
+    int mColumnCount; //!< Count of columns of array
   public:
     SpModeAreaRectArray();
 
@@ -19,7 +32,18 @@ class SpModeAreaRectArray : public SpModeArea
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
+
+    //!
+    //! \brief init    Inits mode with project command list. By default do nothing
+    //! \param objects Project command list
+    //! \param parent  Widget for show dialog for mode if need
+    //!
     virtual void    init(SpCmdList &objects, QWidget *parent) override;
 
     // SpMode interface

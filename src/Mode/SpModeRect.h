@@ -17,6 +17,11 @@ class SpModeRect : public SpModeLine
     //! \param color Current selected color
     //!
     virtual void    paint( SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface

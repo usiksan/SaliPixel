@@ -1,3 +1,18 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeCircle2 Circle drawing mode. By two points we define diametr of circle.
+  At first step we define first point of diametr
+  at second step we define second point of diametr
+*/
 #ifndef SPMODECIRCLE2_H
 #define SPMODECIRCLE2_H
 
@@ -5,7 +20,7 @@
 
 class SpModeCircle2 : public SpMode
   {
-    QPoint mFirst;
+    QPoint mFirst; //!< First point of diametr
   public:
     SpModeCircle2();
 
@@ -18,6 +33,11 @@ class SpModeCircle2 : public SpMode
     //! \param color Current selected color
     //!
     virtual void    paint(SpImage &dest, QPoint p, QColor color) override;
+
+    //!
+    //! \brief stepDescription Returns current step description for showing at status bar
+    //! \return                Current step description
+    //!
     virtual QString stepDescription() override;
 
     // SpMode interface
