@@ -2,7 +2,7 @@
 
 SpCmdAreaRectArray::SpCmdAreaRectArray( QPoint s0, QPoint s1, QPoint p, int rows, int columns, bool doOverride ) :
   SpCmdArea(s0,s1),
-  mDelta(s1 - p),
+  mDelta(p - s1),
   mRows(rows),
   mColumns(columns),
   mDoOverride(doOverride)

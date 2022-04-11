@@ -9,6 +9,7 @@
   History
     05.02.2022 v1 Begin version support
     05.03.2022 v2 Append QPoint support
+    06.04.2022 v3 Append value of any class support which must be have jsonWrite and jsonRead members
 */
 #ifndef SVJSONIO_H
 #define SVJSONIO_H
@@ -49,6 +50,7 @@ class SvJsonWriter
     //!
     QJsonObject object() { return mObjectRef; }
 
+    QJsonObject &ref() { return mObjectRef; }
 
     //!
     //! \brief jsonBool Transfer bool value
@@ -274,6 +276,18 @@ class SvJsonWriter
       SvJsonWriter js;
       objPtr->jsonWrite( js );
       mObjectRef.insert( QString(key), js.object() );
+      }
+    //!
+    //! \brief jsonValue Template transfer any value as json value
+    //!                  Value class must contains jsonWrite method which
+    //!                  writes object value into json object
+    //! \param key       Key for value
+    //! \param val       Object value to transfer
+    //!
+    template<typename SvClass>
+    void jsonValue( const char *key, const SvClass &val )
+      {
+      val.jsonWrite( key, *this );
       }
   };
 
@@ -541,6 +555,18 @@ class SvJsonReader
       {
       SvJsonReader js( mObject.value( QString(key) ).toObject() );
       objPtr->jsonRead( js );
+      }
+    //!
+    //! \brief jsonValue Template transfer any value as json value
+    //!                  Value class must contains jsonRead method which
+    //!                  reads object value from json object
+    //! \param key       Key for value
+    //! \param val       Object value to transfer
+    //!
+    template<typename SvClass>
+    void jsonValue( const char *key, const SvClass &val )
+      {
+      val.jsonRead( key, *this );
       }
   };
 
