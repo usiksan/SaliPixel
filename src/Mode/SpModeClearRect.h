@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeClearRect fill Rectangle area with transparent color mode. At first step we select first corner of rectangle
+  at second step we define second corner of rectangle
+*/
 #ifndef SPMODECLEARRECT_H
 #define SPMODECLEARRECT_H
 
@@ -5,7 +19,7 @@
 
 class SpModeClearRect : public SpMode
   {
-    QPoint mFirst;
+    QPoint mFirst; //!< First corner of rectangle
   public:
     SpModeClearRect();
 

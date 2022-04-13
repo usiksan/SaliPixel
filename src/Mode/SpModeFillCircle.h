@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeClearCircle fill Circle with selected color mode. At first step we select center of circle
+  at second step we define radius of circle by any point on circle
+*/
 #ifndef SPMODEFILLCIRCLE_H
 #define SPMODEFILLCIRCLE_H
 

@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeLine line drawing mode. At first step we define first point of line
+  at second step we define second point of line
+*/
 #ifndef SPMODELINE_H
 #define SPMODELINE_H
 
@@ -6,7 +20,7 @@
 class SpModeLine : public SpMode
   {
   protected:
-    QPoint mFirst;
+    QPoint mFirst; //!< First point of line
   public:
     SpModeLine();
 

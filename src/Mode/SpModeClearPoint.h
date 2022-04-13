@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeClearPoint fill single point with transparent color mode. When we press mouse button
+  point at cursor replace with transparent color
+*/
 #ifndef SPMODECLEARPOINT_H
 #define SPMODECLEARPOINT_H
 

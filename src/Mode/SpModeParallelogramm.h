@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeParallelogramm parallelogramm drawing mode. At first step we define first corner of parallelogramm
+  at second step we define second corner of parallelogramm at third step we define third corner of parallelogramm
+*/
 #ifndef SPMODEPARALLELOGRAMM_H
 #define SPMODEPARALLELOGRAMM_H
 
@@ -5,8 +19,8 @@
 
 class SpModeParallelogramm : public SpMode
   {
-    QPoint mFirst;
-    QPoint mSecond;
+    QPoint mFirst;  //!< First point of parallelogramm
+    QPoint mSecond; //!< Second point of parallolgramm
   public:
     SpModeParallelogramm();
 

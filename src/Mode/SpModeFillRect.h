@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeClearRect fill Rectangle area with selected color mode. At first step we select first corner of rectangle
+  at second step we define second corner of rectangle
+*/
 #ifndef SPMODEFILLRECT_H
 #define SPMODEFILLRECT_H
 

@@ -1,3 +1,16 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeIdle does nothing
+*/
 #ifndef SPMODEIDLE_H
 #define SPMODEIDLE_H
 

@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeClearCircle fill Circle with transparent color mode. At first step we select center of circle
+  at second step we define radius of circle by any point on circle
+*/
 #ifndef SPMODECLEARCIRCLE_H
 #define SPMODECLEARCIRCLE_H
 
@@ -5,7 +19,7 @@
 
 class SpModeClearCircle : public SpMode
   {
-    QPoint mCenter;
+    QPoint mCenter; //!< Center of clear circle
   public:
     SpModeClearCircle();
 

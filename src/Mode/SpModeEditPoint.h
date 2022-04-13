@@ -1,3 +1,18 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeEditPoint this mode allow transfer some key point of drawing figures (see SpCmd ierarhy) and so
+  change its geometry and position. At first we select points to transfer by point on it at second
+  we transfer selected points to new place
+*/
 #ifndef SPMODEEDITPOINT_H
 #define SPMODEEDITPOINT_H
 
@@ -8,9 +23,9 @@
 
 class SpModeEditPoint : public SpMode
   {
-    SpCmdList      *mObjects;
-    QList<QPoint*>  mSelection;
-    QPoint          mSource;
+    SpCmdList      *mObjects;   //!< List of all drawing figures of project
+    QList<QPoint*>  mSelection; //!< List of selected points
+    QPoint          mSource;    //!< Source point from which made transfer
   public:
     SpModeEditPoint();
 

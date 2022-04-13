@@ -1,3 +1,17 @@
+/*
+Project "Combine vector-pixel graphic editor for small image like icon"
+
+Author
+  Sibilev Alexander S.
+
+Web
+  www.saliLab.com
+  www.saliLab.ru
+
+Description
+  SpModeFill replace all connected point color with selected color mode. Connected points are nearest point.
+  So, this mode fill bounded contour with selected color
+*/
 #ifndef SPMODEFILL_H
 #define SPMODEFILL_H
 
