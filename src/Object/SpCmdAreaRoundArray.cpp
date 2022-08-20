@@ -31,6 +31,7 @@ void SpCmdAreaRoundArray::jsonWrite(SvJsonWriter &js)
   SpCmdArea::jsonWrite( js );
   js.jsonPoint( "center", mCenter );
   js.jsonPoint( "angle", mAngle );
+  js.jsonPoint( "zero", mZero );
   js.jsonInt( "itemCount", mItemCount );
   js.jsonBool( "doOverride", mDoOverride );
   }
@@ -43,6 +44,7 @@ void SpCmdAreaRoundArray::jsonRead(SvJsonReader &js)
   SpCmdArea::jsonRead( js );
   js.jsonPoint( "center", mCenter );
   js.jsonPoint( "angle", mAngle );
+  js.jsonPoint( "zero", mZero );
   js.jsonInt( "itemCount", mItemCount );
   js.jsonBool( "doOverride", mDoOverride );
   }

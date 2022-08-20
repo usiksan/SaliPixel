@@ -37,6 +37,8 @@ History
   16.03.2022 v0.11 Append icons for all erasing modes
                    Append override for image paste
                    Fix: not save origin for image paste
+  20.08.2022 v0.12 Append export to cpp file
+             v0.13 Fix: wrong undo when size different than 32x32
 */
 #ifndef SPCONFIG_H
 #define SPCONFIG_H
@@ -49,7 +51,7 @@ History
 
 //Version definition
 #define SP_VERSION_MAJOR             0
-#define SP_VERSION_MINOR             11
+#define SP_VERSION_MINOR             13
 
 #define SP_EXTENSION                 ".salipixel"
 

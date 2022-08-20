@@ -31,5 +31,7 @@
         <file>pic/eraseRect.png</file>
         <file>pic/erasePoint.png</file>
         <file>pic/eraseCircle.png</file>
+        <file>pic/fileExportCpp.png</file>
+        <file>pic/fileExportPng.png</file>
     </qresource>
 </RCC>

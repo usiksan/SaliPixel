@@ -23,7 +23,7 @@ class SpColor {
     quint8 mAlpha; //!< Alpha channel 0-255, 0 - full transparent, 255 - solid
     quint8 mRed;   //!< Red channel 0-255
     quint8 mGreen; //!< Green channel 0-255
-    quint8 mBlue;  //!< Blue channel
+    quint8 mBlue;  //!< Blue channel 0-255
   public:
 
     //!
@@ -36,6 +36,12 @@ class SpColor {
     //! \param color   Source color
     //!
     SpColor( QColor color ) : mAlpha(color.alpha()), mRed(color.red()), mGreen(color.green()), mBlue(color.blue()) {}
+
+    int     alpha() const { return mAlpha; }
+    int     red() const { return mRed; }
+    int     green() const { return mGreen; }
+    int     blue() const { return mBlue; }
+
 
     //!
     //! \brief brightness Builds color with alpha channel equals br

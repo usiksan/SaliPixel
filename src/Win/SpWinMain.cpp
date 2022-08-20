@@ -82,7 +82,8 @@ SpWinMain::SpWinMain(QWidget *parent) :
   toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileSave.png")), tr("Save"), mEditor, &SpWinEditor::cmFileSave ) );
   toolBar->addAction( menuFile->addAction( QIcon( QStringLiteral(":/pic/fileSaveAs.png")), tr("Save as..."), mEditor, &SpWinEditor::cmFileSaveAs ) );
   menuFile->addSeparator();
-  menuFile->addAction( tr("Export to png"), mEditor, &SpWinEditor::cmFileExport );
+  menuFile->addAction( QIcon( QStringLiteral(":/pic/fileExportPng.png")), tr("Export to png"), mEditor, &SpWinEditor::cmFileExportPng );
+  menuFile->addAction( QIcon( QStringLiteral(":/pic/fileExportCpp.png")), tr("Export to cpp"), mEditor, &SpWinEditor::cmFileExportCpp );
   menuFile->addSeparator();
   menuFile->addAction( tr("Exit"), this, &SpWinMain::close );
   toolBar->addSeparator();

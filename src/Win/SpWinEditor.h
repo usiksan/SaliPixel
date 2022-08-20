@@ -64,7 +64,8 @@ class SpWinEditor : public QWidget
     void cmFileOpen();
     void cmFileSave();
     void cmFileSaveAs();
-    void cmFileExport();
+    void cmFileExportPng();
+    void cmFileExportCpp();
 
     void cmEditUndo();
     void cmEditCopyToggle( bool state );

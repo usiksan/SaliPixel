@@ -126,6 +126,7 @@ void SpWinEditor::cmFileNew()
     SpDlgNew dlgNew(this);
     if( dlgNew.exec() ) {
       mImage.resize( dlgNew.imageWidth(), dlgNew.imageHeight() );
+      mObjects.setup( dlgNew.imageWidth(), dlgNew.imageHeight() );
       clear();
       update();
       }
@@ -178,7 +179,7 @@ void SpWinEditor::cmFileSaveAs()
 
 
 
-void SpWinEditor::cmFileExport()
+void SpWinEditor::cmFileExportPng()
   {
   QString defFile;
   QString extension( SP_EXTENSION );
@@ -191,6 +192,81 @@ void SpWinEditor::cmFileExport()
     if( !newPath.endsWith( QStringLiteral(".png") ) )
       newPath.append( QStringLiteral(".png") );
     mImage.toImage().save( newPath );
+    }
+  }
+
+
+
+
+void SpWinEditor::cmFileExportCpp()
+  {
+  QString defFile;
+  QString extension( SP_EXTENSION );
+  if( mPath.endsWith( extension ) ) {
+    defFile = mPath.left( mPath.length() - extension.length() );
+    defFile.append( ".h" );
+    }
+  QString newPath = QFileDialog::getSaveFileName( this, tr("Enter file name for C header"), defFile, QStringLiteral("C header files (*.h)") );
+  if( !newPath.isEmpty() ) {
+    if( !newPath.endsWith( QStringLiteral(".h") ) )
+      newPath.append( QStringLiteral(".h") );
+    //Conversion to text cpp
+    //Image convertor to internal storage format used in embedded systems to display on tft
+    //
+    //Image is packed into array of 16-bit unsigned ints.
+    //First two values in array - width and height of image
+    //Next are pixels of image line by line from left to right
+    //
+    //Here we convert image into h file to include into source code of embedded system
+    quint16 buf[512*512];
+
+    //Формат цвета rgb565
+    #define SvRgb565( r, g, b) ( ((b) << 8) | ((r) << 3) | ((g) >> 3) | (((g) << 13) & 0xe000) )
+    #define svColorTransparent 0x2000
+    #define svColorGreenNoTransparent 0x4000
+
+    //Образовать имя для целевого файла
+    QFile dest(newPath);
+    if( dest.open(QIODevice::WriteOnly) ) {
+      //Записать размеры
+      int w = mImage.width();
+      int h = mImage.height();
+      if( w <= 0 || w > 512 || h <= 0 || h > 512 ) {
+        QMessageBox::warning( this, tr("Error!"), tr("Wrong size of picture, max 512x512 but it %1x%2").arg(w).arg(h) );
+        return;
+        }
+      buf[0] = w;
+      buf[1] = h;
+      int i = 2;
+      for( int y = 0; y < h; y++ )
+        for( int x = 0; x < w; x++ ) {
+          //Получим пиксель
+          SpColor pixel = mImage.pixelGet( x, y );
+          //Выделим цвета пикселя
+          int red   = pixel.red() * pixel.alpha() / 255;
+          int green = pixel.green() * pixel.alpha() / 255;
+          int blue  = pixel.blue() * pixel.alpha() / 255;
+          if( pixel.alpha() <= 120 )
+            //Прозрачный пиксель, записать прозрачный цвет
+            buf[i++] = svColorTransparent;
+          else {
+            //Пиксель непрозрачный
+            //Упаковать пиксель в формат rgb565
+            quint16 rgb565 = SvRgb565( red >> 3, green >> 2, blue >> 3 );
+            //Проверим, чтобы результирующий цвет не попал в разряд прозрачных
+            if( rgb565 == svColorTransparent )
+              rgb565 = svColorGreenNoTransparent;
+            buf[i++] = rgb565;
+            }
+          }
+      //Буфер заполнен
+      //Вывести таблицей по 16 значений
+      QTextStream out( &dest );
+      for( int k = 0; k < i; k++ ) {
+        if( k ) out << QStringLiteral(",\n");
+        out << QString("0x%1").arg( buf[k], 4, 16, QChar('0') );
+        }
+      }
     }
   }
 
