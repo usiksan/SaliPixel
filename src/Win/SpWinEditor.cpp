@@ -246,7 +246,7 @@ void SpWinEditor::cmFileExportCpp()
           int red   = pixel.red() * pixel.alpha() / 255;
           int green = pixel.green() * pixel.alpha() / 255;
           int blue  = pixel.blue() * pixel.alpha() / 255;
-          if( pixel.alpha() <= 120 )
+          if( pixel.alpha() <= 20 )
             //Прозрачный пиксель, записать прозрачный цвет
             buf[i++] = svColorTransparent;
           else {
