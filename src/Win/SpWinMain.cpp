@@ -143,6 +143,10 @@ SpWinMain::SpWinMain(QWidget *parent) :
   menuBar()->addMenu( menuDraw );
   menuBar()->addMenu( menuClear );
 
+  QLabel *pos = new QLabel();
+  connect( mEditor, &SpWinEditor::cursorPosition, pos, &QLabel::setText );
+  statusBar()->addWidget( pos );
+
   QLabel *msg = new QLabel();
   connect( mEditor, &SpWinEditor::stepMessage, msg, &QLabel::setText );
   statusBar()->addWidget( msg );

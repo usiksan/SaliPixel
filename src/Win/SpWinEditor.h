@@ -55,8 +55,22 @@ class SpWinEditor : public QWidget
     void   repaintObjects();
 
   signals:
+    //!
+    //! \brief cursorPosition Signal change cursor position
+    //! \param pos            Textual representation of cursor position
+    //!
+    void cursorPosition( const QString pos );
+
+    //!
+    //! \brief stepMessage Signal change step of edit mode
+    //! \param msg         Description of step of edit mode
+    //!
     void stepMessage( const QString msg );
 
+    //!
+    //! \brief fileName Signal change file name
+    //! \param fname    New file name of edition
+    //!
     void fileName( const QString &fname );
 
   public slots:

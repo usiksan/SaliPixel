@@ -509,11 +509,20 @@ void SpWinEditor::mousePressEvent(QMouseEvent *event)
 
 void SpWinEditor::mouseMoveEvent(QMouseEvent *event)
   {
-  mPoint = div20( event->pos() );
-  mWork.set( mImage );
-  if( mMode != nullptr ) {
-    mMode->paint( mWork, mPoint, mColor );
-    update();
+  //Convert screen cursor position to image position
+  QPoint p = div20( event->pos() );
+
+  //All manipulations we made only if image position changed
+  if( mPoint != p ) {
+    //Position of cursor is changed
+    mPoint = p;
+    //Send new position to display
+    emit cursorPosition( QStringLiteral("X:%1  Y:%2").arg( mPoint.x() ).arg( mPoint.y() ) );
+    mWork.set( mImage );
+    if( mMode != nullptr ) {
+      mMode->paint( mWork, mPoint, mColor );
+      update();
+      }
     }
   }
 
